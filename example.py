@@ -24,9 +24,10 @@ def main(stdscr):
 
     textbox = DialogBox(
         20, 15,  # Position 20;15 in terminal.
-        40, 6,  # Lenght and width (in character).
+        40, 6,  # Length and width (in character).
         title="Dogm", title_colors_pair_nb=3, # Title and color_pair used to colored title.
-        end_dialog_indicator="►")
+        end_dialog_indicator="►"
+        delay=0.6) # Time in seconds between the writing of each character.
 
     # Display each sentence contains in text.
     for reply in text:
