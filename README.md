@@ -10,7 +10,7 @@ Coming soon.
 
 ### Quick start :
 * `git clone https://github.com/Tim-ats-d/Visual-dialog.git`
-* Read this [example](https://github.com/Tim-ats-d/Visual-dialog/blob/main/doc/example).
+* Read this [example](https://github.com/Tim-ats-d/Visual-dialog/blob/main/example.py).
 
 
 ## Requirements
