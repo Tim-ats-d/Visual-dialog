@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from setuptools import setup, find_packages
@@ -14,7 +14,6 @@ setup(
     long_description=open("README.md").read(),
     include_package_data=True,
     url="https://github.com/Tim-ats-d/Visual-dialog",
-
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Console :: Curses",

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+#
 #  visualdialog.py
 #
 #  Copyright 2020 Timéo Arnouts <dogm@dogm-s-pc>
