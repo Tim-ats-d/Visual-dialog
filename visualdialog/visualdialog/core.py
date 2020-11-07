@@ -39,8 +39,8 @@ def init_visualdialog():
 class DialogBox :
     """This class provides methods and attributs to manage a dialog text box."""
 
-    # curses constant are supported .
-    confirm_dialog_key = (10, 32) # Key Enter and Space.
+    # curses constants are supported .
+    confirm_dialog_key = () # List of accepted key codes to pass a dialog.
     acceleration_dialog_key = None  # TODO: To patch.
 
     def __init__(self,
@@ -133,6 +133,8 @@ class DialogBox :
         The random_delay parameter affects time between the writing of each character in seconds where
         waited time is a number generated in the given interval (as a tuple).
         """
+        self.framing_box(stdscr)
+
         if flash_screen:
             curses.flash()
 
@@ -171,6 +173,8 @@ class DialogBox :
         The random_delay parameter affects time between the writing of each word in seconds where
         waited time is a number generated in the given interval (as a tuple).
         """
+        self.framing_box(stdscr)
+
         if flash_screen:
             curses.flash()
 
