@@ -7,5 +7,5 @@ A librairie which provides class and functions to make easier dialog box in term
 
 __version__ = 0.2
 
-from core import DialogBox
-from core import init_visualdialog
+from .core import DialogBox
+from .core import init_visualdialog
