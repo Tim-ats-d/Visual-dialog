@@ -5,6 +5,6 @@
 A librairie which provides class and functions to make easier dialog box in terminal.
 """
 
-__version__ = 0.2
+__version__ = 0.3
 
 from .core import DialogBox
