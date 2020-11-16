@@ -9,13 +9,10 @@ Coming soon.
 
 
 ### Quick start :
-* `pip install git+git://github.com/Tim-ats-d/Visual-dialog` (The lib is not yet available on pypy).
+* `pip install git+git://github.com/Tim-ats-d/Visual-dialog` (The lib is not yet available on **pypy**).
 * Read this [examples](https://github.com/Tim-ats-d/Visual-dialog/blob/main/doc/examples).
 
 
-
 ## Requirements
-* Python 3 or more.
+* **Python 3.6** or more.
 * Knowledge of [`curses`](https://docs.python.org/3/library/curses.html) librairie.
-
-
