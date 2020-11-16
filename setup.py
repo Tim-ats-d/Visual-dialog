@@ -10,7 +10,7 @@ setup(
     packages=find_packages(),
     author="Arnouts Timéo",
     author_email="tim.arnouts@protonmail.com",
-    description="A librairie which provides class and functions to make easier dialog box in terminal.",
+    description="A librairie to make easier dialog box in terminal.",
     long_description=open("README.md").read(),
     include_package_data=True,
     url="https://github.com/Tim-ats-d/Visual-dialog",
@@ -35,6 +35,5 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: Implementation",
         "Topic :: Games/Entertainment :: Role-Playing",
-        "Topic :: Software Development :: Libraries :: Python Modules",
-        "Topic :: Software Development :: Libraries :: pygame"]
+        "Topic :: Software Development :: Libraries :: Python Modules"]
 )

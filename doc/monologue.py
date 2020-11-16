@@ -3,14 +3,15 @@
 
 import curses
 
-from visualdialog import *
+from visualdialog import DialogBox
 
 
 def main(stdscr):
-    text = (
-        "Hello world",
-        "How are you today ?",
-        "Press a key to skip this dialog."
+    replys = (
+        "Hello world, how are you today ?",
+        "Press a key to skip this dialog.",
+        "That is a basic example.",
+        "See doc for more informations."
     )
 
     # Makes the cursor invisible.
@@ -32,15 +33,15 @@ def main(stdscr):
     textbox.confirm_dialog_key = (10, 32)  # Key Enter and Space.
 
     # Display each sentence contains in text.
-    for reply in text:
+    for reply in replys:
         textbox.char_by_char(stdscr,
             reply,
             2,  # Display of the reply variable colored with color pair 2.
-            delay=0.05
-        )
+            delay=0.04)  # Set delay between each characters to 0.04 seconde.
 
         textbox.getkey(stdscr)  # Waiting for a key press.
-        stdscr.clear()          # Clear the screen.
+        stdscr.clear()  # Clear the screen.
+
 
 # Execution of the function.
 curses.wrapper(main)

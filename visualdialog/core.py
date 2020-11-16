@@ -21,21 +21,18 @@
 #
 #
 
-__all__ = ["init_visualdialog", "DialogBox"]
-__version__ = 0.2
+__all__ = ["DialogBox"]
+__version__ = 0.3
 __author__ = "Arnouts Timéo"
 
 
 import curses
 import curses.textpad
 import random
+import textwrap
 import time
 
 from typing import Tuple
-
-
-def init_visualdialog():
-    ...
 
 
 class DialogBox :
@@ -43,16 +40,14 @@ class DialogBox :
 
     # curses constants are supported .
     confirm_dialog_key = () # List of accepted key codes to pass a dialog.
-    acceleration_dialog_key = None  # TODO: To patch.
 
     def __init__(self,
             pos_x: int, pos_y: int,
             box_length: int, box_width: int,
             title: str, title_colors_pair_nb: int,
             downtime_chars: Tuple[str] = ("!", ",", ".", ":", ";", "?"),
-            downtime_chars_delay: float = 0.7,
+            downtime_chars_delay: float = 0.6,
             end_dialog_indicator: str = "►"):
-
         self.pos_x, self.pos_y = pos_x, pos_y
         self.box_length, self.box_width = box_length, box_width
 
@@ -120,7 +115,7 @@ class DialogBox :
     def char_by_char(self, stdscr,
             text: str, colors_pair_nb: int,
             flash_screen: bool = False,
-            delay: int = .065, random_delay: Tuple[int, int] = (0, 0)):
+            delay: int = .05, random_delay: Tuple[int, int] = (0, 0)):
         """Writes the given text character by character at position self.pos_x;self.pos_y.
 
         The colors_pair_nb corresponds to the number of the curses color pair with which the text
@@ -130,7 +125,7 @@ class DialogBox :
         dialog.
 
         The delay parameter affects the waited time between the writing of each character in seconds
-        (set by default on 0.7 seconde).
+        (set by default on 0.05 seconde).
 
         The random_delay parameter affects time between the writing of each character in seconds where
         waited time is a number generated in the given interval (as a tuple).
@@ -144,7 +139,6 @@ class DialogBox :
             stdscr.addstr(
                 self.text_pos_y, self.text_pos_x + x,
                 char, curses.color_pair(colors_pair_nb))
-
             stdscr.refresh()
 
             if char in self.downtime_chars:
@@ -158,7 +152,7 @@ class DialogBox :
             text: str, colors_pair_nb: int,
             cut_char: str = " ",
             flash_screen: bool = False,
-            delay: int = .065, random_delay: Tuple[int, int] = (0, 0)):
+            delay: int = .05, random_delay: Tuple[int, int] = (0, 0)):
         """Writes the given text word by word at position at position self.pos_x;self.pos_y.
 
         The colors_pair_nb corresponds to the number of the curses color pair with which the text
@@ -170,7 +164,7 @@ class DialogBox :
         dialog.
 
         The delay parameter affects the waited time between the writing of each word in seconds
-        (set by default on 0.7 seconde).
+        (set by default on 0.05 seconde).
 
         The random_delay parameter affects time between the writing of each word in seconds where
         waited time is a number generated in the given interval (as a tuple).
@@ -187,7 +181,7 @@ class DialogBox :
                 word, curses.color_pair(colors_pair_nb))
 
             stdscr.refresh()
-            offsetting_x += len(word) + 1 # Compensates for the space between words.
+            offsetting_x += len(word) + 1  # Compensates for the space between words.
             time.sleep(delay + random.uniform(*random_delay))
 
         self._display_end_dialog_indicator(stdscr)
@@ -195,10 +189,10 @@ class DialogBox :
 
 def main(stdscr):
     text = (
-        "Hello world",
-        "How are you today ?",
-        "Hi, bien ?",
-        "Objection !"
+        "Hello world, how are you today ?",
+        "Press a key to skip this dialog.",
+        "That is a basic example.",
+        "See doc for more informations."
     )
 
     curses.curs_set(0)
@@ -214,13 +208,15 @@ def main(stdscr):
         title="Dogm", title_colors_pair_nb=3,
         end_dialog_indicator="►")
 
+    textbox.confirm_dialog_key = (10, 32)
+
     for reply in text:
         textbox.framing_box(stdscr)
-        textbox.char_by_char(stdscr, reply, 2, flash_screen=True)
+        textbox.char_by_char(stdscr, reply, 2)
 
         textbox.getkey(stdscr)
         stdscr.clear()
 
+
 if __name__ == "__main__":
     curses.wrapper(main)
-

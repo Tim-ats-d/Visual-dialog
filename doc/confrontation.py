@@ -3,7 +3,7 @@
 
 import curses
 
-from visualdialog import *
+from visualdialog import DialogBox
 
 
 def main(stdscr):
@@ -38,7 +38,7 @@ def main(stdscr):
     )
 
     # Definition of accepted key codes to pass a dialog.
-    # See documentation of the curses constants for more informations.
+    # See documentation of curses constants for more informations.
     phoenix_textbox.confirm_dialog_key = (10, 32)     # Key Enter and Space.
     april_may_textbox.confirm_dialog_key = (10, 32)  # Key Enter and Space.
     edgeworth_textbox.confirm_dialog_key = (10, 32)   # Key Enter and Space.
