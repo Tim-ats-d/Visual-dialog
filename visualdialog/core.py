@@ -169,7 +169,7 @@ class DialogBox :
             text: str, colors_pair_nb: int,
             cut_char: str = " ",
             flash_screen: bool = False,
-            delay: int = .05, random_delay: Tuple[int, int] = (0, 0),
+            delay: int = .15, random_delay: Tuple[int, int] = (0, 0),
             callback: Callable = None,
             cargs=()):
         """Writes the given text word by word at position at position self.pos_x;self.pos_y.
@@ -183,7 +183,7 @@ class DialogBox :
         dialog.
 
         The delay parameter affects the waited time between the writing of each word in seconds
-        (set by default on 0.05 seconde).
+        (set by default on 0.15 seconde).
 
         The random_delay parameter affects time between the writing of each word in seconds where
         waited time is a number generated in the given interval (as a tuple).
@@ -243,27 +243,11 @@ def main(stdscr):
 
     for reply in text:
         textbox.framing_box(stdscr)
-        textbox.char_by_char(stdscr, reply, 2, cargs=(reply,), callback=func)
+        textbox.word_by_word(stdscr, reply, 2, cargs=(reply,), callback=func)
 
         textbox.getkey(stdscr)
         stdscr.clear()
 
-def main2(stdscr):
-    curses.curs_set(0)
-
-    curses.start_color()
-    curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
-    curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_BLACK)
-    curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK)
-
-    with DialogBox(
-            20, 15,
-            40, 6,
-            title="Test", title_colors_pair_nb=3,
-            end_dialog_indicator="t") as e:
-
-        e.framing_box(stdscr)
-        e.char_by_char(stdscr, "c'est le grand test", 2)
 
 if __name__ == "__main__":
-    curses.wrapper(main2)
+    curses.wrapper(main)
