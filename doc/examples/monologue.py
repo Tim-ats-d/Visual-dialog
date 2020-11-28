@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# monologue_example.py
+# monologue.py
 
 import curses
 
@@ -25,14 +25,14 @@ def main(stdscr):
 
     textbox = DialogBox(
         20, 15,   # Position 20;15 in terminal.
-        40, 6,    # Length and width (in character).
+        40, 6,   # Length and width (in character).
         title="Dogm", title_colors_pair_nb=3)  # Title and color_pair used to colored title.
 
     # Definition of accepted key codes to pass a dialog.
     # See documentation of the curses constants for more informations.
     textbox.confirm_dialog_key = (10, 32)  # Key Enter and Space.
 
-    # Display each sentence contains in text.
+    # We iterate on each sentence contained in replys.
     for reply in replys:
         textbox.char_by_char(stdscr,
             reply,

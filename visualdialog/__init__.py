@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """
 A librairie which provides class and functions to make easier dialog box in terminal.
 """
 
-__version__ = 0.3
+__version__ = 0.4
 
 from .core import DialogBox

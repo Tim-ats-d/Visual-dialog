@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 from setuptools import setup, find_packages
 
 
 setup(
     name="visualdialog",
-    version=0.2,
+    version=0.4,
     packages=find_packages(),
     author="Arnouts Timéo",
     author_email="tim.arnouts@protonmail.com",
