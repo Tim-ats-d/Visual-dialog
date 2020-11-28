@@ -22,7 +22,7 @@
 #
 
 __all__ = ["DialogBox"]
-__version__ = 0.3
+__version__ = 0.4
 __author__ = "Arnouts Timéo"
 
 
@@ -137,6 +137,12 @@ class DialogBox :
 
         The random_delay parameter affects time between the writing of each character in seconds where
         waited time is a number generated in the given interval (as a tuple).
+
+        callback is the function to execute after after the delay between the writing of a
+        character has elapsed (callback is None by default).
+
+        cargs parameters accepts an infinite number of arguments that will be passed during the
+        execution of callback (by default an empty tuple).
         """
         self.framing_box(stdscr)
 
@@ -181,6 +187,12 @@ class DialogBox :
 
         The random_delay parameter affects time between the writing of each word in seconds where
         waited time is a number generated in the given interval (as a tuple).
+
+        callback is the function to execute after after the delay between the writing of a
+        word has elapsed (callback is None by default).
+
+        cargs parameters accepts an infinite number of arguments that will be passed during the
+        execution of callback (by default an empty tuple).
         """
         self.framing_box(stdscr)
 
