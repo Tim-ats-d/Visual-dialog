@@ -32,7 +32,7 @@ import random
 import textwrap
 import time
 
-from typing import Tuple
+from typing import Any, Callable, Tuple
 
 
 class DialogBox :
@@ -51,8 +51,8 @@ class DialogBox :
         self.pos_x, self.pos_y = pos_x, pos_y
         self.box_length, self.box_width = box_length, box_width
 
-        self.text_pos_x = pos_x + 2
-        self.text_pos_y = pos_y + 3
+        self.text_pos_x = pos_x + 2  # Compensation for the left border of the dialog box.
+        self.text_pos_y = pos_y + 3  # Compensation for the upper border of the dialog box.
 
         self.nb_char_max_line = box_length - 2
         self.nb_lines_max = box_width - 2
@@ -68,6 +68,12 @@ class DialogBox :
         self.downtime_chars_delay = downtime_chars_delay
 
         self.end_dialog_indicator_char = end_dialog_indicator[:1] # We keep only first character.
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, type, value, traceback):
+        ...
 
     def framing_box(self, stdscr):
         """Displays dialog box and his title.
@@ -105,7 +111,7 @@ class DialogBox :
 
     def _display_end_dialog_indicator(self, stdscr,
             colors_pair_nb: int = None, blink: bool = True):
-        """Displays an end of dialog indicator in the lower right corner."""
+        """Displays an end of dialog indicator in the lower right corner of textbox."""
         if self.end_dialog_indicator_char:
             blink = curses.A_BLINK if blink else curses.A_NORMAL
 
@@ -115,7 +121,9 @@ class DialogBox :
     def char_by_char(self, stdscr,
             text: str, colors_pair_nb: int,
             flash_screen: bool = False,
-            delay: int = .05, random_delay: Tuple[int, int] = (0, 0)):
+            delay: int = .05, random_delay: Tuple[int, int] = (0, 0),
+            callback: Callable = None,
+            cargs=()):
         """Writes the given text character by character at position self.pos_x;self.pos_y.
 
         The colors_pair_nb corresponds to the number of the curses color pair with which the text
@@ -146,13 +154,18 @@ class DialogBox :
             else:
                 time.sleep(delay + random.uniform(*random_delay))
 
+            if callback:
+                callback(*cargs)
+
         self._display_end_dialog_indicator(stdscr)
 
     def word_by_word(self, stdscr,
             text: str, colors_pair_nb: int,
             cut_char: str = " ",
             flash_screen: bool = False,
-            delay: int = .05, random_delay: Tuple[int, int] = (0, 0)):
+            delay: int = .05, random_delay: Tuple[int, int] = (0, 0),
+            callback: Callable = None,
+            cargs=()):
         """Writes the given text word by word at position at position self.pos_x;self.pos_y.
 
         The colors_pair_nb corresponds to the number of the curses color pair with which the text
@@ -184,6 +197,9 @@ class DialogBox :
             offsetting_x += len(word) + 1  # Compensates for the space between words.
             time.sleep(delay + random.uniform(*random_delay))
 
+            if callback:
+                callback(*cargs)
+
         self._display_end_dialog_indicator(stdscr)
 
 
@@ -210,13 +226,32 @@ def main(stdscr):
 
     textbox.confirm_dialog_key = (10, 32)
 
+    def func(reply: str):
+        stdscr.addstr(0, 0, reply)
+
     for reply in text:
         textbox.framing_box(stdscr)
-        textbox.char_by_char(stdscr, reply, 2)
+        textbox.char_by_char(stdscr, reply, 2, cargs=(reply,), callback=func)
 
         textbox.getkey(stdscr)
         stdscr.clear()
 
+def main2(stdscr):
+    curses.curs_set(0)
+
+    curses.start_color()
+    curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
+    curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_BLACK)
+    curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK)
+
+    with DialogBox(
+            20, 15,
+            40, 6,
+            title="Test", title_colors_pair_nb=3,
+            end_dialog_indicator="t") as e:
+
+        e.framing_box(stdscr)
+        e.char_by_char(stdscr, "c'est le grand test", 2)
 
 if __name__ == "__main__":
-    curses.wrapper(main)
+    curses.wrapper(main2)
