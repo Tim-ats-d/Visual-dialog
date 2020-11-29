@@ -1,5 +1,5 @@
 # Visual Dialog (BETA)
-A librairie to make easier **dialog box** in **terminal** with [curses](https://docs.python.org/3/library/curses.html).
+A library to make easier **dialog box** in **terminal** with [curses](https://docs.python.org/3/library/curses.html).
 
 ![example](https://user-images.githubusercontent.com/59396366/98136859-a9218600-1ec1-11eb-9419-4ac5bfde2406.png)
 
