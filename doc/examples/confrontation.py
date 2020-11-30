@@ -16,75 +16,78 @@ def main(stdscr):
     curses.init_pair(2, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_RED, curses.COLOR_BLACK)
 
-    textbox_position = (20, 15)  # Position 20;15 in terminal.
+    textbox_position = (10, 10)  # Position 10;10 in terminal.
     textbox_dimension = (40, 6)  # Length and width (in character).
 
-    phoenix_textbox = DialogBox(
+    phoenix_wright = DialogBox(
         *textbox_position,
         *textbox_dimension,
         title="Phoenix", title_colors_pair_nb=1  # Title and color_pair used to colored title.
     )
 
-    april_may_textbox = DialogBox(
+    april_may = DialogBox(
         *textbox_position,
         *textbox_dimension,
         title="April", title_colors_pair_nb=2  # Title and color_pair used to colored title.
     )
 
-    edgeworth_textbox = DialogBox(
+    miles_edgeworth = DialogBox(
         *textbox_position,
         *textbox_dimension,
-        title="Edgeworth", title_colors_pair_nb=3
+        title="Edgeworth", title_colors_pair_nb=3  # Title and color_pair used to colored title.
     )
 
     # Definition of accepted key codes to pass a dialog.
     # See documentation of curses constants for more informations.
-    phoenix_textbox.confirm_dialog_key = (10, 32)     # Key Enter and Space.
-    april_may_textbox.confirm_dialog_key = (10, 32)  # Key Enter and Space.
-    edgeworth_textbox.confirm_dialog_key = (10, 32)   # Key Enter and Space.
+    phoenix_wright.confirm_dialog_key = (10, 32)     # Key Enter and Space.
+    april_may.confirm_dialog_key = (10, 32)  # Key Enter and Space.
+    miles_edgeworth.confirm_dialog_key = (10, 32)   # Key Enter and Space.
 
-    phoenix_textbox.char_by_char(stdscr,
+    phoenix_wright.char_by_char(stdscr,
         "This testimony is a pure invention !",
         colors_pair_nb=0,
         delay=0.03)
 
-    phoenix_textbox.getkey(stdscr)  # Wait until a key in phoenix_textbox.confirm_dialog_key list is pressed.
+    phoenix_wright.getkey(stdscr)  # Wait until a key contained in phoenix_wright.confirm_dialog_key is pressed.
     stdscr.clear()  # Clear the screen.
 
-    phoenix_textbox.char_by_char(stdscr,
+    phoenix_wright.char_by_char(stdscr,
         "You're lying April May !",
         colors_pair_nb=0,
         flash_screen=True,
-        delay=0.03)
+        delay=0.03,
+        text_attributes=(curses.A_BOLD,))
 
-    phoenix_textbox.getkey(stdscr)
+    phoenix_wright.getkey(stdscr)  # Wait until a key contained in phoenix_wright.confirm_dialog_key is pressed.
     stdscr.clear()
 
-    april_may_textbox.char_by_char(stdscr,
+    april_may.char_by_char(stdscr,
         "Arghh !",
         colors_pair_nb=0,
-        delay=0.02)
+        delay=0.02,
+        text_attributes=(curses.A_ITALIC,))
 
-    april_may_textbox.getkey(stdscr)  # Wait until a key in april_may_textbox.confirm_dialog_key list is pressed.
+    april_may.getkey(stdscr)  # Wait until a key contained in april_may.confirm_dialog_key is pressed.
     stdscr.clear()
 
-    edgeworth_textbox.char_by_char(stdscr,
+    miles_edgeworth.char_by_char(stdscr,
         "OBJECTION !",
         colors_pair_nb=0,
         flash_screen=True,
-        delay=0.03)
+        delay=0.03,
+        text_attributes=(curses.A_BOLD,)
+        )
 
-    edgeworth_textbox.getkey(stdscr)  # Wait until a key in edgeworth_textbox.confirm_dialog_key list is pressed.
+    miles_edgeworth.getkey(stdscr)  # Wait until a key contained in miles_edgeworth.confirm_dialog_key is pressed.
     stdscr.clear()
 
-    edgeworth_textbox.char_by_char(stdscr,
+    miles_edgeworth.char_by_char(stdscr,
         "These accusations are irrelevant !",
         colors_pair_nb=0,
         delay=0.03)
 
-    edgeworth_textbox.getkey(stdscr)
+    miles_edgeworth.getkey(stdscr)
     stdscr.clear()
 
 
-# Execution of the function.
-curses.wrapper(main)
+curses.wrapper(main)  # Execution of the function.
