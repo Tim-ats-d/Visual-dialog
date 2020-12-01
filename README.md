@@ -52,7 +52,7 @@ Coming soon !
 
 We would love for you to contribute to improve **Visual-dialog**.
 
-Take a look at our [Contributing guide](CONTRIBUTING) to get started.
+Take a look at our [Contributing guide](CONTRIBUTING.md) to get started.
 
 ## License
 
