@@ -8,7 +8,7 @@
   <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
   <a href="#documentation">Documentation</a> •
-  <a href="#quick-start ">Usage</a> •
+  <a href="#quick-start">Quick start</a> •
   <a href="#contributing">Contributing</a> •
   <a href="#license">License</a>
 </p>
@@ -28,7 +28,10 @@
 ## Installation
 
 ### Using pip
-`pip install git+git://github.com/Tim-ats-d/Visual-dialog`
+
+```bash
+python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog
+```
 (The lib is not yet available on **pypy**).
 
 ### Requirements
