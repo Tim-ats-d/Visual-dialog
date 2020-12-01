@@ -1,5 +1,5 @@
 
-# Contributing
+# Contributing
 
 ## Setup your development environment
 
@@ -7,7 +7,7 @@ You need:
 * `Python3.6`: you can install it by following [Python3's documentation](https://www.python.org/downloads/).
 * `curses`: available in standard library of `Python` but it doesn't work out-of-the-box on Windows. See [this](https://www.devdungeon.com/content/curses-windows-python) explanations to install `curses` on Windows.
 
-## Branches
+## Branches
 
 * main : stable releases.
 
@@ -31,7 +31,7 @@ python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog --upgrade
 ```
 The list of versions and their changelogs can be found [here](https://github.com/Tim-ats-d/Visual-dialog/releases/).
 
-## Repository Structure
+## Repository Structure
 
 The following snippet describes Visual-dialog's repository structure.
 
