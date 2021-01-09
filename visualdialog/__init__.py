@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
 """
-A librairie which provides class and functions to make easier dialog box in terminal.
+A librairie which provides class to make easier dialog box in terminal.
 """
 
 __version__ = 0.6
+__author__ = "Arnouts Timéo"
 
-from .core import DialogBox
+from dialog import DialogBox

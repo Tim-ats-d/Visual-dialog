@@ -25,8 +25,9 @@ def main(stdscr):
 
     textbox = DialogBox(
         20, 15,   # Position 20;15 in terminal.
-        40, 6,   # Length and width (in character).
-        title="Dogm", title_colors_pair_nb=3)  # Title and color_pair used to colored title.
+        40, 6,   # Length and width of textbox (in character).
+        title="Tim-ats-d", title_colors_pair_nb=3)
+        # Title and color pair used to colored title.
 
     # Definition of accepted key codes to pass a dialog.
     # See documentation of the curses constants for more informations.
@@ -39,9 +40,8 @@ def main(stdscr):
             2,  # Display of the reply variable colored with color pair 2.
             delay=0.04)  # Set delay between each characters to 0.04 seconde.
 
-        textbox.getkey(stdscr)  # Waiting for a key press.
-        stdscr.clear()  # Clear the screen.
+        stdscr.clear()  # Clear entierely current window object.
 
 
-# Execution of the function.
+# Execution of main function.
 curses.wrapper(main)

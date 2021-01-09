@@ -48,8 +48,7 @@ def main(stdscr):
         colors_pair_nb=0,
         delay=0.03)
 
-    phoenix_wright.getkey(stdscr)  # Wait until a key contained in phoenix_wright.confirm_dialog_key is pressed.
-    stdscr.clear()  # Clear the screen.
+    stdscr.clear()  # Clear entierely current window object.
 
     phoenix_wright.char_by_char(stdscr,
         "You're lying April May !",
@@ -58,7 +57,6 @@ def main(stdscr):
         delay=0.03,
         text_attributes=(curses.A_BOLD,))
 
-    phoenix_wright.getkey(stdscr)  # Wait until a key contained in phoenix_wright.confirm_dialog_key is pressed.
     stdscr.clear()
 
     april_may.char_by_char(stdscr,
@@ -67,7 +65,6 @@ def main(stdscr):
         delay=0.02,
         text_attributes=(curses.A_ITALIC,))
 
-    april_may.getkey(stdscr)  # Wait until a key contained in april_may.confirm_dialog_key is pressed.
     stdscr.clear()
 
     miles_edgeworth.char_by_char(stdscr,
@@ -78,7 +75,6 @@ def main(stdscr):
         text_attributes=(curses.A_BOLD,)
         )
 
-    miles_edgeworth.getkey(stdscr)  # Wait until a key contained in miles_edgeworth.confirm_dialog_key is pressed.
     stdscr.clear()
 
     miles_edgeworth.char_by_char(stdscr,
@@ -86,8 +82,8 @@ def main(stdscr):
         colors_pair_nb=0,
         delay=0.03)
 
-    miles_edgeworth.getkey(stdscr)
     stdscr.clear()
 
 
-curses.wrapper(main)  # Execution of the function.
+# Execution of main function.
+curses.wrapper(main)

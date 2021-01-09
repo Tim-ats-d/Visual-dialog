@@ -45,9 +45,8 @@ def main(stdscr):
             2,  # Display of the reply variable colored with color pair 2.
             text_attributes=attributs)  # Pass the attributes to the text.
 
-        # Wait until a key contained in textbox.confirm_dialog_key is pressed.
-        textbox.getkey(stdscr)
-        stdscr.clear()  # Clear the screen.
+        stdscr.clear()  # Clear entierely current window object.
 
 
-curses.wrapper(main)  # Execution of the function.
+# Execution of main function.
+curses.wrapper(main)
