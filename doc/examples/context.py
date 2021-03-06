@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# monologue.py
+#  context.py
 
 import curses
 

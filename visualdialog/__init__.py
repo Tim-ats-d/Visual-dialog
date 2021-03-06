@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 A librairie which provides class to make easier dialog box in terminal.
 """

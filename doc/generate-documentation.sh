@@ -5,9 +5,11 @@
 
 
 pydoc3 visualdialog.box >> visualdialog-doc.txt
-pydoc3 visualdialog.__init__ >> visualdialog-doc.txt
+pydoc3 visualdialog.dialog >> visualdialog-doc.txt
 
 echo "wrote visualdialog-doc.txt"
 pydoc3 -w visualdialog.core
+mv visualdialog.core.html visualdialog-doc.html
+pydoc3 -w visualdialog.dialog >> visualdialog-doc.html
 
 echo "done."

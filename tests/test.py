@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-#
 #  test.py
 #
 #  This file contains the tests used to debug the library.

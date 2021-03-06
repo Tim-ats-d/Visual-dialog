@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-#
 #  utils.py
 #
 #  2020 Timéo Arnouts <tim.arnouts@protonmail.com>
@@ -23,10 +21,13 @@
 
 from typing import List, NewType, Tuple, Union
 
-
 # curses text attribute constants are integers.
 # See https://docs.python.org/3/library/curses.html?#constants
 CursesTextAttributesConstants = NewType("CursesTextAttributesConstants", int)
+
+# curses key constants are integers.
+# See https://docs.python.org/3/library/curses.html?#constants
+CursesKeyConstants = NewType("CursesKeyConstants", int)
 
 
 def _make_chunk(iterable: Union[Tuple, List], chunk_length: int) -> Tuple:
@@ -43,7 +44,7 @@ class TextAttributes:
     ----------
     win
         `curses` window object for which the attributes will be managed.
-    attributes : CursesTextAttributesConstants
+    attributes
         List of attributes to activate and desactivate.
     """
     def __init__(self, stdscr, *attributes: CursesTextAttributesConstants):

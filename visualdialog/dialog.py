@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-#
 #  dialog.py
 #
 #  2020 Timéo Arnouts <tim.arnouts@protonmail.com>
@@ -21,6 +19,8 @@
 #
 #
 
+__all__ = ["DialogBox"]
+
 import curses
 import random
 import textwrap
@@ -31,9 +31,6 @@ import box
 from utils import CursesTextAttributesConstants, TextAttributes, _make_chunk
 
 
-__all__ = ["DialogBox"]
-
-
 class DialogBox(box.TextBox):
     """This class provides methods and attributs to manage a dialog box.
 
@@ -42,35 +39,28 @@ class DialogBox(box.TextBox):
 
     Attributes
     ----------
-    end_dialog_indicator : str, optional
+    end_dialog_indicator : optional
         Character that will be displayed in the lower right corner the
         character once all the characters have been completed (by default "►").
         String with a length of more than one character can lead to an overflow
         of the dialog box frame.
     """
-
     def __init__(
-            self,
-            pos_x: int,
-            pos_y: int,
-            box_length: int,
-            box_width: int,
-            title: str = "",
-            title_colors_pair_nb: CursesTextAttributesConstants = 0,
-            title_text_attributes: Tuple[CursesTextAttributesConstants] = (
-                curses.A_BOLD, ),
-            downtime_chars: Tuple[str] = (",", ".", ":", ";", "!", "?"),
-            downtime_chars_delay: Union[int, float] = 0.6,
-            end_dialog_indicator: str = "►"):
-        super().__init__(pos_x,
-                         pos_y,
-                         box_length,
-                         box_width,
-                         title,
-                         title_colors_pair_nb,
-                         title_text_attributes,
-                         downtime_chars,
-                         downtime_chars_delay)
+        self,
+        pos_x: int,
+        pos_y: int,
+        box_length: int,
+        box_width: int,
+        title: str = "",
+        title_colors_pair_nb: CursesTextAttributesConstants = 0,
+        title_text_attributes: Tuple[CursesTextAttributesConstants] = (
+            curses.A_BOLD, ),
+        downtime_chars: Tuple[str] = (",", ".", ":", ";", "!", "?"),
+        downtime_chars_delay: Union[int, float] = 0.6,
+        end_dialog_indicator: str = "►"):
+        super().__init__(pos_x, pos_y, box_length, box_width, title,
+                         title_colors_pair_nb, title_text_attributes,
+                         downtime_chars, downtime_chars_delay)
 
         self.end_dialog_indicator_char = end_dialog_indicator
 
@@ -83,10 +73,10 @@ class DialogBox(box.TextBox):
         ...
 
     def _display_end_dialog_indicator(
-            self,
-            stdscr,
-            text_attributes: Tuple[CursesTextAttributesConstants] = (
-                curses.A_BOLD, curses.A_BLINK)):
+        self,
+        stdscr,
+        text_attributes: Tuple[CursesTextAttributesConstants] = (
+            curses.A_BOLD, curses.A_BLINK)):
         """Displays an end of dialog indicator in the lower right corner of
         textbox.
 
@@ -109,19 +99,20 @@ class DialogBox(box.TextBox):
                              self.end_dialog_indicator_char)
 
     def char_by_char(
-            self,
-            stdscr,
-            text: str,
-            colors_pair_nb: int = 0,
-            text_attr: Tuple[CursesTextAttributesConstants] = (),
-            words_attr: Union[CursesTextAttributesConstants,
-                              Dict[Tuple[str],
-                                   Tuple[CursesTextAttributesConstants]]] = {},
-            flash_screen: bool = False,
-            delay: Union[int, float] = .04,
-            random_delay: Tuple[int, int] = (0, 0),
-            callback: Callable = None,
-            cargs=()):
+        self,
+        stdscr,
+        text: str,
+        colors_pair_nb: int = 0,
+        text_attr: Union[Tuple[CursesTextAttributesConstants],
+                         List[CursesTextAttributesConstants]] = (),
+        words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstants],
+                          Dict[Tuple[str],
+                               Tuple[CursesTextAttributesConstants]]] = {},
+        flash_screen: bool = False,
+        delay: Union[int, float] = .04,
+        random_delay: Tuple[int, int] = (0, 0),
+        callback: Callable = None,
+        cargs: Union[Tuple, List] = ()):
         """Writes the given text character by character in the
         current dialog box.
 
@@ -129,35 +120,35 @@ class DialogBox(box.TextBox):
         ----------
         stdscr
             `curses` window object on which the method will have effect.
-        text : str
+        text
             Text that will be displayed character by character in the dialog
             box. This text can be wrapped to fit the proportions of the dialog
             box.
-        colors_pair_nb : int, optional
+        colors_pair_nb : optional
             Number of the curses color pair that will be used to color the
             text (by default 0. The number zero corresponding to the pair of
             white color on black background initialized by `curses`).
-        text_attr : tuple or list of CursesTextAttributesConstants, optional
-            Dialog box text attributes (by default an empty tuple).
-        words_attr :
+        text_attr : optional
+            Dialog box curses text attributes (by default an empty tuple).
+        words_attr : optional
 
-        flash_screen : bool, optional
+        flash_screen : optional
             Allows or not to flash screen with a short light effect done
             before writing the first character via `flash` function from
             `curses` module (by default False).
-        delay : int or float, optional
+        delay : optional
             Waiting time between the writing of each character of text in
             second (by default 0.04).
-        random_delay : list of two number or tuple of two number, optional
+        random_delay : optional
             Waiting time between the writing of each character in seconds
             where time waited is a random number generated in `random_delay`
             interval (by default (0, 0)).
-        callback : callable, optional
+        callback : optional
             Callable called after writing a character and the delay time has
             elapsed (by default None).
-        cargs : list or tuple, optional
-            All the arguments that will be passed to callback
-            (by default an empty tuple).
+        cargs : optional
+            All the arguments that will be passed to callback (by default an
+            empty tuple).
 
         Returns
         -------
@@ -217,8 +208,7 @@ class DialogBox(box.TextBox):
                         if isinstance(attr, int):
                             attr = (attr, )
                     else:
-                        attr = (curses.color_pair(colors_pair_nb),
-                                *text_attr)
+                        attr = (curses.color_pair(colors_pair_nb), *text_attr)
 
                     with TextAttributes(stdscr, *attr):
                         for x, char in enumerate(word):
@@ -247,18 +237,21 @@ class DialogBox(box.TextBox):
             super().getkey(stdscr)
 
     def word_by_word(
-            self,
-            stdscr,
-            text: str,
-            colors_pair_nb: int,
-            cut_char: str = " ",
-            text_attr: Tuple[CursesTextAttributesConstants] = (),
-            words_attr: Dict[str, Tuple[CursesTextAttributesConstants]] = {},
-            flash_screen: bool = False,
-            delay: Union[int, float] = .15,
-            random_delay: Tuple[int, int] = (0, 0),
-            callback: Callable = None,
-            cargs=()):
+        self,
+        stdscr,
+        text: str,
+        colors_pair_nb: int,
+        cut_char: str = " ",
+        text_attr: Union[Tuple[CursesTextAttributesConstants],
+                         List[CursesTextAttributesConstants]] = (),
+        words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstants],
+                          Dict[Tuple[str],
+                               Tuple[CursesTextAttributesConstants]]] = {},
+        flash_screen: bool = False,
+        delay: Union[int, float] = .15,
+        random_delay: Tuple[int, int] = (0, 0),
+        callback: Callable = None,
+        cargs: Union[Tuple, List] = ()):
         """Writes the given text word by word at position in the current
         dialog box.
 
@@ -266,35 +259,35 @@ class DialogBox(box.TextBox):
         ----------
         stdscr
             `curses` window object on which the method will have effect.
-        text : str
+        text
             Text that will be displayed word by word in the dialog box. This
             text can be wrapped to fit the proportions of the dialog box.
             See Notes section for more informations.
-        colors_pair_nb : int, optional
+        colors_pair_nb : optional
             Number of the curses color pair that will be used to color the
             text (by default 1).
-        text_attr : tuple or list of CursesTextAttributesConstants, optional
+        text_attr : optional
             Dialog box text attributes (by default an empty tuple).
-        words_attr :
+        words_attr : optional
 
-        cut_char : str, optional
-            The delimiter according which to split the text in word
-            (by default space character).
-        flash_screen : bool, optional
+        cut_char : optional
+            The delimiter according which to split the text in word (by default
+            space character).
+        flash_screen : optional
             Allows or not to flash screen with a short light effect done
             before writing the first word via `flash` function from `curses`
             module (by default False).
-        delay : int or float, optional
+        delay : optional
             Waiting time between the writing of each character of text in
             second (by default 0.15).
-        random_delay : list of two number or tuple of two number, optional
+        random_delay : optional
             Waiting time between the writing of each character in seconds
             where time waited is a random number generated in `random_delay`
             interval (by default (0, 0)).
-        callback : callable, optional
+        callback : optional
             Callable called after writing a character and the `delay` time has
             elapsed (by default None).
-        cargs : list or tuple, optional
+        cargs : optional
             All the arguments that will be passed to callback (by default
             an empty tuple).
 
@@ -338,8 +331,7 @@ class DialogBox(box.TextBox):
         if flash_screen:
             curses.flash()
 
-        attr = (curses.color_pair(colors_pair_nb),
-                *text_attr)
+        attr = (curses.color_pair(colors_pair_nb), *text_attr)
 
         wrapped_text = textwrap.wrap(text, self.nb_char_max_line)
         wrapped_text = _make_chunk(wrapped_text, self.nb_lines_max)
@@ -353,13 +345,11 @@ class DialogBox(box.TextBox):
                     if word in words_attr:
                         attr = words_attr[word]
                     else:
-                        attr = (curses.color_pair(colors_pair_nb),
-                        *text_attr)
+                        attr = (curses.color_pair(colors_pair_nb), *text_attr)
 
                     with TextAttributes(stdscr, *attr):
                         stdscr.addstr(self.text_pos_y + y,
-                                      self.text_pos_x + offsetting_x,
-                                      word)
+                                      self.text_pos_x + offsetting_x, word)
                         stdscr.refresh()
 
                     # Compensates for the space between words.

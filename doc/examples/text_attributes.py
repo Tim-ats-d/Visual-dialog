@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# monologue.py
+#  text_attributes.py
 
 import curses
 

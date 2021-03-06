@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-#
 #  choices_box.py
 #
 #  2020 Timéo Arnouts <tim.arnouts@protonmail.com>

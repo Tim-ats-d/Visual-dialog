@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# confrontation_example.py
+#  confrontation.py
 
 import curses
 
