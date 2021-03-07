@@ -65,7 +65,8 @@ make html
 ```
 Or on **Windows** with **Git Bash**:
 ```sh
-./make.bat html```
+./make.bat html
+```
 
 Once generated, the result will be in the `build/html/` folder.
 
