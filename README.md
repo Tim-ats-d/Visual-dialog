@@ -61,10 +61,14 @@ Read these [examples](examples/).
 Visualdialog's documentation is automatically generated from the source code by **Sphinx**.
 To build it on **GNU/Linux** or **MacOS**:
 ```sh
+git clone https://github.com/Tim-ats-d/Visual-dialog.git
+cd Visual-dialog
 make html
 ```
 Or on **Windows** with **Git Bash**:
 ```sh
+git clone https://github.com/Tim-ats-d/Visual-dialog.git
+cd Visual-dialog
 ./make.bat html
 ```
 
