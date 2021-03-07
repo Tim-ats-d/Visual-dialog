@@ -37,61 +37,71 @@ class PanicError(Exception):
 class TextBox:
     """This class provides attributs and methods to manage a text box.
 
-    This class provides a general API for text boxes, it does not need to be
-    instantiated.
+    .. NOTE::
+        This class provides a general API for text boxes, it does not need
+        to be instantiated.
 
-    Attributes
-    ----------
-    pos_x
-        x position of the dialog box in the terminal.
-    pos_y
-        y position of the dialog box in the terminal
-    box_length
-        Length of the dialog box in the terminal.
-    box_width
-        Width of the dialog box in the terminal.
-    title : optional
-        String that will be displayed in the upper left corner of dialog box
-        if title is an empty string, the title will not be displayed (by
-        default an empty string).
-    title_colors_pair_nb : optional
-        Number of the curses color pair that will be used to color the title
-        (by default 0. The number zero corresponding to the pair of white
-        color on black background initialized by `curses`).
-    title_text_attributes : optional
-        Dialog box title text attributes (by default a tuple contains
-        curses.A_BOLD).
-    downtime_chars : optional
-        List of characters that will trigger a `downtime_chars_delay` time
-        second between the writing of each character (by
-        default (",", ".", ":", ";", "!", "?")).
-        `word_by_word` method was not effected by this parameter.
-    downtime_chars_delay : optional
+    :param pos_x: x position of the dialog box in ``curses`` window
+        object on which methods will have effects.
+    :type pos_x: int
+
+    :param pos_y: y position of the dialog box in ``curses`` window
+        object on which methods will have effects.
+    :type pos_y: int
+
+    :param length: Length of the dialog box in ``curses`` window object
+        on which methods will have effects.
+    :type length: int
+
+    :param width: Width of the dialog box in ``curses`` window object on
+        which methods will have effects.
+    :type width: int
+
+    :param width: Width of the dialog box in the terminal.
+    :type width: Optional[int]
+
+    :param title: String that will be displayed in the upper left corner
+        of dialog box.
+        If title is an empty string, the title will not be displayed.
+        This defaults an empty string.
+    :type title: Optional[str]
+
+    :param title_colors_pair_nb:
+        Number of the curses color pair that will be used to color the
+        title. Zero corresponding to the pair of white color on black
+        background initialized by ``curses``).
+        This defaults to ``0``.
+    :type title_colors_pair_nb: Optional[int]
+
+    :param title_text_attributes:
+        Dialog box title text attributes. This defaults to a tuple
+        contains ``curses.A_BOLD``.
+    :type title_text_attrubutes: Optional[Union[Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
+
+    :param downtime_chars:
+        List of characters that will trigger a ``downtime_chars_delay``
+        time second between the writing of each character.
+        This defaults to ``(",", ".", ":", ";", "!", "?")``.
+    :type downtime_chars: Optional[Union[Tuple[str],List[str]]]
+
+    :param downtime_chars_delay:
         Waiting time in seconds after writing a character contained in
-        `downtime_chars` (by default 0.6).
-        `word_by_word` method was not effected by this parameter.
-    confirm_dialog_key
-        List of accepted key codes to skip dialog. `curses` constants are
-        supported.
-    panic_key
-        List of accepted key codes to raise PanicError. `curses` constants are
-        supported.
-
-    See also
-    --------
-    To see the list of key constants please refer to `curses` module
-    documentation (https://docs.python.org/3/library/curses.html?#constants).
+        ``downtime_chars``.
+        This defaults to ``0.6``.
+    :type downtime_chars_delay: Optional[Union[int,float]]
     """
+    #: List of accepted key codes to skip dialog. ``curses`` constants are supported. This defaults to an empty tuple.
     confirm_dialog_key: Union[Tuple[CursesKeyConstants],
-                              List[CursesKeyConstants]] = ()
+                          List[CursesKeyConstants]] = ()
+    #: List of accepted key codes to raise PanicError. ``curses`` constants are supported. This defaults to an empty tuple.
     panic_key: Union[Tuple[CursesKeyConstants], List[CursesKeyConstants]] = ()
 
     def __init__(
         self,
         pos_x: int,
         pos_y: int,
-        box_length: int,
-        box_width: int,
+        length: int,
+        width: int,
         title: str = "",
         title_colors_pair_nb: CursesTextAttributesConstants = 0,
         title_text_attributes: Union[Tuple[CursesTextAttributesConstants],
@@ -101,106 +111,86 @@ class TextBox:
                               List[str]] = (",", ".", ":", ";", "!", "?"),
         downtime_chars_delay: Union[int, float] = .6):
         self.pos_x, self.pos_y = pos_x, pos_y
-        self.box_length, self.box_width = box_length, box_width
+        self.length, self.width = length, width
 
         # Compensation for the left border of the dialog box.
         self.text_pos_x = pos_x + 2
         # Compensation for the upper border of the dialog box.
         self.text_pos_y = pos_y + 3
 
-        self.nb_char_max_line = box_length - 4
-        self.nb_lines_max = box_width - 2
+        self.nb_char_max_line = length - 4
+        self.nb_lines_max = width - 2
 
         self.title = title
         if self.title:
             self.title_colors = curses.color_pair(title_colors_pair_nb)
             self.title_text_attributes = title_text_attributes
 
-        self.end_dialog_indicator_pos_x = pos_x + box_length - 2
-        self.end_dialog_indicator_pos_y = pos_y + box_width + 1
+        self.end_dialog_indicator_pos_x = pos_x + length - 2
+        self.end_dialog_indicator_pos_y = pos_y + width + 1
 
         self.downtime_chars = downtime_chars
         self.downtime_chars_delay = downtime_chars_delay
 
     @property
     def position(self) -> Tuple[int, int]:
-        """Returns a tuple contains x;y position.
+        """Returns a tuple contains x;y position of ``TextBox``.
 
-        Returns
-        -------
-        position
-            x;y position of TextBox.
+        :returns: x;y position of ``TextBox``.
+        :rtype: Tuple[int, int]
         """
         return self.text_pos_x - 2, self.text_pos_y - 3
 
     @property
     def dimensions(self) -> Tuple[int, int]:
-        """Returns a tuple contains dimensions of dialog box.
+        """Returns a tuple contains dimensions of ``TextBox``.
 
-        Returns
-        -------
-        dimension
-            TextBox length and width.
+        :returns: Length and width of ``TextBox``.
+        :rtype: Tuple[int, int]
         """
-        return self.box_length, self.box_width
+        return self.length, self.width
 
     def framing_box(self, stdscr):
         """Displays dialog box borders and his title.
-        If attribute self.title is empty doesn't display the title.
 
-        Parameters
-        ----------
-        stdscr
-            `curses` window object on which the method will have effect.
+        If attribute ``self.title`` is empty doesn't display the title.
 
-        Returns
-        -------
-        None.
+        :param stdscr: ``curses`` window object on which the method will
+            have effect.
         """
-        title_box_length = len(self.title) + 4
-        title_box_width = 2
+        title_length = len(self.title) + 4
+        title_width = 2
 
         # Displays the title and the title box.
         if self.title:
             attr = (self.title_colors, *self.title_text_attributes)
 
             curses.textpad.rectangle(stdscr, self.pos_y, self.pos_x + 1,
-                                     self.pos_y + title_box_width,
-                                     self.pos_x + title_box_length)
+                                     self.pos_y + title_width,
+                                     self.pos_x + title_length)
 
             with TextAttributes(stdscr, *attr):
                 stdscr.addstr(self.pos_y + 1, self.pos_x + 3, self.title)
 
         # Displays the borders of the dialog box.
         curses.textpad.rectangle(stdscr, self.pos_y + 2, self.pos_x,
-                                 self.pos_y + 2 + self.box_width,
-                                 self.pos_x + self.box_length)
+                                 self.pos_y + 2 + self.width,
+                                 self.pos_x + self.length)
 
     def getkey(self, stdscr):
         """Blocks execution as long as a key contained in
-        `self.confirm_dialog_key` is not detected.
+        ``self.confirm_dialog_key`` is not detected.
 
-        Parameters
-        ----------
-        stdscr
-            `curses` window object on which the method will have effect.
 
-        Returns
-        -------
-        None.
+        :param stdscr: ``curses`` window object on which the method will
+            have effect.
+        :raises PanicError: If a key contained in ``self.panic_key`` is
+            pressed.
 
-        Raises
-        ------
-        PanicError
-            If a key contained in self.panic_key is pressed.
-
-        See also
-        --------
-            - To see the list of key constants please refer to `curses` module
-            documentation
-            (https://docs.python.org/3/library/curses.html?#constants).
-            - Documentation of `window.getch` method from `curses` module
-            (https://docs.python.org/3/library/curses.html?#curses.window.getch).
+        .. NOTE::
+            - To see the list of key constants please refer to
+              `this curses documentation <https://docs.python.org/3/library/curses.html?#constants>`_.
+            - This method uses ``window.getch`` method from ``curses`` module. Please refer to `curses documentation <https://docs.python.org/3/library/curses.html?#curses.window.getch>`_ for more informations.
         """
         while 1:
             key = stdscr.getch()

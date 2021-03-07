@@ -21,7 +21,7 @@ When you make a pull request make sure to:
 
 * Test your code with `Python3.6` to be sure not to break compatability.
 * Format your code according [PEP 8](https://www.python.org/dev/peps/pep-0008/). [PEP8 Check](https://github.com/quentinguidee/actions-pep8) will ensure that your code is correctly formatted .
-* Document your code following [Numpy documentation conventions](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard) if you add new functionality.
+* Document your code with [reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html) if you add new functionality.
 
 If you add a feature that changes the API, notify it explicitly.
 
@@ -56,15 +56,20 @@ The following snippet describes Visual-dialog's repository structure.
 ├── doc/
 │   Contains the files related to the documentation.
 │   │
-│   ├── examples/
-│   │   Contains several examples of use cases of Visual-dialog.
+│   ├── images/
+│   │    Contains images used in documentation.
 │   │
-│   ├── generate-documentation.sh
-│   │   A script to generate documentation of public API from the source code.
-│   │   Produces two files: visualdialog-documentation.txt and visualdialog.core.html
+│   ├── conf.py
+│   │   Sphinx's configuration file.
 │   │
-│   └── tutorial.md
-│       A tutorial to learn how to use Visual-dialog.
+│   ├── index.rst
+│   │   Documentation home page.
+│   │
+│   └── visualdialog.rst
+│         Documentation of all the public classes and methods in Visual-dialog.
+│
+├── examples/
+│    Contains several examples of use cases of Visual-dialog.
 │
 ├── tests/
 │   Contains tests for debugging libraries.
@@ -90,11 +95,17 @@ The following snippet describes Visual-dialog's repository structure.
 ├── CONTRIBUTING.md
 │   This document.
 │
+├── make.bat
+│   To generate documentation on Windows.
+│
+├── Makefile
+│   To generate documentation on GNU/Linux or MacOS.
+│
 ├── MANIFEST.in
 │   Contains list of non Python file.
 │
 ├── README.md
 │
 └── setup.py
-    Installation of the library.
+   Installation of the library.
 ```
