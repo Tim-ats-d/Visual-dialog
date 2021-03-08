@@ -45,7 +45,7 @@ python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog --upgrade
 ```
 
 ### Requirements
-* **Python 3.6** or more.
+* **Python 3.7** or more.
 * [**Sphinx**](https://www.sphinx-doc.org/en/master/usage/installation.html) to generate the documentation of library.
 * [`curses`](https://docs.python.org/3/library/curses.html) Python module (available in standard library of Python on **UNIX**).
 * Knowledge of [`curses`](https://docs.python.org/3/library/curses.html) librairie.

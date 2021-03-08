@@ -14,5 +14,5 @@ See this explanations to install ``curses`` on **Windows** (untested).
 Other requirements
 ------------------
 
-- **Python 3.6** or more.
+- **Python 3.7** or more.
 - `Sphinx <https://www.sphinx-doc.org/en/master/usage/installation.html>`_ to generate the documentation of library.
