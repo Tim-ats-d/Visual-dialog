@@ -27,11 +27,11 @@ import textwrap
 import time
 from typing import Callable, Dict, Generator, List, NewType, Tuple, Union
 
-import box
-from utils import CursesTextAttributesConstants, TextAttributes, _make_chunk
+from .box import TextBox
+from .utils import CursesTextAttributesConstants, TextAttributes, _make_chunk
 
 
-class DialogBox(box.TextBox):
+class DialogBox(TextBox):
     """This class provides methods and attributs to manage a dialog box.
 
     :param end_dialog_indicator:

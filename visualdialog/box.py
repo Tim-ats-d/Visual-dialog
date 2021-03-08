@@ -25,7 +25,7 @@ import curses
 import curses.textpad
 from typing import List, NewType, Tuple, Union
 
-from utils import (CursesKeyConstants, CursesTextAttributesConstants,
+from .utils import (CursesKeyConstants, CursesTextAttributesConstants,
                    TextAttributes)
 
 

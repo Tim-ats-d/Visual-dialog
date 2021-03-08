@@ -1,10 +1,4 @@
 <p align="center">
-    <img width="300" src="https://user-images.githubusercontent.com/59396366/100594532-188c6900-32fa-11eb-8372-4796f53b122f.png" alt="Visual-dialog">
-    <br><br>
-    Library to make easier dialog box in terminal.
-</p>
-
-<p align="center">
   <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
   <a href="#documentation">Documentation</a> •
@@ -13,9 +7,11 @@
   <a href="#license">License</a>
 </p>
 
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/59396366/100640592-e3523c00-3336-11eb-8793-19a0543be8d0.gif" alt="Demo">
-</div>
+<p align="center">
+    Library to make easier dialog box in terminal.
+    <br><br>
+    <img width="300" src="https://user-images.githubusercontent.com/59396366/100594532-188c6900-32fa-11eb-8372-4796f53b122f.png" alt="Visual-dialog">
+</p>
 
 This library is still under development.
 API can change.
@@ -28,12 +24,11 @@ API can change.
 
 ⚙️ Hackable and configurable .
 
-
 ## Installation
 
 ### Using pip
 
-Install Visual-dialog using `pip` (The lib is not yet available on **pypy**):
+Install Visual-dialog using `pip` (The lib is not yet available on **pypi**):
 
 ```sh
 python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog
@@ -42,6 +37,14 @@ or update lib to the latest version:
 
 ```sh
 python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog --upgrade
+```
+
+### From source
+
+```sh
+git clone https://github.com/Tim-ats-d/Visual-dialog.git
+cd Visual-dialog
+pip install .
 ```
 
 ### Requirements

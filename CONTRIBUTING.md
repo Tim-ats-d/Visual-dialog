@@ -5,8 +5,9 @@
 
 You need:
 
-* `Python3.7`: you can install it by following [Python3's documentation](https://www.python.org/downloads/).
+* `Python 3.7`: you can install it by following [Python3's documentation](https://www.python.org/downloads/).
 * `curses`: available in standard library of `Python` but it doesn't work out-of-the-box on `Windows`. See [this](https://www.devdungeon.com/content/curses-windows-python) explanations to install `curses` on Windows.
+* [`Sphinx`](https://www.sphinx-doc.org/en/master/usage/installation.html): to generate documentation.
 
 ## Branches
 
@@ -29,18 +30,17 @@ If you add a feature that changes the API, notify it explicitly.
 ## Download
 
 Download the `dev` branch of the project:
-```bash
+```sh
 git clone -b dev https://github.com/Tim-ats-d/Visual-dialog.git
 ```
 
-Install Visual-dialog using `pip` (The lib is not yet available on **pypy**):
-
-```bash
+Install Visual-dialog using `pip` (The lib is not yet available on **pypi**):
+```sh
 python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog
 ```
 or update lib to the latest version:
 
-```bash
+```sh
 python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog --upgrade
 ```
 The list of versions and their changelogs can be found [here](https://github.com/Tim-ats-d/Visual-dialog/releases/).
