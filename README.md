@@ -9,9 +9,9 @@
 </p>
 
 <p align="center">
-    Library to make easier dialog box in terminal.
-    <br><br>
     <img width="300" src="https://user-images.githubusercontent.com/59396366/100594532-188c6900-32fa-11eb-8372-4796f53b122f.png" alt="Visual-dialog">
+    <br><br>
+    Library to make easier dialog box in terminal.
 </p>
 
 This library is still under development.
