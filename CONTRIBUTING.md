@@ -3,11 +3,7 @@
 
 ## Setup your development environment
 
-You need:
-
-* `Python 3.7`: you can install it by following [Python3's documentation](https://www.python.org/downloads/).
-* `curses`: available in standard library of `Python` but it doesn't work out-of-the-box on `Windows`. See [this](https://www.devdungeon.com/content/curses-windows-python) explanations to install `curses` on Windows.
-* [`Sphinx`](https://www.sphinx-doc.org/en/master/usage/installation.html): to generate documentation.
+You need [all requirements](README#requirements).
 
 ## Branches
 
@@ -57,25 +53,32 @@ The following snippet describes Visual-dialog's repository structure.
 ├── doc/
 │   Contains the files related to the documentation.
 │   │
-│   ├── images/
-│   │    Contains images used in documentation.
+│   ├── source/
+│   │   Contains images used in documentation.
+│   │   │
+│   │   ├── images/
+│   │   │   Contains images used in documentation.
+│   │   │
+│   │   ├── conf.py
+│   │   │   Sphinx's configuration file.
+│   │   │
+│   │   ├── index.rst
+│   │   │   Documentation home page.
+│   │   │
+│   │   └── visualdialog.rst
+│   │       Documentation of all the public classes and methods in Visual-dialog.
 │   │
-│   ├── conf.py
-│   │   Sphinx's configuration file.
+│   ├── make.bat
+│   │   To generate documentation on Windows.
 │   │
-│   ├── index.rst
-│   │   Documentation home page.
-│   │
-│   └── visualdialog.rst
-│         Documentation of all the public classes and methods in Visual-dialog.
+│   └── Makefile
+│       To generate documentation on GNU/Linux or MacOS.
 │
 ├── examples/
-│    Contains several examples of use cases of Visual-dialog.
+│   Contains several examples of use cases of Visual-dialog.
 │
 ├── tests/
 │   Contains tests for debugging libraries.
-│   │
-│   └── test.py
 │
 ├── visualdialog/
 │   Source for Visual-dialog's library.
@@ -95,12 +98,6 @@ The following snippet describes Visual-dialog's repository structure.
 │
 ├── CONTRIBUTING.md
 │   This document.
-│
-├── make.bat
-│   To generate documentation on Windows.
-│
-├── Makefile
-│   To generate documentation on GNU/Linux or MacOS.
 │
 ├── MANIFEST.in
 │   Contains list of non Python file.

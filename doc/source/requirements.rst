@@ -16,3 +16,4 @@ Other requirements
 
 - **Python 3.7** or more.
 - `Sphinx <https://www.sphinx-doc.org/en/master/usage/installation.html>`_ to generate the documentation of library.
+* `sphinx-rtd-theme <https://pypi.org/project/sphinx-rtd-theme/>`_ used as documentation theme.

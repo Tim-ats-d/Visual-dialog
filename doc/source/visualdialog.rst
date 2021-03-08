@@ -10,7 +10,7 @@ Text box
 
     Two **classes** are defined in these modules but only ``DialogBox`` is destined to be instantiated.
 
-.. automodule:: box
+.. automodule:: visualdialog.box
     :members:
-.. automodule:: dialog
+.. automodule:: visualdialog.dialog
     :members:

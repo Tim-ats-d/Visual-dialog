@@ -1,6 +1,7 @@
 <p align="center">
   <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
+  <a href="#requirements">Requirements</a> •
   <a href="#documentation">Documentation</a> •
   <a href="#quick-start">Quick start</a> •
   <a href="#contributing">Contributing</a> •
@@ -47,11 +48,18 @@ cd Visual-dialog
 pip install .
 ```
 
-### Requirements
-* **Python 3.7** or more.
+## Requirements
+
+#### Curses
+
+**Visual-dialog** works with `curses` Python module. It is available in the standard **Python** library on **UNIX** but it doesn’t work out-of-the-box on **Windows**.
+
+See [this explanations](https://www.devdungeon.com/content/curses-windows-python) to install `curses` on **Windows** (untested).
+
+#### Other requirements
+* [**Python 3.7**](https://www.python.org/downloads/) or more.
 * [**Sphinx**](https://www.sphinx-doc.org/en/master/usage/installation.html) to generate the documentation of library.
-* [`curses`](https://docs.python.org/3/library/curses.html) Python module (available in standard library of Python on **UNIX**).
-* Knowledge of [`curses`](https://docs.python.org/3/library/curses.html) librairie.
+* [**sphinx-rtd-theme**](https://pypi.org/project/sphinx-rtd-theme/) used as documentation theme.
 
 ## Quick-start
 
@@ -65,17 +73,17 @@ Visualdialog's documentation is automatically generated from the source code by 
 To build it on **GNU/Linux** or **MacOS**:
 ```sh
 git clone https://github.com/Tim-ats-d/Visual-dialog.git
-cd Visual-dialog
+cd Visual-dialog/doc
 make html
 ```
 Or on **Windows** with **Git Bash**:
 ```sh
 git clone https://github.com/Tim-ats-d/Visual-dialog.git
-cd Visual-dialog
+cd Visual-dialog/doc
 ./make.bat html
 ```
 
-Once generated, the result will be in the `build/html/` folder.
+Once generated, the result will be in the `doc/build/html/` folder.
 
 ## Contributing
 
