@@ -14,6 +14,7 @@ You need:
 * `dev` : beta releases.
 
 To fix a minor problem or add new features create a new branch in this form: `username-dev`.
+Please push on the `dev` branch, any pull request on the `main` branch will be refused.
 
 ## Conventions
 
@@ -27,9 +28,9 @@ If you add a feature that changes the API, notify it explicitly.
 
 ## Download
 
-Download projet:
+Download the `dev` branch of the project:
 ```bash
-git clone https://github.com/Tim-ats-d/Visual-dialog
+git clone -b dev https://github.com/Tim-ats-d/Visual-dialog.git
 ```
 
 Install Visual-dialog using `pip` (The lib is not yet available on **pypy**):
