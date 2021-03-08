@@ -1,3 +1,4 @@
+
 <p align="center">
   <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
@@ -9,13 +10,13 @@
 </p>
 
 <p align="center">
-    <img width="300" src="https://user-images.githubusercontent.com/59396366/100594532-188c6900-32fa-11eb-8372-4796f53b122f.png" alt="Visual-dialog">
-    <br><br>
-    Library to make easier dialog box in terminal.
+  <img width="300" src="https://user-images.githubusercontent.com/59396366/100594532-188c6900-32fa-11eb-8372-4796f53b122f.png" alt="Visual-dialog">
+  <br>
+  Library to make easier dialog box in terminal.
+  <br>
+  This library is still under development.
+  API can change.
 </p>
-
-This library is still under development.
-API can change.
 
 ## Features
 

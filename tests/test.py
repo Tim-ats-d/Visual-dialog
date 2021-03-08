@@ -4,9 +4,7 @@
 
 import curses
 
-
-__import__("sys").path.append("../visualdialog")
-from dialog import DialogBox
+from visualdialog import DialogBox
 
 
 def main(stdscr):
@@ -55,6 +53,8 @@ def main(stdscr):
                              # ~ words_attr=special_words)
 
 
-
 if __name__ == "__main__":
     curses.wrapper(main)
+
+
+

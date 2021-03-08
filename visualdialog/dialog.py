@@ -25,7 +25,8 @@ import curses
 import random
 import textwrap
 import time
-from typing import Callable, Dict, Generator, List, NewType, Tuple, Union
+from typing import (Callable, Dict, Generator, List, NewType, Optional,
+                    Tuple, Union)
 
 from .box import TextBox
 from .utils import CursesTextAttributesConstants, TextAttributes, _make_chunk
@@ -58,13 +59,15 @@ class DialogBox(TextBox):
         width: int,
         title: str = "",
         title_colors_pair_nb: CursesTextAttributesConstants = 0,
-        title_text_attributes: Tuple[CursesTextAttributesConstants] = (
-            curses.A_BOLD, ),
-        downtime_chars: Tuple[str] = (",", ".", ":", ";", "!", "?"),
-        downtime_chars_delay: Union[int, float] = 0.6,
+        title_text_attr: Union[CursesTextAttributesConstants,
+                               Tuple[CursesTextAttributesConstants],
+                               List[CursesTextAttributesConstants]] = curses.A_BOLD,
+        downtime_chars: Union[Tuple[str],
+                              List[str]] = (",", ".", ":", ";", "!", "?"),
+        downtime_chars_delay: Union[int, float] = .6,
         end_dialog_indicator: str = "►"):
         super().__init__(pos_x, pos_y, length, width, title,
-                         title_colors_pair_nb, title_text_attributes,
+                         title_colors_pair_nb, title_text_attr,
                          downtime_chars, downtime_chars_delay)
 
         self.end_dialog_indicator_char = end_dialog_indicator
@@ -78,7 +81,7 @@ class DialogBox(TextBox):
     def _display_end_dialog_indicator(
         self,
         stdscr,
-        text_attributes: Tuple[CursesTextAttributesConstants] = (
+        text_attr: Optional[Union[Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]] = (
             curses.A_BOLD, curses.A_BLINK)):
         """Displays an end of dialog indicator in the lower right corner
         of textbox.
@@ -86,13 +89,13 @@ class DialogBox(TextBox):
         :param stdscr: ``curses`` window object on which the method
             will have effect.
 
-        :param text_attributes: Text attributes of
+        :param text_attr: Text attributes of
             ``end_dialog_indicator`` method. This defaults to
             ``(curses.A_BOLD, curses.A_BLINK)``.
-        :type text_attributes: Optional[Tuple[CursesTextAttributesConstants]]
+        :type text_attr: Optional[Union[Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
         """
         if self.end_dialog_indicator_char:
-            with TextAttributes(stdscr, *text_attributes):
+            with TextAttributes(stdscr, *text_attr):
                 stdscr.addch(self.end_dialog_indicator_pos_y,
                              self.end_dialog_indicator_pos_x,
                              self.end_dialog_indicator_char)
@@ -102,7 +105,8 @@ class DialogBox(TextBox):
         stdscr,
         text: str,
         colors_pair_nb: int = 0,
-        text_attr: Union[Tuple[CursesTextAttributesConstants],
+        text_attr: Union[CursesTextAttributesConstants,
+                         Tuple[CursesTextAttributesConstants],
                          List[CursesTextAttributesConstants]] = (),
         words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstants],
                           Dict[Tuple[str],
@@ -132,7 +136,7 @@ class DialogBox(TextBox):
 
         :param text_attr: Dialog box curses text attributes. This
             defaults an empty tuple.
-        :type text_attr: Optional[Union[Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
+        :type text_attr: Optional[Union[CursesTextAttributesConstants,Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
 
         :param words_attr: TODO
         :type words_atttr: TODO
@@ -206,10 +210,13 @@ class DialogBox(TextBox):
                     if word in words_attr.keys():
                         attr = words_attr[word]
 
-                        # Test if only one argument is passed.
+                        # Test if only one argument is passed instead of a tuple.
                         if isinstance(attr, int):
                             attr = (attr, )
                     else:
+                        if isinstance(text_attr, int):
+                            text_attr = (text_attr, )
+
                         attr = (curses.color_pair(colors_pair_nb), *text_attr)
 
                     with TextAttributes(stdscr, *attr):
@@ -243,7 +250,8 @@ class DialogBox(TextBox):
         text: str,
         colors_pair_nb: int,
         cut_char: str = " ",
-        text_attr: Union[Tuple[CursesTextAttributesConstants],
+        text_attr: Union[CursesTextAttributesConstants,
+                         Tuple[CursesTextAttributesConstants],
                          List[CursesTextAttributesConstants]] = (),
         words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstants],
                           Dict[Tuple[str],
@@ -273,7 +281,7 @@ class DialogBox(TextBox):
 
         :param text_attr: Dialog box curses text attributes. This
             defaults an empty tuple.
-        :type text_attr: Optional[Union[Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
+        :type text_attr: Optional[Union[CursesTextAttributesConstants,Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
 
         :param words_attr: TODO
         :type words_atttr: TODO
@@ -350,9 +358,16 @@ class DialogBox(TextBox):
             for y, line in enumerate(paragraph):
                 offsetting_x = 0
                 for word in line.split(cut_char):
-                    if word in words_attr:
+                    if word in words_attr.keys():
                         attr = words_attr[word]
+
+                        # Test if only one argument is passed instead of a tuple.
+                        if isinstance(text_attr, int):
+                            text_attr = (text_attr, )
                     else:
+                        if isinstance(text_attr, int):
+                            text_attr = (text_attr, )
+
                         attr = (curses.color_pair(colors_pair_nb), *text_attr)
 
                     with TextAttributes(stdscr, *attr):

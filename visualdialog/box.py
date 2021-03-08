@@ -69,14 +69,13 @@ class TextBox:
     :param title_colors_pair_nb:
         Number of the curses color pair that will be used to color the
         title. Zero corresponding to the pair of white color on black
-        background initialized by ``curses``).
-        This defaults to ``0``.
+        background initialized by ``curses``). This defaults to ``0``.
     :type title_colors_pair_nb: Optional[int]
 
-    :param title_text_attributes:
-        Dialog box title text attributes. This defaults to a tuple
-        contains ``curses.A_BOLD``.
-    :type title_text_attrubutes: Optional[Union[Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
+    :param title_text_attr:
+        Dialog box title text attributes. This defaults to
+        ``curses.A_BOLD``.
+    :type title_text_attr: Optional[Union[CursesTextAttributesConstants,Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
 
     :param downtime_chars:
         List of characters that will trigger a ``downtime_chars_delay``
@@ -104,9 +103,9 @@ class TextBox:
         width: int,
         title: str = "",
         title_colors_pair_nb: CursesTextAttributesConstants = 0,
-        title_text_attributes: Union[Tuple[CursesTextAttributesConstants],
-                                     List[CursesTextAttributesConstants]] = (
-                                         curses.A_BOLD, ),
+        title_text_attr: Union[CursesTextAttributesConstants,
+                               Tuple[CursesTextAttributesConstants],
+                               List[CursesTextAttributesConstants]] = curses.A_BOLD,
         downtime_chars: Union[Tuple[str],
                               List[str]] = (",", ".", ":", ";", "!", "?"),
         downtime_chars_delay: Union[int, float] = .6):
@@ -124,7 +123,12 @@ class TextBox:
         self.title = title
         if self.title:
             self.title_colors = curses.color_pair(title_colors_pair_nb)
-            self.title_text_attributes = title_text_attributes
+
+            # Test if only one argument is passed instead of a tuple
+            if isinstance(title_text_attr, int):
+                self.title_text_attr = (title_text_attr, )
+            else:
+                self.title_text_attr = title_text_attr
 
         self.end_dialog_indicator_pos_x = pos_x + length - 2
         self.end_dialog_indicator_pos_y = pos_y + width + 1
@@ -163,7 +167,7 @@ class TextBox:
 
         # Displays the title and the title box.
         if self.title:
-            attr = (self.title_colors, *self.title_text_attributes)
+            attr = (self.title_colors, *self.title_text_attr)
 
             curses.textpad.rectangle(stdscr, self.pos_y, self.pos_x + 1,
                                      self.pos_y + title_width,
