@@ -51,13 +51,13 @@ pip install .
 
 ## Requirements
 
-#### Curses
+### Curses
 
 **Visual-dialog** works with `curses` Python module. It is available in the standard **Python** library on **UNIX** but it doesn’t work out-of-the-box on **Windows**.
 
 See [this explanations](https://www.devdungeon.com/content/curses-windows-python) to install `curses` on **Windows** (untested).
 
-#### Other requirements
+### Other requirements
 * [**Python 3.7**](https://www.python.org/downloads/) or more.
 * [**Sphinx**](https://www.sphinx-doc.org/en/master/usage/installation.html) to generate the documentation of library.
 * [**sphinx-rtd-theme**](https://pypi.org/project/sphinx-rtd-theme/) used as documentation theme.
@@ -95,7 +95,7 @@ You can also help by reporting bugs.
 
 ## License
 
-Distributed under the **GPL-2.0 License** . See [License](LICENSE) for more information.
+Distributed under the **GPL-2.0 License** . See [license](LICENSE) for more information.
 
 
 ## Acknowledgements

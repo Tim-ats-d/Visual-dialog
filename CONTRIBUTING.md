@@ -25,19 +25,11 @@ If you add a feature that changes the API, notify it explicitly.
 
 ## Download
 
-Download the `dev` branch of the project:
+Download the `dev` branch of the project and install dev release:
 ```sh
 git clone -b dev https://github.com/Tim-ats-d/Visual-dialog.git
-```
-
-Install Visual-dialog using `pip` (The lib is not yet available on **pypi**):
-```sh
-python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog
-```
-or update lib to the latest version:
-
-```sh
-python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog --upgrade
+cd Visual-dialog
+pip install .
 ```
 The list of versions and their changelogs can be found [here](https://github.com/Tim-ats-d/Visual-dialog/releases/).
 
