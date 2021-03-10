@@ -24,7 +24,7 @@
 
 🔖 Text coloring and formatting.
 
-⚙️ Hackable and configurable .
+⚙️ Hackable and configurable.
 
 ## Installation
 
