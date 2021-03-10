@@ -5,6 +5,7 @@
 import curses
 
 from visualdialog import DialogBox
+import visualdialog
 
 
 def main(stdscr):
@@ -22,9 +23,9 @@ def main(stdscr):
     curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK)
 
-    textbox = DialogBox(20, 15,
+    textbox = DialogBox(0, 0,
                         40, 6,
-                        title="Tim-ats-d",
+                        # ~ title="Tim-ats-d",
                         title_colors_pair_nb=3,
                         end_dialog_indicator="o")
 
@@ -37,19 +38,15 @@ def main(stdscr):
     }
 
     def func(text: str):
-        stdscr.addstr(0, 0, text)
+        stdscr.addstr(0, 0, str(visualdialog.__version__))
 
 
     for reply in text:
         textbox.char_by_char(stdscr,
                              reply,
                              cargs=(reply, ),
-                             callback=func,
-                             text_attr=(curses.A_ITALIC, curses.A_BOLD),
-                             words_attr=special_words)
-        # ~ textbox.word_by_word(stdscr,
-                             # ~ reply,
-                             # ~ 2,
+                             callback=func)
+                             # ~ text_attr=(curses.A_ITALIC, curses.A_BOLD),
                              # ~ words_attr=special_words)
 
 

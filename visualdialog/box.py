@@ -93,7 +93,8 @@ class TextBox:
     confirm_dialog_key: Union[Tuple[CursesKeyConstants],
                           List[CursesKeyConstants]] = ()
     #: List of accepted key codes to raise PanicError. ``curses`` constants are supported. This defaults to an empty tuple.
-    panic_key: Union[Tuple[CursesKeyConstants], List[CursesKeyConstants]] = ()
+    panic_key: Union[Tuple[CursesKeyConstants],
+                     List[CursesKeyConstants]] = ()
 
     def __init__(
         self,
@@ -112,16 +113,18 @@ class TextBox:
         self.pos_x, self.pos_y = pos_x, pos_y
         self.length, self.width = length, width
 
+        self.title_offsetting_y = 2 if title else 0
+
         # Compensation for the left border of the dialog box.
         self.text_pos_x = pos_x + 2
         # Compensation for the upper border of the dialog box.
-        self.text_pos_y = pos_y + 3
+        self.text_pos_y = pos_y + self.title_offsetting_y + 1
 
         self.nb_char_max_line = length - 4
         self.nb_lines_max = width - 2
 
         self.title = title
-        if self.title:
+        if title:
             self.title_colors = curses.color_pair(title_colors_pair_nb)
 
             # Test if only one argument is passed instead of a tuple
@@ -129,9 +132,6 @@ class TextBox:
                 self.title_text_attr = (title_text_attr, )
             else:
                 self.title_text_attr = title_text_attr
-
-        self.end_dialog_indicator_pos_x = pos_x + length - 2
-        self.end_dialog_indicator_pos_y = pos_y + width + 1
 
         self.downtime_chars = downtime_chars
         self.downtime_chars_delay = downtime_chars_delay
@@ -169,16 +169,22 @@ class TextBox:
         if self.title:
             attr = (self.title_colors, *self.title_text_attr)
 
-            curses.textpad.rectangle(stdscr, self.pos_y, self.pos_x + 1,
+            curses.textpad.rectangle(stdscr,
+                                     self.pos_y,
+                                     self.pos_x + 1,
                                      self.pos_y + title_width,
                                      self.pos_x + title_length)
 
             with TextAttributes(stdscr, *attr):
-                stdscr.addstr(self.pos_y + 1, self.pos_x + 3, self.title)
+                stdscr.addstr(self.pos_y + 1,
+                              self.pos_x + 3,
+                              self.title)
 
         # Displays the borders of the dialog box.
-        curses.textpad.rectangle(stdscr, self.pos_y + 2, self.pos_x,
-                                 self.pos_y + 2 + self.width,
+        curses.textpad.rectangle(stdscr,
+                                 self.pos_y + self.title_offsetting_y,
+                                 self.pos_x,
+                                 self.pos_y + self.title_offsetting_y + self.width,
                                  self.pos_x + self.length)
 
     def getkey(self, stdscr):
@@ -196,6 +202,7 @@ class TextBox:
               `this curses documentation <https://docs.python.org/3/library/curses.html?#constants>`_.
             - This method uses ``window.getch`` method from ``curses`` module. Please refer to `curses documentation <https://docs.python.org/3/library/curses.html?#curses.window.getch>`_ for more informations.
         """
+        curses.raw()
         while 1:
             key = stdscr.getch()
 

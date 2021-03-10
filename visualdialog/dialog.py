@@ -72,6 +72,13 @@ class DialogBox(TextBox):
 
         self.end_dialog_indicator_char = end_dialog_indicator
 
+        self.end_dialog_indicator_pos_x = pos_x + length - 2
+
+        if title:
+            self.end_dialog_indicator_pos_y = pos_y + width + 1
+        else:
+            self.end_dialog_indicator_pos_y = pos_y + width - 1
+
     def __enter__(self):
         return self
 
