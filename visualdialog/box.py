@@ -202,7 +202,6 @@ class TextBox:
               `this curses documentation <https://docs.python.org/3/library/curses.html?#constants>`_.
             - This method uses ``window.getch`` method from ``curses`` module. Please refer to `curses documentation <https://docs.python.org/3/library/curses.html?#curses.window.getch>`_ for more informations.
         """
-        curses.raw()
         while 1:
             key = stdscr.getch()
 
