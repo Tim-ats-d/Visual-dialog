@@ -64,9 +64,7 @@ See [this explanations](https://www.devdungeon.com/content/curses-windows-python
 
 ## Quick-start
 
-Coming soon.
-
-Read these [examples](examples/).
+Various examples showing the capabilities of **Visual-dialog** can be found in  [examples](examples/).
 
 ## Documentation
 

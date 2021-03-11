@@ -7,6 +7,11 @@ import curses
 from visualdialog import DialogBox
 
 
+# Definition of curses key constants.
+# 10 and 32 correspond to enter and space keys.
+ENTER_KEY = 10
+SPACE_KEY = 32
+
 def main(stdscr):
     replys = (
         "Hello world",
@@ -30,9 +35,7 @@ def main(stdscr):
         title_colors_pair_nb=1)  # Curses color_pair used to colored title.
 
     # Definition of accepted key codes to pass a dialog.
-    # See documentation of the curses constants for more informations.
-    # 10 and 32 correspond to curses constants of the enter and space keys.
-    textbox.confirm_dialog_key = (10, 32)
+    textbox.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
 
     # We iterate on each sentence contained in replys.
     for reply in replys:

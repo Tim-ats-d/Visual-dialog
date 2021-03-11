@@ -7,6 +7,11 @@ import curses
 from visualdialog import DialogBox
 
 
+# Definition of curses key constants.
+# 10 and 32 correspond to enter and space keys.
+ENTER_KEY = 10
+SPACE_KEY = 32
+
 def main(stdscr):
     # Makes the cursor invisible.
     curses.curs_set(0)
@@ -43,11 +48,9 @@ def main(stdscr):
                                 title_colors_pair_nb=3)
 
     # Definition of accepted key codes to pass a dialog.
-    # See documentation of curses constants for more informations.
-    # 10 and 32 correspond to curses constants of the enter and space keys.
-    phoenix_wright.confirm_dialog_key = (10, 32)
-    april_may.confirm_dialog_key = (10, 32)
-    miles_edgeworth.confirm_dialog_key = (10, 32)
+    phoenix_wright.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
+    april_may.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
+    miles_edgeworth.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
 
     phoenix_wright.char_by_char(stdscr,
         "This testimony is a pure invention !",

@@ -30,8 +30,12 @@ from .utils import (CursesKeyConstants, CursesTextAttributesConstants,
 
 
 class PanicError(Exception):
+
+    def __init__(self, key: int):
+        self.key = key
+
     def __str__(self):
-        return "text box was aborted"
+        return f"text box was aborted by pressing the {self.key} key"
 
 
 class TextBox:
@@ -199,8 +203,12 @@ class TextBox:
 
         .. NOTE::
             - To see the list of key constants please refer to
-              `this curses documentation <https://docs.python.org/3/library/curses.html?#constants>`_.
-            - This method uses ``window.getch`` method from ``curses`` module. Please refer to `curses documentation <https://docs.python.org/3/library/curses.html?#curses.window.getch>`_ for more informations.
+              `this curses documentation
+              <https://docs.python.org/3/library/curses.html?#constants>`_.
+            - This method uses ``window.getch`` method from ``curses``
+              module. Please refer to `curses documentation
+              <https://docs.python.org/3/library/curses.html?#curses.window.getch>`_
+              for more informations.
         """
         while 1:
             key = stdscr.getch()
@@ -208,7 +216,10 @@ class TextBox:
             if key in self.confirm_dialog_key:
                 break
             elif key in self.panic_key:
-                raise PanicError
+                raise PanicError(key)
             else:
                 # Ignore incorrect keys.
                 ...
+
+
+

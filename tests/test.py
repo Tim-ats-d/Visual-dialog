@@ -29,8 +29,8 @@ def main(stdscr):
                         title_colors_pair_nb=3,
                         end_dialog_indicator="o")
 
-    textbox.confirm_dialog_key = (32, 10)
-    # ~ textbox.panic_key = (32, )
+    textbox.confirm_dialog_key = (32, )
+    textbox.panic_key = (10, )
 
     special_words = {
         "test": (curses.A_BOLD, curses.A_ITALIC),
@@ -39,7 +39,6 @@ def main(stdscr):
 
     def func(text: str):
         stdscr.addstr(0, 0, str(visualdialog.__version__))
-
 
     for reply in text:
         textbox.char_by_char(stdscr,

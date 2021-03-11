@@ -7,6 +7,11 @@ import curses
 from visualdialog import DialogBox
 
 
+# Definition of curses key constants.
+# 10 and 32 correspond to enter and space keys.
+ENTER_KEY = 10
+SPACE_KEY = 32
+
 def main(stdscr):
     # Makes the cursor invisible.
     curses.curs_set(0)
@@ -21,7 +26,7 @@ def main(stdscr):
                              title="Demonstration",
                              title_colors_pair_nb=1,  # Display title colored with color pair 1.
                              title_text_attr=curses.A_UNDERLINE)  # curse text attributes that will be applied to the title.
-    demo_textbox.confirm_dialog_key = (10, 32)
+    demo_textbox.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
 
     # A key/value dictionary containing the text and the attributes
     # with which it will be displayed.
