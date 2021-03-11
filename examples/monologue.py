@@ -21,7 +21,7 @@ def main(stdscr):
     )
 
     # Makes the cursor invisible.
-    curses.curs_set(0)
+    curses.curs_set(False)
 
     # Definition of several colors pairs.
     curses.start_color()

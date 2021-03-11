@@ -209,7 +209,7 @@ class DialogBox(TextBox):
 
         for paragraph in wrapped_text:
             stdscr.clear()
-            super().framing_box(stdscr)
+            self.framing_box(stdscr)
 
             for y, line in enumerate(paragraph):
                 offsetting_x = 0
@@ -249,7 +249,7 @@ class DialogBox(TextBox):
                     offsetting_x += len(word) + 1
 
             self._display_end_dialog_indicator(stdscr)
-            super().getkey(stdscr)
+            self.getkey(stdscr)
 
     def word_by_word(
         self,
@@ -349,7 +349,7 @@ class DialogBox(TextBox):
             paragraph by ``window.clear()`` method of ``curses``
             module.
         """
-        super().framing_box(stdscr)
+        self.framing_box(stdscr)
 
         if flash_screen:
             curses.flash()
@@ -361,7 +361,7 @@ class DialogBox(TextBox):
 
         for paragraph in wrapped_text:
             stdscr.clear()
-            super().framing_box(stdscr)
+            self.framing_box(stdscr)
             for y, line in enumerate(paragraph):
                 offsetting_x = 0
                 for word in line.split(cut_char):
@@ -390,4 +390,4 @@ class DialogBox(TextBox):
                 callback(*cargs)
 
             self._display_end_dialog_indicator(stdscr)
-            super().getkey(stdscr)
+            self.getkey(stdscr)

@@ -14,7 +14,7 @@ SPACE_KEY = 32
 
 def main(stdscr):
     # Makes the cursor invisible.
-    curses.curs_set(0)
+    curses.curs_set(False)
 
     replys = (
         "This text is displayed by an anonymous text box.",
