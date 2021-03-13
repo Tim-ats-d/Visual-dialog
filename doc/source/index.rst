@@ -45,6 +45,7 @@ Getting help
   requirements.rst
   installation.rst
   api.rst
+  faq.rst
 
 Changelog
 ---------
