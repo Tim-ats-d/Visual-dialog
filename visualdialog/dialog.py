@@ -29,7 +29,9 @@ from typing import (Callable, Dict, Generator, List, NewType, Optional,
                     Tuple, Union)
 
 from .box import TextBox
-from .utils import CursesTextAttributesConstants, TextAttributes, _make_chunk
+from .utils import (CursesTextAttributesConstants,
+                    TextAttributes,
+                    _make_chunk)
 
 
 class DialogBox(TextBox):

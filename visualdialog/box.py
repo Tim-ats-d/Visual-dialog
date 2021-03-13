@@ -25,13 +25,20 @@ import curses
 import curses.textpad
 from typing import List, NewType, Tuple, Union
 
-from .utils import (CursesKeyConstants, CursesTextAttributesConstants,
-                   TextAttributes)
+from .utils import (CursesKeyConstants,
+                    CursesTextAttributesConstants,
+                    TextAttributes)
 
 
 class PanicError(Exception):
+    """Exception thrown when a key contained in ``TextBox.panic_key`` is
+    pressed.
 
-    def __init__(self, key: int):
+    :param key: Key pressed that caused the exception to be thrown.
+    :type key: CursesKeyConstants
+    """
+    def __init__(self,
+                 key: CursesKeyConstants):
         self.key = key
 
     def __str__(self):
@@ -220,6 +227,3 @@ class TextBox:
             else:
                 # Ignore incorrect keys.
                 ...
-
-
-

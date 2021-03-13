@@ -6,3 +6,4 @@ __version__ = 0.6
 __author__ = "Arnouts Timéo"
 
 from .dialog import DialogBox
+from .utils import TextAttributes

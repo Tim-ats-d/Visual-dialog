@@ -48,6 +48,9 @@ def main(stdscr):
                              # ~ text_attr=(curses.A_ITALIC, curses.A_BOLD),
                              # ~ words_attr=special_words)
 
+    with visualdialog.TextAttributes(stdscr, curses.A_BOLD, curses.A_ITALIC):
+        ...
+
 
 if __name__ == "__main__":
     curses.wrapper(main)

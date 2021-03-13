@@ -21,6 +21,7 @@
 
 from typing import List, NewType, Tuple, Union
 
+
 # curses text attribute constants are integers.
 # See https://docs.python.org/3/library/curses.html?#constants
 CursesTextAttributesConstants = NewType("CursesTextAttributesConstants", int)
@@ -29,10 +30,14 @@ CursesTextAttributesConstants = NewType("CursesTextAttributesConstants", int)
 # See https://docs.python.org/3/library/curses.html?#constants
 CursesKeyConstants = NewType("CursesKeyConstants", int)
 
+def _make_chunk(iterable: Union[Tuple, List],
+                chunk_length: int) -> Tuple:
+    """Returns a tuple that contains the given iterator separated
+    into chunk_length bundles.
 
-def _make_chunk(iterable: Union[Tuple, List], chunk_length: int) -> Tuple:
-    """Returns a generator that contains the given iterator separated into
-    chunk_length bundles."""
+    :returns: Iterator separated into chunk_length bundles.
+    :rtype: Tuple
+    """
     return (iterable[chunk:chunk + chunk_length]
             for chunk in range(0, len(iterable), chunk_length))
 
@@ -40,23 +45,28 @@ def _make_chunk(iterable: Union[Tuple, List], chunk_length: int) -> Tuple:
 class TextAttributes:
     """A context manager to manage curses text attributs.
 
-    Attributes
-    ----------
-    win
-        `curses` window object for which the attributes will be managed.
-    attributes
-        List of attributes to activate and desactivate.
+    :param win: `curses` window object for which the attributes will be
+        managed.
+
+    :param attributes: List of attributes to activate and desactivate.
+    :type attributes: Union[Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]
     """
-    def __init__(self, stdscr, *attributes: CursesTextAttributesConstants):
+    def __init__(self,
+                 stdscr,
+                 *attributes: CursesTextAttributesConstants):
         self.win = stdscr
         self.attributes = attributes
 
     def __enter__(self):
-        """Activates one by one the attributes contained in self.attributes."""
-        for attribute in self.attributes:
-            self.win.attron(attribute)
+        """Activates one by one the attributes contained in
+        self.attributes.
+        """
+        for attr in self.attributes:
+            self.win.attron(attr)
 
     def __exit__(self, type, value, traceback):
-        """Disable one by one the attributes contained in self.attributes."""
-        for attribute in self.attributes:
-            self.win.attroff(attribute)
+        """Disable one by one the attributes contained in
+        self.attributes.
+        """
+        for attr in self.attributes:
+            self.win.attroff(attr)

@@ -42,9 +42,9 @@ Getting help
   :maxdepth: 3
   :caption: Contents:
 
-  ./requirements.rst
-  ./installation.rst
-  ./visualdialog
+  requirements.rst
+  installation.rst
+  api.rst
 
 Changelog
 ---------
