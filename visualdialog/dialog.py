@@ -81,6 +81,8 @@ class DialogBox(TextBox):
         else:
             self.end_dialog_indicator_pos_y = pos_y + width - 1
 
+        self.text_wrapper = textwrap.TextWrapper(width=self.nb_char_max_line)
+
     def __enter__(self):
         return self
 
@@ -206,7 +208,8 @@ class DialogBox(TextBox):
         if flash_screen:
             curses.flash()
 
-        wrapped_text = textwrap.wrap(text, self.nb_char_max_line)
+        wrapped_text = self.text_wrapper.wrap(text,
+                                              self.nb_char_max_line)
         wrapped_text = _make_chunk(wrapped_text, self.nb_lines_max)
 
         for paragraph in wrapped_text:
@@ -358,7 +361,8 @@ class DialogBox(TextBox):
 
         attr = (curses.color_pair(colors_pair_nb), *text_attr)
 
-        wrapped_text = textwrap.wrap(text, self.nb_char_max_line)
+        wrapped_text = self.text_wrapper.wrap(text,
+                                              self.nb_char_max_line)
         wrapped_text = _make_chunk(wrapped_text, self.nb_lines_max)
 
         for paragraph in wrapped_text:

@@ -15,3 +15,4 @@ How can I continue to manage screen display while a DialogBox is writing text on
 You can also pass arguments to this callback via ``cargs`` parameter.
 
 The past callback is executed after downtime delay between character or word display.
+You can use this behavior to perform multiple tasks while ``DialogBox`` scrolling.
