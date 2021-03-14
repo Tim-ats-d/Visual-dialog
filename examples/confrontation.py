@@ -17,7 +17,6 @@ def main(stdscr):
     curses.curs_set(False)
 
     # Definition of several colors pairs.
-    curses.start_color()
     curses.init_pair(1, curses.COLOR_BLUE, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_RED, curses.COLOR_BLACK)
@@ -53,34 +52,29 @@ def main(stdscr):
     miles_edgeworth.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
 
     phoenix_wright.char_by_char(stdscr,
-        "This testimony is a pure invention !",
-        colors_pair_nb=0,  # Color pair 0 is initialized by curses. It corresponds to white on black text.
-        delay=0.03)  # Set delay between writting each characters to 0.03 seconde.
+                                "This testimony is a pure invention !",
+                                delay=0.03)  # Set delay between writting each characters to 0.03 seconde.
 
     phoenix_wright.char_by_char(stdscr,
-        "You're lying April May !",
-        colors_pair_nb=0,
-        flash_screen=True,  # A short luminous glow will be displayed before writing the text.
-        delay=0.03,
-        text_attr=curses.A_BOLD)
+                                "You're lying April May !",
+                                flash_screen=True,  # A short luminous glow will be displayed before writing the text.
+                                delay=0.03,
+                                text_attr=curses.A_BOLD)
 
     april_may.char_by_char(stdscr,
-        "Arghh !",
-        colors_pair_nb=0,
-        delay=0.02,
-        text_attr=curses.A_ITALIC)
+                           "Arghh !",
+                           delay=0.02,
+                           text_attr=curses.A_ITALIC)
 
     miles_edgeworth.char_by_char(stdscr,
-        "OBJECTION !",
-        colors_pair_nb=0,
-        flash_screen=True,
-        delay=0.03,
-        text_attr=curses.A_BOLD)
+                                 "OBJECTION !",
+                                 flash_screen=True,
+                                 delay=0.03,
+                                 text_attr=curses.A_BOLD)
 
     miles_edgeworth.char_by_char(stdscr,
-        "These accusations are irrelevant !",
-        colors_pair_nb=0,
-        delay=0.03)
+                                 "These accusations are irrelevant !",
+                                 delay=0.03)
 
 
 # Execution of main function.

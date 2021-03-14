@@ -37,12 +37,11 @@ from .utils import (CursesTextAttributesConstants,
 class DialogBox(TextBox):
     """This class provides methods and attributs to manage a dialog box.
 
-    :param end_dialog_indicator:
-        Character that will be displayed in the lower right corner the
-        character once all the characters have been completed.
-        String with a length of more than one character can lead to an
-        overflow of the dialog box frame.
-        This defaults to ``"►"``.
+    :param end_dialog_indicator: Character that will be displayed in the
+        lower right corner the character once all the characters have
+        been completed. String with a length of more than one character
+        can lead to an overflow of the dialog box frame. This defaults
+        to ``"►"``.
     :type end_dialog_indicator: str
 
     .. NOTE::
@@ -133,20 +132,21 @@ class DialogBox(TextBox):
         :param stdscr: ``curses`` window object on which the method will
             have effect.
 
-        :param text:  Text that will be displayed character by character
+        :param text: Text that will be displayed character by character
             in the dialog box. This text can be wrapped to fit the
             proportions of the dialog box.
         :type text: str
 
-        :param colors_pair_nb:
-            Number of the curses color pair that will be used to color
-            the text. The number zero corresponding to the pair of
-            white color on black background initialized by ``curses``).
-            This defaults to ``0``.
+        :param colors_pair_nb: Number of the curses color pair that
+            will be used to color the text. The number zero
+            corresponding to the pair of white color on black
+            background initialized by ``curses``). This defaults to
+            ``0``.
         :type colors_pair_nb: Optional[int]
 
-        :param text_attr: Dialog box curses text attributes. This
-            defaults an empty tuple.
+        :param text_attr: Dialog box curses text attributes. It should
+            be a single curses text attribute or a tuple of curses text
+            attribute. This defaults an empty tuple.
         :type text_attr: Optional[Union[CursesTextAttributesConstants,Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
 
         :param words_attr: TODO
@@ -208,8 +208,7 @@ class DialogBox(TextBox):
         if flash_screen:
             curses.flash()
 
-        wrapped_text = self.text_wrapper.wrap(text,
-                                              self.nb_char_max_line)
+        wrapped_text = self.text_wrapper.wrap(text)
         wrapped_text = _make_chunk(wrapped_text, self.nb_lines_max)
 
         for paragraph in wrapped_text:
@@ -260,7 +259,7 @@ class DialogBox(TextBox):
         self,
         stdscr,
         text: str,
-        colors_pair_nb: int,
+        colors_pair_nb: int = 0,
         cut_char: str = " ",
         text_attr: Union[CursesTextAttributesConstants,
                          Tuple[CursesTextAttributesConstants],
@@ -271,7 +270,7 @@ class DialogBox(TextBox):
         flash_screen: bool = False,
         delay: Union[int, float] = .15,
         random_delay: Tuple[float, float] = (0, 0),
-        callback: Callable = None,
+        callback: Callable = lambda : None,
         cargs: Union[Tuple, List] = ()):
         """Writes the given text word by word at position in the current
         dialog box.
@@ -291,8 +290,9 @@ class DialogBox(TextBox):
             This defaults to ``0``.
         :type colors_pair_nb: Optional[int]
 
-        :param text_attr: Dialog box curses text attributes. This
-            defaults an empty tuple.
+        :param text_attr: Dialog box curses text attributes. It should
+            be a single curses text attribute or a tuple of curses text
+            attribute. This defaults an empty tuple.
         :type text_attr: Optional[Union[CursesTextAttributesConstants,Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
 
         :param words_attr: TODO
@@ -361,8 +361,7 @@ class DialogBox(TextBox):
 
         attr = (curses.color_pair(colors_pair_nb), *text_attr)
 
-        wrapped_text = self.text_wrapper.wrap(text,
-                                              self.nb_char_max_line)
+        wrapped_text = self.text_wrapper.wrap(text)
         wrapped_text = _make_chunk(wrapped_text, self.nb_lines_max)
 
         for paragraph in wrapped_text:

@@ -68,9 +68,6 @@ class TextBox:
         which methods will have effects.
     :type width: int
 
-    :param width: Width of the dialog box in the terminal.
-    :type width: Optional[int]
-
     :param title: String that will be displayed in the upper left corner
         of dialog box.
         If title is an empty string, the title will not be displayed.
@@ -84,8 +81,9 @@ class TextBox:
     :type title_colors_pair_nb: Optional[int]
 
     :param title_text_attr:
-        Dialog box title text attributes. This defaults to
-        ``curses.A_BOLD``.
+        Dialog box title text attributes. It should be a single curses
+        text attribute or a tuple of curses text attribute. This
+        defaults to ``curses.A_BOLD``.
     :type title_text_attr: Optional[Union[CursesTextAttributesConstants,Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
 
     :param downtime_chars:

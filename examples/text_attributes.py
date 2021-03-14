@@ -17,13 +17,12 @@ def main(stdscr):
     curses.curs_set(False)
 
     # Definition of several colors pairs.
-    curses.start_color()
-    curses.init_pair(1, curses.COLOR_YELLOW, curses.COLOR_BLACK)
+    curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_YELLOW)
     curses.init_pair(2, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
 
     demo_textbox = DialogBox(1, 1,
                              40, 6,
-                             title="Demonstration",
+                             title="Demo",
                              title_colors_pair_nb=1,  # Display title colored with color pair 1.
                              title_text_attr=curses.A_UNDERLINE)  # curse text attributes that will be applied to the title.
     demo_textbox.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)

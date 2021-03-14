@@ -24,20 +24,18 @@ def main(stdscr):
     curses.curs_set(False)
 
     # Definition of several colors pairs.
-    curses.start_color()
     curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_BLACK)
 
-    textbox = DialogBox(
-        1, 1,  # Position 1;1 in stdscr.
-        40, 6,  # Length and width of textbox (in character).
-        title="Tim-ats-d",  # Title of textbox.
-        title_colors_pair_nb=1)  # Curses color_pair used to colored title.
+    textbox = DialogBox(1, 1,  # Position 1;1 in stdscr.
+                        40, 6,  # Length and width of textbox (in character).
+                        title="Tim-ats-d",  # Title of textbox.
+                        title_colors_pair_nb=1)  # Curses color_pair used to colored title.
 
     # Definition of accepted key codes to pass a dialog.
     textbox.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
 
-    # We iterate on each sentence contained in replys.
+    # Iterate on each sentence contained in replys.
     for reply in replys:
         textbox.char_by_char(stdscr,
             reply,
