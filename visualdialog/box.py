@@ -23,7 +23,7 @@ __all__ = ["TextBox"]
 
 import curses
 import curses.textpad
-from typing import List, NewType, Tuple, Union
+from typing import ClassVar, List, NewType, Tuple, Union
 
 from .utils import (CursesKeyConstants,
                     CursesTextAttributesConstants,
@@ -99,11 +99,11 @@ class TextBox:
     :type downtime_chars_delay: Optional[Union[int,float]]
     """
     #: List of accepted key codes to skip dialog. ``curses`` constants are supported. This defaults to an empty tuple.
-    confirm_dialog_key: Union[Tuple[CursesKeyConstants],
-                          List[CursesKeyConstants]] = ()
+    confirm_dialog_key: ClassVar[Union[Tuple[CursesKeyConstants],
+                                       List[CursesKeyConstants]]] = ()
     #: List of accepted key codes to raise PanicError. ``curses`` constants are supported. This defaults to an empty tuple.
-    panic_key: Union[Tuple[CursesKeyConstants],
-                     List[CursesKeyConstants]] = ()
+    panic_key: ClassVar[Union[Tuple[CursesKeyConstants],
+                              List[CursesKeyConstants]]] = ()
 
     def __init__(
         self,
