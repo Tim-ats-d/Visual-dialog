@@ -25,8 +25,7 @@ import curses
 import random
 import textwrap
 import time
-from typing import (Callable, Dict, Generator, List, NewType, Optional,
-                    Tuple, Union)
+from typing import Callable, Dict, List, Optional, Tuple, Union
 
 from .box import TextBox
 from .utils import (CursesTextAttributesConstants,
@@ -91,7 +90,7 @@ class DialogBox(TextBox):
     def _display_end_dialog_indicator(
         self,
         stdscr,
-        text_attr: Optional[Union[Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]] = (
+        text_attr: Optional[Union[Tuple[CursesTextAttributesConstants], List[CursesTextAttributesConstants]]] = (
             curses.A_BOLD, curses.A_BLINK)):
         """Displays an end of dialog indicator in the lower right corner
         of textbox.
@@ -124,7 +123,7 @@ class DialogBox(TextBox):
         flash_screen: bool = False,
         delay: Union[int, float] = .04,
         random_delay: Tuple[float, float] = (0, 0),
-        callback: Callable = lambda : None,
+        callback: Callable = lambda: None,
         cargs: Union[Tuple, List] = ()):
         """Writes the given text character by character in the current
         dialog box.
@@ -270,7 +269,7 @@ class DialogBox(TextBox):
         flash_screen: bool = False,
         delay: Union[int, float] = .15,
         random_delay: Tuple[float, float] = (0, 0),
-        callback: Callable = lambda : None,
+        callback: Callable = lambda: None,
         cargs: Union[Tuple, List] = ()):
         """Writes the given text word by word at position in the current
         dialog box.

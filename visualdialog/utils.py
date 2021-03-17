@@ -19,24 +19,24 @@
 #
 #
 
-from typing import List, NewType, Tuple, Union
+from typing import Generator, List, Tuple, Union
 
 
 # curses text attribute constants are integers.
 # See https://docs.python.org/3/library/curses.html?#constants
-CursesTextAttributesConstants = NewType("CursesTextAttributesConstants", int)
+CursesTextAttributesConstants = int
 
 # curses key constants are integers.
 # See https://docs.python.org/3/library/curses.html?#constants
-CursesKeyConstants = NewType("CursesKeyConstants", int)
+CursesKeyConstants = int
 
 def _make_chunk(iterable: Union[Tuple, List],
-                chunk_length: int) -> Tuple:
+                chunk_length: int) -> Generator:
     """Returns a tuple that contains the given iterator separated
     into chunk_length bundles.
 
     :returns: Iterator separated into chunk_length bundles.
-    :rtype: Tuple
+    :rtype: Generator
     """
     return (iterable[chunk:chunk + chunk_length]
             for chunk in range(0, len(iterable), chunk_length))

@@ -1,4 +1,4 @@
-#  choices_box.py
+#  choices.py
 #
 #  2020 Timéo Arnouts <tim.arnouts@protonmail.com>
 #
@@ -22,11 +22,11 @@
 import curses
 from typing import Any, Dict, Tuple, Union
 
-import box
+from .dialog import DialogBox
 from .utils import CursesTextAttributesConstants, TextAttributes, _make_chunk
 
 
-class ChoiceBox(box.TextBox):
+class ChoiceBox(DialogBox):
 
     def __init__(
             self,
