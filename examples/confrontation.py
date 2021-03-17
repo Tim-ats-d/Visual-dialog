@@ -9,8 +9,7 @@ from visualdialog import DialogBox
 
 # Definition of curses key constants.
 # 10 and 32 correspond to enter and space keys.
-ENTER_KEY = 10
-SPACE_KEY = 32
+ENTER_KEY, SPACE_KEY = 10, 32
 
 def main(stdscr):
     # Makes the cursor invisible.

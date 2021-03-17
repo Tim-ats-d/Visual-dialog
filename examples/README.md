@@ -9,7 +9,7 @@ A complete concrete example of how to use **Visual-dialog**.
 
 ## Word
 
-An example of using the ``word_by_word`` method from text boxes.
+An example of using ``word_by_word`` method from text boxes.
 
 ## Text attributes
 

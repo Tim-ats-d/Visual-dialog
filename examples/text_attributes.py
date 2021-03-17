@@ -40,11 +40,11 @@ def main(stdscr):
         "The colors of the front and the background reversed.": curses.A_REVERSE,
     }
 
-    for text, attributs in sentences.items():
+    for text, attributes in sentences.items():
         demo_textbox.char_by_char(stdscr,
                                   text,
                                   2,  # Display text colored with color pair 2.
-                                  text_attr=attributs)  # Pass the attributes to the text.
+                                  text_attr=attributes)  # Pass attributes to text.
 
 
 # Execution of main function.

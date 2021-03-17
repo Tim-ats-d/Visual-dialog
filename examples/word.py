@@ -1,6 +1,6 @@
-#  robot.py
+#  words.py
 #
-#  A simple example of how to use Visual-dialog.
+#  An example of using the word_by_word method from text boxes.
 
 import curses
 
