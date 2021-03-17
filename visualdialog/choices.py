@@ -23,7 +23,9 @@ import curses
 from typing import Any, Dict, Tuple, Union
 
 from .dialog import DialogBox
-from .utils import CursesTextAttributesConstants, TextAttributes, _make_chunk
+from .utils import (CursesTextAttributesConstants,
+                    TextAttributes,
+                    _make_chunk)
 
 
 class ChoiceBox(DialogBox):

@@ -64,7 +64,7 @@ See [this explanations](https://www.devdungeon.com/content/curses-windows-python
 
 ## Quick-start
 
-### A hello world with **Visual-dialog**
+### Hello world with **Visual-dialog**
 
 ```python3
 import curses
@@ -112,7 +112,7 @@ Once generated, the result will be in the `doc/build/html/` folder.
 We would love for you to contribute to improve **Visual-dialog**.
 
 Take a look at our [contributing guide](CONTRIBUTING.md) to get started.
-You can also help by reporting bugs.
+You can also help by reporting **bugs**.
 
 ## License
 

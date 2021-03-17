@@ -51,6 +51,7 @@ class DialogBox(TextBox):
         Parameters ``downtime_chars`` and ``downtime_chars_delay`` do
         not affect ``word_by_word`` method.
     """
+
     def __init__(
         self,
         pos_x: int,
