@@ -64,7 +64,30 @@ See [this explanations](https://www.devdungeon.com/content/curses-windows-python
 
 ## Quick-start
 
-Various examples showing the capabilities of **Visual-dialog** can be found in  [examples](examples/).
+### A hello world with **Visual-dialog**
+
+```python3
+import curses
+
+from visualdialog import DialogBox
+
+
+def main(stdscr):
+    curses.curs_set(False)
+
+    textbox = DialogBox(0, 0,
+                        35, 6,
+                        title="Demo")
+    textbox.char_by_char(stdscr,
+                         "Hello world")
+    
+
+curses.wrapper(main)
+```
+
+### Examples
+
+Other various examples showing the capabilities of **Visual-dialog** can be found in  [examples](examples/).
 
 ## Documentation
 
