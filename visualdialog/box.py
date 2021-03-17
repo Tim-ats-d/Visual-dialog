@@ -23,7 +23,7 @@ __all__ = ["TextBox"]
 
 import curses
 import curses.textpad
-from typing import List, NewType, Tuple, Union
+from typing import List, Tuple, Union
 
 from .utils import (CursesKeyConstants,
                     CursesTextAttributesConstants,
@@ -118,7 +118,7 @@ class TextBox:
 
         self.title_offsetting_y = 2 if title else 0
 
-        # Compensation for the left border of the dialog box.
+        # Compensation for the left border of the dialog box.
         self.text_pos_x = pos_x + 2
         # Compensation for the upper border of the dialog box.
         self.text_pos_y = pos_y + self.title_offsetting_y + 1

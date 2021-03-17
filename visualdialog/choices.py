@@ -20,10 +20,10 @@
 #
 
 import curses
-from typing import Any, Dict, NewType, Tuple, Union
+from typing import Any, Dict, Tuple, Union
 
 import box
-from utils import CursesTextAttributesConstants, TextAttributes, _make_chunk
+from .utils import CursesTextAttributesConstants, TextAttributes, _make_chunk
 
 
 class ChoiceBox(box.TextBox):
@@ -57,11 +57,10 @@ class ChoiceBox(box.TextBox):
         """"""
         super().framing_box(stdscr)
 
-
         for y, proposition in enumerate(propositions):
             stdscr.addstr(self.pos_y + y*2,
-                         self.pos_x,
-                         proposition)
+                          self.pos_x,
+                          proposition)
             stdscr.refresh()
 
 
