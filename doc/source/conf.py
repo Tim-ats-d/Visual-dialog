@@ -60,12 +60,7 @@ html_logo = "images/visual-dialog.png"
 latex_logo = "images/visual-dialog.png"
 
 latex_elements = {
-    "pointsize": "12pt",
-    "fontpkg": r"""
-        \setmainfont{Open Sans}
-        \setsansfont{Bitter}
-        \setmonofont{Ubuntu Mono}
-        """
+    "pointsize": "12pt"
 }
 
 latex_documents = [
