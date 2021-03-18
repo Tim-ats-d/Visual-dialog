@@ -1,9 +1,9 @@
 """
-A librairie which provides class to make easier dialog box in terminal.
+A library to make easier dialog box in terminal.
 """
 
 __version__ = 0.6
-__author__ = "Arnouts Timéo"
+__author__ = "Timéo Arnouts"
 
 from .dialog import DialogBox
 from .utils import TextAttributes

@@ -80,7 +80,7 @@ def main(stdscr):
                         title="Demo")
     textbox.char_by_char(stdscr,
                          "Hello world")
-    
+
 
 curses.wrapper(main)
 ```
@@ -106,6 +106,8 @@ cd Visual-dialog/doc
 ```
 
 Once generated, the result will be in the `doc/build/html/` folder.
+
+You can also generate the documentation in **Latex**, **Texinfo** or **man-pages**.
 
 ## Contributing
 
