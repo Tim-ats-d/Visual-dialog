@@ -9,7 +9,7 @@ from visualdialog import DialogBox
 
 # Definition of curses key constants.
 # 10 and 32 correspond to enter and space keys.
-ENTER_KEY, SPACE_KEY = 10, 32
+PASS_DIALOG_KEY = (10, 32)
 
 def main(stdscr):
     # Makes the cursor invisible.
@@ -20,7 +20,6 @@ def main(stdscr):
     curses.init_pair(2, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_RED, curses.COLOR_BLACK)
 
-    position = (1, 1)  # Position 1;1 in stdscr.
     width, length  = 6, 35  # Width and length (in character).
 
     max_y, max_x = stdscr.getmaxyx()
@@ -46,9 +45,9 @@ def main(stdscr):
                                 title_colors_pair_nb=3)
 
     # Definition of accepted key codes to pass a dialog.
-    phoenix_wright.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
-    april_may.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
-    miles_edgeworth.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
+    phoenix_wright.confirm_dialog_key = PASS_DIALOG_KEY
+    april_may.confirm_dialog_key = PASS_DIALOG_KEY
+    miles_edgeworth.confirm_dialog_key = PASS_DIALOG_KEY
 
     phoenix_wright.char_by_char(stdscr,
                                 "This testimony is a pure invention !",

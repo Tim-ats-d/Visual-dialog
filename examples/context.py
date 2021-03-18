@@ -12,6 +12,7 @@ from visualdialog import DialogBox
 ENTER_KEY = 10
 SPACE_KEY = 32
 
+
 def main(stdscr):
     # Makes the cursor invisible.
     curses.curs_set(False)
