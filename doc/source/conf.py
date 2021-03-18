@@ -80,6 +80,6 @@ man_pages = [
 
 texinfo_documents = [
     (master_doc, "Visual-dialog", "Visual-dialog Documentation",
-     author, "Visual-dialog", "One line description of project.",
+     author, "Visual-dialog", "A library to make easier dialog box in terminal.",
      "Miscellaneous"),
 ]
