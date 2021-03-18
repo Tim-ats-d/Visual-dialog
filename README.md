@@ -80,7 +80,7 @@ def main(stdscr):
                         title="Demo")
     textbox.char_by_char(stdscr,
                          "Hello world")
-    
+
 
 curses.wrapper(main)
 ```
@@ -92,7 +92,7 @@ Other various examples showing the capabilities of **Visual-dialog** can be foun
 ## Documentation
 
 Visualdialog's documentation is automatically generated from the source code by **Sphinx**.
-To build it on **GNU/Linux** or **MacOS**:
+To build it in **HTML** on **GNU/Linux** or **MacOS**:
 ```sh
 git clone https://github.com/Tim-ats-d/Visual-dialog.git
 cd Visual-dialog/doc
@@ -106,6 +106,7 @@ cd Visual-dialog/doc
 ```
 
 Once generated, the result will be in the `doc/build/html/` folder.
+You can also generate documentation in **Latex**, **Texinfo** or **man-pages**.
 
 ## Contributing
 
