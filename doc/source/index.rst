@@ -9,7 +9,7 @@ Welcome to Visual-dialog's documentation
 **Visual-dialog** is a **Python library** that allows you to make dialog box in a terminal easily.
 **Visual-dialog** uses ``curses`` to display text in terminals.
 
-.. image:: ./images/visual-dialog.png
+.. image:: ./images/demo.png
    :align: center
 
 **Features:**
@@ -39,22 +39,12 @@ Getting help
 - Report bugs in the `issue tracker <https://github.com/Tim-ats-d/Visual-dialog/issues>`_.
 
 .. toctree::
-  :hidden:
-  :caption: Introduction
+  :maxdepth: 3
+  :caption: Contents:
 
   requirements.rst
   installation.rst
-
-.. toctree::
-  :hidden:
-  :caption: API Reference
-
   api.rst
-
-.. toctree::
-  :hidden:
-  :caption: Meta
-
   faq.rst
 
 Changelog
