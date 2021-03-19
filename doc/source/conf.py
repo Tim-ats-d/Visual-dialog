@@ -21,14 +21,14 @@ import os
 import sys
 from datetime import datetime
 
-from visualdialog import __version__
+from visualdialog import __author__, __version__
 
 
 sys.path.insert(0, os.path.abspath("../../"))
 
 project = "Visual-dialog"
-copyright = f"2021-{datetime.now().year}, Timéo Arnouts"
-author = "Timéo Arnouts"
+copyright = f"2021-{datetime.now().year}, {__author__}"
+author = __author__
 
 extensions = [
     "sphinx.ext.autodoc"

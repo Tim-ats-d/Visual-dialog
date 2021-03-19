@@ -1,13 +1,13 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
-from visualdialog import __version__
+from visualdialog import __author__, __version__
 
 
 setup(
     name="visualdialog",
     version=__version__,
     packages=find_packages(),
-    author="Timéo Arnouts",
+    author=__author__,
     author_email="tim.arnouts@protonmail.com",
     description="A library to make easier dialog box in terminal.",
     long_description=open("README.md").read(),
