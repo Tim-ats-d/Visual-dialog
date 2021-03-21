@@ -136,8 +136,8 @@ class DialogBox(TextBox):
             attribute. This defaults an empty tuple.
         :type text_attr: Optional[Union[CursesTextAttributesConstants,Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
 
-        :param words_attr: TODO
-        :type words_atttr: TODO
+        :param words_attr: This defaults to an empty dictionary.
+        :type words_atttr: Union[Dict[Tuple[str],CursesTextAttributesConstants],Dict[Tuple[str],Tuple[CursesTextAttributesConstants]]]
 
         :param flash_screen: Allows or not to flash screen with a short
             light effect done before writing the first character by
@@ -282,8 +282,8 @@ class DialogBox(TextBox):
             attribute. This defaults an empty tuple.
         :type text_attr: Optional[Union[CursesTextAttributesConstants,Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
 
-        :param words_attr: TODO
-        :type words_atttr: TODO
+        :param words_attr: This defaults to an empty dictionary.
+        :type words_atttr: Union[Dict[Tuple[str],CursesTextAttributesConstants],Dict[Tuple[str],Tuple[CursesTextAttributesConstants]]]
 
         :param cut_char: The delimiter according which to split the text
             in word. This defaults to ``" "``.
