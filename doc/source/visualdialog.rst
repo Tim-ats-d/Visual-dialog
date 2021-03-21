@@ -7,7 +7,8 @@ Text box
 
   Two **classes** are defined in these modules but only ``DialogBox`` is destined to be instantiated.
 
-.. automodule:: visualdialog.box
+.. autoclass:: visualdialog.box.TextBox
     :members:
-.. automodule:: visualdialog.dialog
+.. autoclass:: visualdialog.dialog.DialogBox
     :members:
+    :show-inheritance:

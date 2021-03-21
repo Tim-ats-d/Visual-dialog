@@ -36,6 +36,7 @@ The list of versions and their changelogs can be found [here](https://github.com
 ## Repository Structure
 
 The following snippet describes Visual-dialog's repository structure.
+This tree does not contain a description of all the files in the repository, only the most relevant ones
 
 ```text
 .

@@ -44,7 +44,9 @@ class DialogBox(TextBox):
     :type end_dialog_indicator: str
 
     .. NOTE::
-        This class inherits all the methods and arguments of ``TextBox``.
+        This class inherits all the methods and attributes of ``TextBox``.
+        You can pass all the arguments of the ``TextBox`` class to
+        ``DialogBox``.
         See ``TextBox`` documentation for more informations.
 
     .. WARNING::
@@ -52,33 +54,18 @@ class DialogBox(TextBox):
         not affect ``word_by_word`` method.
     """
 
-    def __init__(
-        self,
-        pos_x: int,
-        pos_y: int,
-        length: int,
-        width: int,
-        title: str = "",
-        title_colors_pair_nb: CursesTextAttributesConstants = 0,
-        title_text_attr: Union[CursesTextAttributesConstants,
-                               Tuple[CursesTextAttributesConstants],
-                               List[CursesTextAttributesConstants]] = curses.A_BOLD,
-        downtime_chars: Union[Tuple[str],
-                              List[str]] = (",", ".", ":", ";", "!", "?"),
-        downtime_chars_delay: Union[int, float] = .6,
-        end_dialog_indicator: str = "►"):
-        super().__init__(pos_x, pos_y, length, width, title,
-                         title_colors_pair_nb, title_text_attr,
-                         downtime_chars, downtime_chars_delay)
+    def __init__(self,
+                 end_dialog_indicator: str = "►",
+                 **kwargs):
+        super().__init__(**kwargs)
 
         self.end_dialog_indicator_char = end_dialog_indicator
+        self.end_dialog_indicator_pos_x = self.pos_x + self.length - 2
 
-        self.end_dialog_indicator_pos_x = pos_x + length - 2
-
-        if title:
-            self.end_dialog_indicator_pos_y = pos_y + width + 1
+        if self.title:
+            self.end_dialog_indicator_pos_y = self.pos_y + self.width + 1
         else:
-            self.end_dialog_indicator_pos_y = pos_y + width - 1
+            self.end_dialog_indicator_pos_y = self.pos_y + self.width - 1
 
         self.text_wrapper = textwrap.TextWrapper(width=self.nb_char_max_line)
 
