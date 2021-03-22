@@ -84,13 +84,13 @@ class TextBox:
         Dialog box title text attributes. It should be a single curses
         text attribute or a tuple of curses text attribute. This
         defaults to ``curses.A_BOLD``.
-    :type title_text_attr: Optional[Union[CursesTextAttributesConstants,Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
+    :type title_text_attr: Optional[Union[CursesTextAttributesConstants,tuple[CursesTextAttributesConstants],list[CursesTextAttributesConstants]]]
 
     :param downtime_chars:
         List of characters that will trigger a ``downtime_chars_delay``
         time second between the writing of each character.
         This defaults to ``(",", ".", ":", ";", "!", "?")``.
-    :type downtime_chars: Optional[Union[Tuple[str],List[str]]]
+    :type downtime_chars: Optional[Union[tuple[str],list[str]]]
 
     :param downtime_chars_delay:
         Waiting time in seconds after writing a character contained in
@@ -151,7 +151,7 @@ class TextBox:
         """Returns a tuple contains x;y position of ``TextBox``.
 
         :returns: x;y position of ``TextBox``.
-        :rtype: Tuple[int, int]
+        :rtype: tuple[int, int]
         """
         return self.text_pos_x - 2, self.text_pos_y - 3
 
@@ -160,7 +160,7 @@ class TextBox:
         """Returns a tuple contains dimensions of ``TextBox``.
 
         :returns: Length and width of ``TextBox``.
-        :rtype: Tuple[int, int]
+        :rtype: tuple[int, int]
         """
         return self.length, self.width
 

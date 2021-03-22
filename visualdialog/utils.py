@@ -49,7 +49,7 @@ class TextAttributes:
         managed.
 
     :param attributes: List of attributes to activate and desactivate.
-    :type attributes: Union[Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]
+    :type attributes: Union[tuple[CursesTextAttributesConstants],list[CursesTextAttributesConstants]]
     """
     def __init__(self,
                  stdscr,

@@ -35,9 +35,6 @@ from .utils import (CursesTextAttributesConstants,
 
 class DialogBox(TextBox):
     """This class provides methods and attributs to manage a dialog box.
-    
-    Keyword arguments correspond to the instance attributes of ``TextBox``,
-    documented below.
 
     :param end_dialog_indicator: Character that will be displayed in the
         lower right corner the character once all the characters have
@@ -45,6 +42,9 @@ class DialogBox(TextBox):
         can lead to an overflow of the dialog box frame. This defaults
         to ``"►"``.
     :type end_dialog_indicator: str
+
+    :key kwargs: Keyword arguments correspond to the instance attributes of
+        ``TextBox``.
 
     .. NOTE::
         This class inherits all the methods and attributes of ``TextBox``.
@@ -89,7 +89,7 @@ class DialogBox(TextBox):
         :param text_attr: Text attributes of
             ``end_dialog_indicator`` method. This defaults to
             ``(curses.A_BOLD, curses.A_BLINK)``.
-        :type text_attr: Optional[Union[Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
+        :type text_attr: Optional[Union[tuple[CursesTextAttributesConstants],list[CursesTextAttributesConstants]]]
         """
         if self.end_dialog_indicator_char:
             with TextAttributes(stdscr, *text_attr):
@@ -134,10 +134,10 @@ class DialogBox(TextBox):
         :param text_attr: Dialog box curses text attributes. It should
             be a single curses text attribute or a tuple of curses text
             attribute. This defaults an empty tuple.
-        :type text_attr: Optional[Union[CursesTextAttributesConstants,Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
+        :type text_attr: Optional[Union[CursesTextAttributesConstants,tuple[CursesTextAttributesConstants],list[CursesTextAttributesConstants]]]
 
         :param words_attr: This defaults to an empty dictionary.
-        :type words_atttr: Union[Dict[Tuple[str],CursesTextAttributesConstants],Dict[Tuple[str],Tuple[CursesTextAttributesConstants]]]
+        :type words_atttr: Union[Dict[tuple[str],CursesTextAttributesConstants],Dict[tuple[str],tuple[CursesTextAttributesConstants]]]
 
         :param flash_screen: Allows or not to flash screen with a short
             light effect done before writing the first character by
@@ -153,7 +153,7 @@ class DialogBox(TextBox):
             character in seconds where time waited is a random number
             generated in ``random_delay`` interval. This defaults to
             ``(0, 0)``.
-        :type random_delay: Optional[Tuple[float, flot],List[float, float]]
+        :type random_delay: Optional[tuple[float, flot],list[float, float]]
 
         :param callback: Callable called after writing a character and
             the delay time has elapsed. This defaults to a lambda which
@@ -162,7 +162,7 @@ class DialogBox(TextBox):
 
         :param cargs: All the arguments that will be passed to callback.
             This defaults to an empty tuple.
-        :type cargs: Optional[Union[Tuple[Any],List[Any]]]
+        :type cargs: Optional[Union[tuple[Any],list[Any]]]
 
         .. NOTE::
             Method flow:
@@ -280,10 +280,10 @@ class DialogBox(TextBox):
         :param text_attr: Dialog box curses text attributes. It should
             be a single curses text attribute or a tuple of curses text
             attribute. This defaults an empty tuple.
-        :type text_attr: Optional[Union[CursesTextAttributesConstants,Tuple[CursesTextAttributesConstants],List[CursesTextAttributesConstants]]]
+        :type text_attr: Optional[Union[CursesTextAttributesConstants,tuple[CursesTextAttributesConstants],list[CursesTextAttributesConstants]]]
 
         :param words_attr: This defaults to an empty dictionary.
-        :type words_atttr: Union[Dict[Tuple[str],CursesTextAttributesConstants],Dict[Tuple[str],Tuple[CursesTextAttributesConstants]]]
+        :type words_atttr: Union[Dict[tuple[str],CursesTextAttributesConstants],Dict[tuple[str],tuple[CursesTextAttributesConstants]]]
 
         :param cut_char: The delimiter according which to split the text
             in word. This defaults to ``" "``.
@@ -303,7 +303,7 @@ class DialogBox(TextBox):
             word in seconds where time waited is a random number
             generated in ``random_delay`` interval. This defaults to
             ``(0, 0)``.
-        :type random_delay: Optional[Tuple[float, float],List[float, float]]
+        :type random_delay: Optional[tuple[float, float],list[float, float]]
 
         :param callback: Callable called after writing a word and the
             delay time has elapsed. This defaults to a lambda which do
@@ -312,7 +312,7 @@ class DialogBox(TextBox):
 
         :param cargs: All the arguments that will be passed to callback.
             This defaults to an empty tuple.
-        :type cargs: Optional[Union[Tuple[Any],List[Any]]]
+        :type cargs: Optional[Union[tuple[Any],list[Any]]]
 
         .. NOTE::
             Method flow:

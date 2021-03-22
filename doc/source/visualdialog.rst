@@ -1,5 +1,5 @@
-Text box
-========
+Text boxes
+==========
 
 .. IMPORTANT::
   **Visual-dialog** contains two **modules**: ``visualdialog.box`` and ``visualdialog.dialog``.
@@ -7,8 +7,20 @@ Text box
 
   Two **classes** are defined in these modules but only ``DialogBox`` is destined to be instantiated.
 
+TextBox
+-------
+
 .. autoclass:: visualdialog.box.TextBox
     :members:
+    :undoc-members:
+    :private-members:
+
+DialogBox
+---------
+
 .. autoclass:: visualdialog.dialog.DialogBox
+    :special-members:
+    :undoc-members:
     :members:
-    :show-inheritance:
+    :private-members:
+

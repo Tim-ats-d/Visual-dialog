@@ -55,9 +55,9 @@ html_theme_options = {
     "display_version": True
 }
 
-html_logo = "images/visual-dialog.png"
+html_logo = "_static/visual-dialog.png"
 
-latex_logo = "images/visual-dialog.png"
+latex_logo = "_static/visual-dialog.png"
 
 latex_elements = {
     "pointsize": "12pt"
