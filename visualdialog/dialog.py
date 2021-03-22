@@ -35,6 +35,9 @@ from .utils import (CursesTextAttributesConstants,
 
 class DialogBox(TextBox):
     """This class provides methods and attributs to manage a dialog box.
+    
+    Keyword arguments correspond to the instance attributes of ``TextBox``,
+    documented below.
 
     :param end_dialog_indicator: Character that will be displayed in the
         lower right corner the character once all the characters have
@@ -45,9 +48,6 @@ class DialogBox(TextBox):
 
     .. NOTE::
         This class inherits all the methods and attributes of ``TextBox``.
-        You can pass all the arguments of the ``TextBox`` class to
-        ``DialogBox``.
-        See ``TextBox`` documentation for more informations.
 
     .. WARNING::
         Parameters ``downtime_chars`` and ``downtime_chars_delay`` do
