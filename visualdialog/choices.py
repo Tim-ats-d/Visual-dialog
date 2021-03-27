@@ -30,27 +30,9 @@ from .utils import (CursesTextAttributesConstants,
 
 class ChoiceBox(DialogBox):
 
-    def __init__(
-            self,
-            pos_x: int,
-            pos_y: int,
-            box_length: int,
-            box_width: int,
-            title: str = "",
-            title_colors_pair_nb: CursesTextAttributesConstants = 0,
-            title_text_attributes: Tuple[CursesTextAttributesConstants] = (
-                curses.A_BOLD, ),
-            downtime_chars: Tuple[str] = (",", ".", ":", ";", "!", "?"),
-            downtime_chars_delay: Union[int, float] = 0.6):
-        super().__init__(pos_x,
-                         pos_y,
-                         box_length,
-                         box_width,
-                         title,
-                         title_colors_pair_nb,
-                         title_text_attributes,
-                         downtime_chars,
-                         downtime_chars_delay)
+    def __init__(self,
+                 **kwargs):
+        super().__init__(**kwargs)
 
     def chain(
             self,

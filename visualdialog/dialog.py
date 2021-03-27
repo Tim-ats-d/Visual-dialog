@@ -28,7 +28,8 @@ import time
 from typing import Callable, Dict, List, Optional, Tuple, Union
 
 from .box import TextBox
-from .utils import (CursesTextAttributesConstants,
+from .utils import (CursesTextAttributesConstant,
+                    CursesTextAttributesConstants,
                     TextAttributes,
                     _make_chunk)
 
@@ -43,11 +44,12 @@ class DialogBox(TextBox):
         to ``"►"``.
     :type end_dialog_indicator: str
 
-    :key kwargs: Keyword arguments correspond to the instance attributes of
-        ``TextBox``.
+    :key kwargs: Keyword arguments correspond to the instance attributes
+        of ``TextBox``.
 
     .. NOTE::
-        This class inherits all the methods and attributes of ``TextBox``.
+        This class inherits all the methods and attributes of
+        ``TextBox``.
 
     .. WARNING::
         Parameters ``downtime_chars`` and ``downtime_chars_delay`` do
@@ -78,8 +80,8 @@ class DialogBox(TextBox):
     def _display_end_dialog_indicator(
         self,
         stdscr,
-        text_attr: Optional[Union[Tuple[CursesTextAttributesConstants], List[CursesTextAttributesConstants]]] = (
-            curses.A_BOLD, curses.A_BLINK)):
+        text_attr: CursesTextAttributesConstants = (curses.A_BOLD,
+                                                    curses.A_BLINK)):
         """Displays an end of dialog indicator in the lower right corner
         of textbox.
 
@@ -89,7 +91,7 @@ class DialogBox(TextBox):
         :param text_attr: Text attributes of
             ``end_dialog_indicator`` method. This defaults to
             ``(curses.A_BOLD, curses.A_BLINK)``.
-        :type text_attr: Optional[Union[tuple[CursesTextAttributesConstants],list[CursesTextAttributesConstants]]]
+        :type text_attr: CursesTextAttributesConstants
         """
         if self.end_dialog_indicator_char:
             with TextAttributes(stdscr, *text_attr):
@@ -102,15 +104,13 @@ class DialogBox(TextBox):
         stdscr,
         text: str,
         colors_pair_nb: int = 0,
-        text_attr: Union[CursesTextAttributesConstants,
-                         Tuple[CursesTextAttributesConstants],
-                         List[CursesTextAttributesConstants]] = (),
-        words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstants],
-                          Dict[Tuple[str],
-                               Tuple[CursesTextAttributesConstants]]] = {},
+        text_attr: Union[CursesTextAttributesConstant,
+                         CursesTextAttributesConstants] = (),
+        words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstant],
+                          Dict[Tuple[str], CursesTextAttributesConstants]] = {},
         flash_screen: bool = False,
         delay: Union[int, float] = .04,
-        random_delay: Tuple[float, float] = (0, 0),
+        random_delay: Union[Tuple[int, float], List[int, float]] = (0, 0),
         callback: Callable = lambda: None,
         cargs: Union[Tuple, List] = ()):
         """Writes the given text character by character in the current
@@ -129,40 +129,40 @@ class DialogBox(TextBox):
             corresponding to the pair of white color on black
             background initialized by ``curses``). This defaults to
             ``0``.
-        :type colors_pair_nb: Optional[int]
+        :type colors_pair_nb: int
 
         :param text_attr: Dialog box curses text attributes. It should
             be a single curses text attribute or a tuple of curses text
             attribute. This defaults an empty tuple.
-        :type text_attr: Optional[Union[CursesTextAttributesConstants,tuple[CursesTextAttributesConstants],list[CursesTextAttributesConstants]]]
+        :type text_attr: Union[CursesTextAttributesConstant,CursesTextAttributesConstants]
 
         :param words_attr: This defaults to an empty dictionary.
-        :type words_atttr: Union[Dict[tuple[str],CursesTextAttributesConstants],Dict[tuple[str],tuple[CursesTextAttributesConstants]]]
+        :type words_atttr: Union[dict[Tuple[str], CursesTextAttributesConstant],dict[Tuple[str], CursesTextAttributesConstants]]
 
         :param flash_screen: Allows or not to flash screen with a short
             light effect done before writing the first character by
             ``flash`` function from ``curses`` module. This defaults to
             ``False``.
-        :type flash_screen: Optional[bool]
+        :type flash_screen: bool
 
         :param delay: Waiting time between the writing of each character
             of text in second. This defaults to ``0.04``.
-        :type delay: Optional[Union[int, float]]
+        :type delay: Union[int, float]
 
         :param random_delay: Waiting time between the writing of each
             character in seconds where time waited is a random number
             generated in ``random_delay`` interval. This defaults to
             ``(0, 0)``.
-        :type random_delay: Optional[tuple[float, flot],list[float, float]]
+        :type random_delay: Union[tuple[int, float],list[int, float]]
 
         :param callback: Callable called after writing a character and
             the delay time has elapsed. This defaults to a lambda which
             do nothing.
-        :type callback: Optional[Callable]
+        :type callback: Callable
 
         :param cargs: All the arguments that will be passed to callback.
             This defaults to an empty tuple.
-        :type cargs: Optional[Union[tuple[Any],list[Any]]]
+        :type cargs: Union[tuple,list]
 
         .. NOTE::
             Method flow:
@@ -182,7 +182,8 @@ class DialogBox(TextBox):
             If the volume of text displayed is too large to be contained
             in a dialog box, text will be automatically cut into
             paragraphs using ``textwrap.wrap`` function. See
-            `textwrap module documentation <https://docs.python.org/fr/3.8/library/textwrap.html#textwrap.wrap>`_.
+            `textwrap module documentation
+            <https://docs.python.org/fr/3.8/library/textwrap.html#textwrap.wrap>`_.
             for more information of the behavior of text wrap.
 
         .. WARNING::
@@ -248,15 +249,13 @@ class DialogBox(TextBox):
         text: str,
         colors_pair_nb: int = 0,
         cut_char: str = " ",
-        text_attr: Union[CursesTextAttributesConstants,
-                         Tuple[CursesTextAttributesConstants],
-                         List[CursesTextAttributesConstants]] = (),
-        words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstants],
-                          Dict[Tuple[str],
-                               Tuple[CursesTextAttributesConstants]]] = {},
+        text_attr: Union[CursesTextAttributesConstant,
+                         CursesTextAttributesConstants] = (),
+        words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstant],
+                          Dict[Tuple[str], CursesTextAttributesConstants]] = {},
         flash_screen: bool = False,
         delay: Union[int, float] = .15,
-        random_delay: Tuple[float, float] = (0, 0),
+        random_delay: Union[Tuple[int, float], List[int, float]] = (0, 0),
         callback: Callable = lambda: None,
         cargs: Union[Tuple, List] = ()):
         """Writes the given text word by word at position in the current
@@ -275,15 +274,15 @@ class DialogBox(TextBox):
             the text. The number zero corresponding to the pair of
             white color on black background initialized by ``curses``).
             This defaults to ``0``.
-        :type colors_pair_nb: Optional[int]
+        :type colors_pair_nb: int
 
         :param text_attr: Dialog box curses text attributes. It should
             be a single curses text attribute or a tuple of curses text
             attribute. This defaults an empty tuple.
-        :type text_attr: Optional[Union[CursesTextAttributesConstants,tuple[CursesTextAttributesConstants],list[CursesTextAttributesConstants]]]
+        :type text_attr: Union[CursesTextAttributesConstant,CursesTextAttributesConstants]
 
         :param words_attr: This defaults to an empty dictionary.
-        :type words_atttr: Union[Dict[tuple[str],CursesTextAttributesConstants],Dict[tuple[str],tuple[CursesTextAttributesConstants]]]
+        :type words_atttr: Union[dict[Tuple[str], CursesTextAttributesConstant],dict[Tuple[str], CursesTextAttributesConstants]]
 
         :param cut_char: The delimiter according which to split the text
             in word. This defaults to ``" "``.
@@ -293,26 +292,26 @@ class DialogBox(TextBox):
             light effect done before writing the first character by
             ``flash`` function from ``curses`` module. This defaults to
             ``False``.
-        :type flash_screen: Optional[bool]
+        :type flash_screen: bool
 
         :param delay: Waiting time between the writing of each word of
             ``text`` in second. This defaults to ``0.15``.
-        :type delay: Optional[Union[int, float]]
+        :type delay: Union[int, float]
 
         :param random_delay: Waiting time between the writing of each
             word in seconds where time waited is a random number
             generated in ``random_delay`` interval. This defaults to
             ``(0, 0)``.
-        :type random_delay: Optional[tuple[float, float],list[float, float]]
+        :type random_delay: Union[tuple[int, float],list[int, float]]
 
         :param callback: Callable called after writing a word and the
             delay time has elapsed. This defaults to a lambda which do
             nothing.
-        :type callback: Optional[Callable]
+        :type callback: Callable
 
         :param cargs: All the arguments that will be passed to callback.
             This defaults to an empty tuple.
-        :type cargs: Optional[Union[tuple[Any],list[Any]]]
+        :type cargs: Union[tuple,list]
 
         .. NOTE::
             Method flow:
@@ -333,7 +332,8 @@ class DialogBox(TextBox):
             If the volume of text displayed is too large to be contained
             in a dialog box, text will be automatically cut into
             paragraphs using ``textwrap.wrap`` function. See
-            `textwrap module documentation <https://docs.python.org/fr/3.8/library/textwrap.html#textwrap.wrap>`_
+            `textwrap module documentation
+            <https://docs.python.org/fr/3.8/library/textwrap.html#textwrap.wrap>`_
             for more information of the behavior of text wrap.
 
         .. WARNING::

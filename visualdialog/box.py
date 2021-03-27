@@ -25,7 +25,9 @@ import curses
 import curses.textpad
 from typing import List, Tuple, Union
 
-from .utils import (CursesKeyConstants,
+from .utils import (CursesKeyConstant,
+                    CursesKeyConstants,
+                    CursesTextAttributesConstant,
                     CursesTextAttributesConstants,
                     TextAttributes)
 
@@ -38,7 +40,7 @@ class PanicError(Exception):
     :type key: CursesKeyConstants
     """
     def __init__(self,
-                 key: CursesKeyConstants):
+                 key: CursesKeyConstant):
         self.key = key
 
     def __str__(self):
@@ -49,8 +51,8 @@ class TextBox:
     """This class provides attributs and methods to manage a text box.
 
     .. NOTE::
-        This class provides a general API for text boxes, it does not need
-        to be instantiated.
+        This class provides a general API for text boxes, it does not
+        need to be instantiated.
 
     :param pos_x: x position of the dialog box in ``curses`` window
         object on which methods will have effects.
@@ -72,31 +74,31 @@ class TextBox:
         of dialog box.
         If title is an empty string, the title will not be displayed.
         This defaults an empty string.
-    :type title: Optional[str]
+    :type title: str
 
     :param title_colors_pair_nb:
         Number of the curses color pair that will be used to color the
         title. Zero corresponding to the pair of white color on black
         background initialized by ``curses``). This defaults to ``0``.
-    :type title_colors_pair_nb: Optional[int]
+    :type title_colors_pair_nb: int
 
     :param title_text_attr:
         Dialog box title text attributes. It should be a single curses
         text attribute or a tuple of curses text attribute. This
         defaults to ``curses.A_BOLD``.
-    :type title_text_attr: Optional[Union[CursesTextAttributesConstants,tuple[CursesTextAttributesConstants],list[CursesTextAttributesConstants]]]
+    :type title_text_attr: Union[CursesTextAttributesConstant,CursesTextAttributesConstants]
 
     :param downtime_chars:
         List of characters that will trigger a ``downtime_chars_delay``
         time second between the writing of each character.
         This defaults to ``(",", ".", ":", ";", "!", "?")``.
-    :type downtime_chars: Optional[Union[tuple[str],list[str]]]
+    :type downtime_chars: Union[tuple[str],list[str]]
 
     :param downtime_chars_delay:
         Waiting time in seconds after writing a character contained in
         ``downtime_chars``.
         This defaults to ``0.6``.
-    :type downtime_chars_delay: Optional[Union[int,float]]
+    :type downtime_chars_delay: Union[int,float]
     """
 
     def __init__(
@@ -106,10 +108,9 @@ class TextBox:
         length: int,
         width: int,
         title: str = "",
-        title_colors_pair_nb: CursesTextAttributesConstants = 0,
-        title_text_attr: Union[CursesTextAttributesConstants,
-                               Tuple[CursesTextAttributesConstants],
-                               List[CursesTextAttributesConstants]] = curses.A_BOLD,
+        title_colors_pair_nb: int = 0,
+        title_text_attr: Union[CursesTextAttributesConstant,
+                               CursesTextAttributesConstants] = curses.A_BOLD,
         downtime_chars: Union[Tuple[str],
                               List[str]] = (",", ".", ":", ";", "!", "?"),
         downtime_chars_delay: Union[int, float] = .6):
@@ -140,27 +141,25 @@ class TextBox:
         self.downtime_chars_delay = downtime_chars_delay
 
         #: List of accepted key codes to skip dialog. ``curses`` constants are supported. This defaults to an empty tuple.
-        self.confirm_dialog_key: Union[Tuple[CursesKeyConstants],
-                                       List[CursesKeyConstants]] = ()
+        self.confirm_dialog_key: List[CursesKeyConstants] = []
         #: List of accepted key codes to raise PanicError. ``curses`` constants are supported. This defaults to an empty tuple.
-        self.panic_key: Union[Tuple[CursesKeyConstants],
-                              List[CursesKeyConstants]] = ()
+        self.panic_key: List[CursesKeyConstants] = []
 
     @property
-    def position(self) -> Tuple[int, int]:
+    def position(self) -> Tuple[int]:
         """Returns a tuple contains x;y position of ``TextBox``.
 
         :returns: x;y position of ``TextBox``.
-        :rtype: tuple[int, int]
+        :rtype: tuple[int]
         """
         return self.text_pos_x - 2, self.text_pos_y - 3
 
     @property
-    def dimensions(self) -> Tuple[int, int]:
+    def dimensions(self) -> Tuple[int]:
         """Returns a tuple contains dimensions of ``TextBox``.
 
         :returns: Length and width of ``TextBox``.
-        :rtype: tuple[int, int]
+        :rtype: tuple[int]
         """
         return self.length, self.width
 

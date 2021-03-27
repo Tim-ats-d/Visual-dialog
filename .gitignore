@@ -1,2 +1,5 @@
 .vscode
 .idea
+
+# Sphinx documentation
+/doc/build/

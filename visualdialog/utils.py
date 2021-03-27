@@ -24,11 +24,14 @@ from typing import Generator, List, Tuple, Union
 
 # curses text attribute constants are integers.
 # See https://docs.python.org/3/library/curses.html?#constants
-CursesTextAttributesConstants = int
+CursesTextAttributesConstant = int
+CursesTextAttributesConstants = Union[Tuple[int], List[int]]
 
 # curses key constants are integers.
 # See https://docs.python.org/3/library/curses.html?#constants
-CursesKeyConstants = int
+CursesKeyConstant = int
+CursesKeyConstants = Union[Tuple[int], List[int]]
+
 
 def _make_chunk(iterable: Union[Tuple, List],
                 chunk_length: int) -> Generator:
