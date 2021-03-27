@@ -18,16 +18,15 @@ def main(stdscr):
 
     curses.curs_set(0)
 
-    curses.start_color()
     curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK)
 
     textbox = DialogBox(0, 0,
                         40, 6,
-                        # ~ title="Tim-ats-d",
-                        title_colors_pair_nb=3,
-                        end_dialog_indicator="o")
+                        # title="Tim-ats-d",
+                        # title_colors_pair_nb=3,
+                        end_indicator="o")
 
     textbox.confirm_dialog_key = (32, )
     textbox.panic_key = (10, )
@@ -44,9 +43,9 @@ def main(stdscr):
         textbox.char_by_char(stdscr,
                              reply,
                              cargs=(reply, ),
-                             callback=func)
-                             # ~ text_attr=(curses.A_ITALIC, curses.A_BOLD),
-                             # ~ words_attr=special_words)
+                             callback=func,
+                             text_attr=(curses.A_ITALIC, curses.A_BOLD),
+                             words_attr=special_words)
 
     with visualdialog.TextAttributes(stdscr, curses.A_BOLD, curses.A_ITALIC):
         ...
