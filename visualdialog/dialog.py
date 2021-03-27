@@ -27,14 +27,15 @@ import textwrap
 import time
 from typing import Callable, Dict, List, Optional, Tuple, Union
 
-from .box import TextBox
+from .box import BaseTextBox
 from .utils import (CursesTextAttributesConstant,
                     CursesTextAttributesConstants,
+                    Numeric,
                     TextAttributes,
                     _make_chunk)
 
 
-class DialogBox(TextBox):
+class DialogBox(BaseTextBox):
     """This class provides methods and attributs to manage a dialog box.
 
     :param end_dialog_indicator: Character that will be displayed in the
@@ -49,7 +50,7 @@ class DialogBox(TextBox):
 
     .. NOTE::
         This class inherits all the methods and attributes of
-        ``TextBox``.
+        ``BaseTextBox``.
 
     .. WARNING::
         Parameters ``downtime_chars`` and ``downtime_chars_delay`` do
@@ -109,8 +110,8 @@ class DialogBox(TextBox):
         words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstant],
                           Dict[Tuple[str], CursesTextAttributesConstants]] = {},
         flash_screen: bool = False,
-        delay: Union[int, float] = .04,
-        random_delay: Union[Tuple[int, float], List[int, float]] = (0, 0),
+        delay: Numeric = .04,
+        random_delay: Union[Tuple[Numeric], List[Numeric]] = (0, 0),
         callback: Callable = lambda: None,
         cargs: Union[Tuple, List] = ()):
         """Writes the given text character by character in the current
@@ -147,13 +148,13 @@ class DialogBox(TextBox):
 
         :param delay: Waiting time between the writing of each character
             of text in second. This defaults to ``0.04``.
-        :type delay: Union[int, float]
+        :type delay: Numeric
 
         :param random_delay: Waiting time between the writing of each
             character in seconds where time waited is a random number
             generated in ``random_delay`` interval. This defaults to
             ``(0, 0)``.
-        :type random_delay: Union[tuple[int, float],list[int, float]]
+        :type random_delay: Union[tuple[Numeric],list[Numeric]]
 
         :param callback: Callable called after writing a character and
             the delay time has elapsed. This defaults to a lambda which
@@ -254,8 +255,8 @@ class DialogBox(TextBox):
         words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstant],
                           Dict[Tuple[str], CursesTextAttributesConstants]] = {},
         flash_screen: bool = False,
-        delay: Union[int, float] = .15,
-        random_delay: Union[Tuple[int, float], List[int, float]] = (0, 0),
+        delay: Numeric = .15,
+        random_delay: Union[Tuple[Numeric], List[Numeric]] = (0, 0),
         callback: Callable = lambda: None,
         cargs: Union[Tuple, List] = ()):
         """Writes the given text word by word at position in the current
@@ -296,13 +297,13 @@ class DialogBox(TextBox):
 
         :param delay: Waiting time between the writing of each word of
             ``text`` in second. This defaults to ``0.15``.
-        :type delay: Union[int, float]
+        :type delay: Numeric
 
         :param random_delay: Waiting time between the writing of each
             word in seconds where time waited is a random number
             generated in ``random_delay`` interval. This defaults to
             ``(0, 0)``.
-        :type random_delay: Union[tuple[int, float],list[int, float]]
+        :type random_delay: Union[Tuple[Numeric], List[Numeric]]
 
         :param callback: Callable called after writing a word and the
             delay time has elapsed. This defaults to a lambda which do

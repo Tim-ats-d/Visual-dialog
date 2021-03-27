@@ -10,7 +10,7 @@ Text boxes
 TextBox
 -------
 
-.. autoclass:: visualdialog.box.TextBox
+.. autoclass:: visualdialog.box.BaseTextBox
     :members:
     :undoc-members:
     :private-members:

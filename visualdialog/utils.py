@@ -19,8 +19,10 @@
 #
 #
 
-from typing import Generator, List, Tuple, Union
+from typing import Generator, List, Tuple, TypeVar, Union
 
+
+Numeric = TypeVar("Numeric", int, float)
 
 # curses text attribute constants are integers.
 # See https://docs.python.org/3/library/curses.html?#constants

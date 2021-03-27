@@ -19,7 +19,7 @@
 #
 #
 
-__all__ = ["TextBox"]
+__all__ = ["BaseTextBox"]
 
 import curses
 import curses.textpad
@@ -29,6 +29,7 @@ from .utils import (CursesKeyConstant,
                     CursesKeyConstants,
                     CursesTextAttributesConstant,
                     CursesTextAttributesConstants,
+                    Numeric,
                     TextAttributes)
 
 
@@ -47,7 +48,7 @@ class PanicError(Exception):
         return f"text box was aborted by pressing the {self.key} key"
 
 
-class TextBox:
+class BaseTextBox:
     """This class provides attributs and methods to manage a text box.
 
     .. NOTE::
@@ -98,7 +99,7 @@ class TextBox:
         Waiting time in seconds after writing a character contained in
         ``downtime_chars``.
         This defaults to ``0.6``.
-    :type downtime_chars_delay: Union[int,float]
+    :type downtime_chars_delay: Numeric
     """
 
     def __init__(
@@ -113,7 +114,7 @@ class TextBox:
                                CursesTextAttributesConstants] = curses.A_BOLD,
         downtime_chars: Union[Tuple[str],
                               List[str]] = (",", ".", ":", ";", "!", "?"),
-        downtime_chars_delay: Union[int, float] = .6):
+        downtime_chars_delay: Numeric = .6):
         self.pos_x, self.pos_y = pos_x, pos_y
         self.length, self.width = length, width
 
