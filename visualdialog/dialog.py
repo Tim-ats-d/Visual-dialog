@@ -30,6 +30,7 @@ from typing import Callable, Dict, List, Optional, Tuple, Union
 from .box import BaseTextBox
 from .utils import (CursesTextAttributesConstant,
                     CursesTextAttributesConstants,
+                    CursesWindow,
                     Numeric,
                     TextAttributes,
                     _make_chunk)
@@ -43,24 +44,41 @@ class DialogBox(BaseTextBox):
         been completed. String with a length of more than one character
         can lead to an overflow of the dialog box frame. This defaults
         to ``"►"``.
-    :type end_dialog_indicator: str
 
     :key kwargs: Keyword arguments correspond to the instance attributes
         of ``TextBox``.
 
     .. NOTE::
-        This class inherits all the methods and attributes of
-        ``BaseTextBox``.
+        This class inherits from ``BaseTextBox``.
+
+    .. NOTE::
+        This class is a context manager.
 
     .. WARNING::
         Parameters ``downtime_chars`` and ``downtime_chars_delay`` do
         not affect ``word_by_word`` method.
     """
 
-    def __init__(self,
-                 end_dialog_indicator: str = "►",
-                 **kwargs):
-        super().__init__(**kwargs)
+    def __init__(
+        self,
+        pos_x: int,
+        pos_y: int,
+        length: int,
+        width: int,
+        title: str = "",
+        title_colors_pair_nb: int = 0,
+        title_text_attr: Union[CursesTextAttributesConstant,
+                            CursesTextAttributesConstants] = curses.A_BOLD,
+        downtime_chars: Union[Tuple[str],
+                            List[str]] = (",", ".", ":", ";", "!", "?"),
+        downtime_chars_delay: Numeric = .6,
+        end_dialog_indicator: str = "►"):
+        BaseTextBox.__init__(self,
+                             pos_x, pos_y,
+                             length, width,
+                             title,
+                             title_colors_pair_nb, title_text_attr,
+                             downtime_chars, downtime_chars_delay)
 
         self.end_dialog_indicator_char = end_dialog_indicator
         self.end_dialog_indicator_pos_x = self.pos_x + self.length - 2
@@ -80,29 +98,28 @@ class DialogBox(BaseTextBox):
 
     def _display_end_dialog_indicator(
         self,
-        stdscr,
+        win: CursesWindow,
         text_attr: CursesTextAttributesConstants = (curses.A_BOLD,
                                                     curses.A_BLINK)):
         """Displays an end of dialog indicator in the lower right corner
         of textbox.
 
-        :param stdscr: ``curses`` window object on which the method
+        :param win: ``curses`` window object on which the method
             will have effect.
 
         :param text_attr: Text attributes of
             ``end_dialog_indicator`` method. This defaults to
             ``(curses.A_BOLD, curses.A_BLINK)``.
-        :type text_attr: CursesTextAttributesConstants
         """
         if self.end_dialog_indicator_char:
-            with TextAttributes(stdscr, *text_attr):
-                stdscr.addch(self.end_dialog_indicator_pos_y,
-                             self.end_dialog_indicator_pos_x,
-                             self.end_dialog_indicator_char)
+            with TextAttributes(win, *text_attr):
+                win.addch(self.end_dialog_indicator_pos_y,
+                          self.end_dialog_indicator_pos_x,
+                          self.end_dialog_indicator_char)
 
     def char_by_char(
         self,
-        stdscr,
+        win: CursesWindow,
         text: str,
         colors_pair_nb: int = 0,
         text_attr: Union[CursesTextAttributesConstant,
@@ -117,53 +134,44 @@ class DialogBox(BaseTextBox):
         """Writes the given text character by character in the current
         dialog box.
 
-        :param stdscr: ``curses`` window object on which the method will
+        :param win: ``curses`` window object on which the method will
             have effect.
 
         :param text: Text that will be displayed character by character
             in the dialog box. This text can be wrapped to fit the
             proportions of the dialog box.
-        :type text: str
 
         :param colors_pair_nb: Number of the curses color pair that
             will be used to color the text. The number zero
             corresponding to the pair of white color on black
             background initialized by ``curses``). This defaults to
             ``0``.
-        :type colors_pair_nb: int
 
         :param text_attr: Dialog box curses text attributes. It should
             be a single curses text attribute or a tuple of curses text
             attribute. This defaults an empty tuple.
-        :type text_attr: Union[CursesTextAttributesConstant,CursesTextAttributesConstants]
 
         :param words_attr: This defaults to an empty dictionary.
-        :type words_atttr: Union[dict[Tuple[str], CursesTextAttributesConstant],dict[Tuple[str], CursesTextAttributesConstants]]
 
         :param flash_screen: Allows or not to flash screen with a short
             light effect done before writing the first character by
             ``flash`` function from ``curses`` module. This defaults to
             ``False``.
-        :type flash_screen: bool
 
         :param delay: Waiting time between the writing of each character
             of text in second. This defaults to ``0.04``.
-        :type delay: Numeric
 
         :param random_delay: Waiting time between the writing of each
             character in seconds where time waited is a random number
             generated in ``random_delay`` interval. This defaults to
             ``(0, 0)``.
-        :type random_delay: Union[tuple[Numeric],list[Numeric]]
 
         :param callback: Callable called after writing a character and
             the delay time has elapsed. This defaults to a lambda which
             do nothing.
-        :type callback: Callable
 
         :param cargs: All the arguments that will be passed to callback.
             This defaults to an empty tuple.
-        :type cargs: Union[tuple,list]
 
         .. NOTE::
             Method flow:
@@ -177,7 +185,7 @@ class DialogBox(BaseTextBox):
                 - Waits until a key contained in the class attribute
                   ``confirm_dialog_key`` was pressed before writing the
                   following paragraph.
-                - Complete cleaning ``stdscr``.
+                - Complete cleaning ``win``.
 
         .. WARNING::
             If the volume of text displayed is too large to be contained
@@ -188,11 +196,11 @@ class DialogBox(BaseTextBox):
             for more information of the behavior of text wrap.
 
         .. WARNING::
-            ``stdscr`` will be completely cleaned when writing each
+            ``win`` will be completely cleaned when writing each
             paragraph by ``window.clear()`` method of ``curses``
             module.
         """
-        self.framing_box(stdscr)
+        self.framing_box(win)
 
         if flash_screen:
             curses.flash()
@@ -201,8 +209,8 @@ class DialogBox(BaseTextBox):
         wrapped_text = _make_chunk(wrapped_text, self.nb_lines_max)
 
         for paragraph in wrapped_text:
-            stdscr.clear()
-            self.framing_box(stdscr)
+            win.clear()
+            self.framing_box(win)
 
             for y, line in enumerate(paragraph):
                 offsetting_x = 0
@@ -219,12 +227,12 @@ class DialogBox(BaseTextBox):
 
                         attr = (curses.color_pair(colors_pair_nb), *text_attr)
 
-                    with TextAttributes(stdscr, *attr):
+                    with TextAttributes(win, *attr):
                         for x, char in enumerate(word):
-                            stdscr.addstr(self.text_pos_y + y,
-                                          self.text_pos_x + x + offsetting_x,
-                                          char)
-                            stdscr.refresh()
+                            win.addstr(self.text_pos_y + y,
+                                       self.text_pos_x + x + offsetting_x,
+                                       char)
+                            win.refresh()
 
                             if char in self.downtime_chars:
                                 time.sleep(self.downtime_chars_delay +
@@ -241,12 +249,12 @@ class DialogBox(BaseTextBox):
                     # Compensates for the space between words.
                     offsetting_x += len(word) + 1
 
-            self._display_end_dialog_indicator(stdscr)
-            self.getkey(stdscr)
+            self._display_end_dialog_indicator(win)
+            self.getkey(win)
 
     def word_by_word(
         self,
-        stdscr,
+        win: CursesWindow,
         text: str,
         colors_pair_nb: int = 0,
         cut_char: str = " ",
@@ -262,57 +270,47 @@ class DialogBox(BaseTextBox):
         """Writes the given text word by word at position in the current
         dialog box.
 
-        :param stdscr: ``curses`` window object on which the method will
+        :param win: ``curses`` window object on which the method will
             have effect.
 
         :param text: Text that will be displayed word by word in the
             dialog box. This text can be wrapped to fit the proportions
             of the dialog box.
-        :type text: str
 
         :param colors_pair_nb:
             Number of the curses color pair that will be used to color
             the text. The number zero corresponding to the pair of
             white color on black background initialized by ``curses``).
             This defaults to ``0``.
-        :type colors_pair_nb: int
 
         :param text_attr: Dialog box curses text attributes. It should
             be a single curses text attribute or a tuple of curses text
             attribute. This defaults an empty tuple.
-        :type text_attr: Union[CursesTextAttributesConstant,CursesTextAttributesConstants]
 
         :param words_attr: This defaults to an empty dictionary.
-        :type words_atttr: Union[dict[Tuple[str], CursesTextAttributesConstant],dict[Tuple[str], CursesTextAttributesConstants]]
 
         :param cut_char: The delimiter according which to split the text
             in word. This defaults to ``" "``.
-        :type cut_char: str
 
         :param flash_screen: Allows or not to flash screen with a short
             light effect done before writing the first character by
             ``flash`` function from ``curses`` module. This defaults to
             ``False``.
-        :type flash_screen: bool
 
         :param delay: Waiting time between the writing of each word of
             ``text`` in second. This defaults to ``0.15``.
-        :type delay: Numeric
 
         :param random_delay: Waiting time between the writing of each
             word in seconds where time waited is a random number
             generated in ``random_delay`` interval. This defaults to
             ``(0, 0)``.
-        :type random_delay: Union[Tuple[Numeric], List[Numeric]]
 
         :param callback: Callable called after writing a word and the
             delay time has elapsed. This defaults to a lambda which do
             nothing.
-        :type callback: Callable
 
         :param cargs: All the arguments that will be passed to callback.
             This defaults to an empty tuple.
-        :type cargs: Union[tuple,list]
 
         .. NOTE::
             Method flow:
@@ -327,7 +325,7 @@ class DialogBox(BaseTextBox):
                 - Waits until a key contained in the class attribute
                   ``confirm_dialog_key`` was pressed before writing the
                   following paragraph.
-                - Complete cleaning ``stdscr``.
+                - Complete cleaning ``win``.
 
         .. WARNING::
             If the volume of text displayed is too large to be contained
@@ -338,11 +336,11 @@ class DialogBox(BaseTextBox):
             for more information of the behavior of text wrap.
 
         .. WARNING::
-            ``stdscr`` will be completely cleaned when writing each
+            ``win`` will be completely cleaned when writing each
             paragraph by ``window.clear()`` method of ``curses``
             module.
         """
-        self.framing_box(stdscr)
+        self.framing_box(win)
 
         if flash_screen:
             curses.flash()
@@ -353,8 +351,8 @@ class DialogBox(BaseTextBox):
         wrapped_text = _make_chunk(wrapped_text, self.nb_lines_max)
 
         for paragraph in wrapped_text:
-            stdscr.clear()
-            self.framing_box(stdscr)
+            win.clear()
+            self.framing_box(win)
             for y, line in enumerate(paragraph):
                 offsetting_x = 0
                 for word in line.split(cut_char):
@@ -370,10 +368,10 @@ class DialogBox(BaseTextBox):
 
                         attr = (curses.color_pair(colors_pair_nb), *text_attr)
 
-                    with TextAttributes(stdscr, *attr):
-                        stdscr.addstr(self.text_pos_y + y,
-                                      self.text_pos_x + offsetting_x, word)
-                        stdscr.refresh()
+                    with TextAttributes(win, *attr):
+                        win.addstr(self.text_pos_y + y,
+                                   self.text_pos_x + offsetting_x, word)
+                        win.refresh()
 
                     # Compensates for the space between words.
                     offsetting_x += len(word) + 1
@@ -382,5 +380,5 @@ class DialogBox(BaseTextBox):
 
                 callback(*cargs)
 
-            self._display_end_dialog_indicator(stdscr)
-            self.getkey(stdscr)
+            self._display_end_dialog_indicator(win)
+            self.getkey(win)

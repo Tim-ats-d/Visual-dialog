@@ -18,19 +18,21 @@
 #  MA 02110-1301, USA.
 #
 #
-
+import _curses
 from typing import Generator, List, Tuple, TypeVar, Union
 
 
 Numeric = TypeVar("Numeric", int, float)
 
-# curses text attribute constants are integers.
-# See https://docs.python.org/3/library/curses.html?#constants
+CursesWindow = _curses.window
+
+#: curses text attribute constants are integers.
+#: See https://docs.python.org/3/library/curses.html?#constants
 CursesTextAttributesConstant = int
 CursesTextAttributesConstants = Union[Tuple[int], List[int]]
 
-# curses key constants are integers.
-# See https://docs.python.org/3/library/curses.html?#constants
+#: curses key constants are integers.
+#: See https://docs.python.org/3/library/curses.html?#constants
 CursesKeyConstant = int
 CursesKeyConstants = Union[Tuple[int], List[int]]
 
@@ -41,7 +43,6 @@ def _make_chunk(iterable: Union[Tuple, List],
     into chunk_length bundles.
 
     :returns: Iterator separated into chunk_length bundles.
-    :rtype: Generator
     """
     return (iterable[chunk:chunk + chunk_length]
             for chunk in range(0, len(iterable), chunk_length))
@@ -54,12 +55,11 @@ class TextAttributes:
         managed.
 
     :param attributes: List of attributes to activate and desactivate.
-    :type attributes: Union[tuple[CursesTextAttributesConstants],list[CursesTextAttributesConstants]]
     """
     def __init__(self,
-                 stdscr,
+                 win: CursesWindow,
                  *attributes: CursesTextAttributesConstants):
-        self.win = stdscr
+        self.win = win
         self.attributes = attributes
 
     def __enter__(self):

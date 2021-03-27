@@ -13,14 +13,10 @@ TextBox
 .. autoclass:: visualdialog.box.BaseTextBox
     :members:
     :undoc-members:
-    :private-members:
 
 DialogBox
 ---------
 
 .. autoclass:: visualdialog.dialog.DialogBox
-    :special-members:
     :undoc-members:
     :members:
-    :private-members:
-

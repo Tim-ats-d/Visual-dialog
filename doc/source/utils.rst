@@ -16,5 +16,5 @@ Utils
     visualdialog.function(args)
 
 
-.. autoclass:: visualdialog.utils.TextAttributes
+.. automodule:: visualdialog.utils
     :members:
