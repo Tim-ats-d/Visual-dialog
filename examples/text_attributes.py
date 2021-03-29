@@ -1,6 +1,6 @@
-#  text_attributes.py
+# text_attributes.py
 #
-#  An example showing the possibilities of text formatting.
+# An example showing the possibilities of text formatting.
 
 import curses
 

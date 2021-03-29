@@ -1,6 +1,6 @@
-#  words.py
+# words.py
 #
-#  An example of using the word_by_word method from text boxes.
+# An example of using the word_by_word method from text boxes.
 
 import curses
 
