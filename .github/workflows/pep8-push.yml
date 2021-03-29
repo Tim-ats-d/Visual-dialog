@@ -1,0 +1,15 @@
+name: PEP8 check (push)
+
+on: [push]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: 'Run PEP8'
+      uses: quentinguidee/pep8-action@v1
+      id: run_pep8
+      with:
+        arguments: '--max-line-length=79'
+      continue-on-error: false
