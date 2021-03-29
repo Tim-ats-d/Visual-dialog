@@ -1,3 +1,4 @@
+
 from setuptools import find_packages, setup
 
 from visualdialog import __author__, __version__

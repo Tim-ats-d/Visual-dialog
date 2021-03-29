@@ -1,6 +1,6 @@
-#  context.py
+# context.py
 #
-#  An example of how to use a text box as a context manager.
+# An example of how to use a text box as a context manager.
 
 import curses
 

@@ -1,6 +1,6 @@
-#  test.py
+# test.py
 #
-#  This file contains the tests used to debug the library.
+# This file contains the tests used to debug the library.
 
 import curses
 

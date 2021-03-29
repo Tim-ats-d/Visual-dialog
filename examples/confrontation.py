@@ -1,6 +1,6 @@
-#  confrontation.py
+# confrontation.py
 #
-#  A concrete example exploiting the possibilities of Visual-dialog.
+# A concrete example exploiting the possibilities of Visual-dialog.
 
 import curses
 

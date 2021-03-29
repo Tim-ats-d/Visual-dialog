@@ -1,6 +1,6 @@
-#  monologue.py
+# monologue.py
 #
-#  A simple example of how to use Visual-dialog.
+# A simple example of how to use Visual-dialog.
 
 import curses
 
