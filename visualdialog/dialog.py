@@ -72,7 +72,7 @@ class DialogBox(BaseTextBox):
         downtime_chars: Union[Tuple[str],
                             List[str]] = (",", ".", ":", ";", "!", "?"),
         downtime_chars_delay: Numeric = .6,
-        end_dialog_indicator: str = "►"):
+        end_indicator: str = "►"):
         BaseTextBox.__init__(self,
                              pos_x, pos_y,
                              length, width,
@@ -80,13 +80,13 @@ class DialogBox(BaseTextBox):
                              title_colors_pair_nb, title_text_attr,
                              downtime_chars, downtime_chars_delay)
 
-        self.end_dialog_indicator_char = end_dialog_indicator
-        self.end_dialog_indicator_pos_x = self.pos_x + self.length - 2
+        self.end_indicator_char = end_indicator
+        self.end_indicator_pos_x = self.pos_x + self.length - 2
 
         if self.title:
-            self.end_dialog_indicator_pos_y = self.pos_y + self.width + 1
+            self.end_indicator_pos_y = self.pos_y + self.width + 1
         else:
-            self.end_dialog_indicator_pos_y = self.pos_y + self.width - 1
+            self.end_indicator_pos_y = self.pos_y + self.width - 1
 
         self.text_wrapper = textwrap.TextWrapper(width=self.nb_char_max_line)
 
@@ -96,26 +96,26 @@ class DialogBox(BaseTextBox):
     def __exit__(self, type, value, traceback):
         ...
 
-    def _display_end_dialog_indicator(
+    def _display_end_indicator(
         self,
         win: CursesWindow,
         text_attr: CursesTextAttributesConstants = (curses.A_BOLD,
                                                     curses.A_BLINK)):
-        """Displays an end of dialog indicator in the lower right corner
-        of textbox.
+        """Displays an end indicator in the lower right corner of
+        textbox.
 
         :param win: ``curses`` window object on which the method
             will have effect.
 
         :param text_attr: Text attributes of
-            ``end_dialog_indicator`` method. This defaults to
+            ``end_indicator`` method. This defaults to
             ``(curses.A_BOLD, curses.A_BLINK)``.
         """
-        if self.end_dialog_indicator_char:
+        if self.end_indicator_char:
             with TextAttributes(win, *text_attr):
-                win.addch(self.end_dialog_indicator_pos_y,
-                          self.end_dialog_indicator_pos_x,
-                          self.end_dialog_indicator_char)
+                win.addch(self.end_indicator_pos_y,
+                          self.end_indicator_pos_x,
+                          self.end_indicator_char)
 
     def char_by_char(
         self,
@@ -252,7 +252,7 @@ class DialogBox(BaseTextBox):
                     # Compensates for the space between words.
                     offsetting_x += len(word) + 1
 
-            self._display_end_dialog_indicator(win)
+            self._display_end_indicator(win)
             self.getkey(win)
 
     def word_by_word(
@@ -327,7 +327,6 @@ class DialogBox(BaseTextBox):
                 - Writing paragraph by paragraph.
                 - Writing each line of the current paragraph, word by
                   word.
-                - Calling ``_display_end_dialog_indicator`` method.
                 - Waits until a key contained in the class attribute
                   ``confirm_dialog_key`` was pressed before writing the
                   following paragraph.
@@ -386,5 +385,5 @@ class DialogBox(BaseTextBox):
 
                 callback(*cargs)
 
-            self._display_end_dialog_indicator(win)
+            self._display_end_indicator(win)
             self.getkey(win)

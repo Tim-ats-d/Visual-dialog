@@ -72,11 +72,14 @@ import curses
 from visualdialog import DialogBox
 
 
+x, y = (0, 0)
+length, width = (35, 6)
+
 def main(stdscr):
     curses.curs_set(False)
 
-    textbox = DialogBox(0, 0,
-                        35, 6,
+    textbox = DialogBox(x, y,
+                        length, width,
                         title="Demo")
     textbox.char_by_char(stdscr,
                          "Hello world")
