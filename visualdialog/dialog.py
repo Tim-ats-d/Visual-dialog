@@ -151,7 +151,10 @@ class DialogBox(BaseTextBox):
             be a single curses text attribute or a tuple of curses text
             attribute. This defaults an empty tuple.
 
-        :param words_attr: This defaults to an empty dictionary.
+        :param words_attr: Dictionary composed of string as a key and a
+            single curses text attribute or tuple as a value. Each key
+            is colored with its associated values This defaults to an
+            empty dictionary.
 
         :param flash_screen: Allows or not to flash screen with a short
             light effect done before writing the first character by
@@ -287,7 +290,10 @@ class DialogBox(BaseTextBox):
             be a single curses text attribute or a tuple of curses text
             attribute. This defaults an empty tuple.
 
-        :param words_attr: This defaults to an empty dictionary.
+        :param words_attr: Dictionary composed of string as a key and a
+            single curses text attribute or tuple as a value. Each key
+            is colored with its associated values This defaults to an
+            empty dictionary.
 
         :param cut_char: The delimiter according which to split the text
             in word. This defaults to ``" "``.
