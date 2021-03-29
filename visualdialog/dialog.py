@@ -22,6 +22,7 @@
 __all__ = ["DialogBox"]
 
 import curses
+from numbers import Number
 import random
 import textwrap
 import time
@@ -31,7 +32,6 @@ from .box import BaseTextBox
 from .utils import (CursesTextAttributesConstant,
                     CursesTextAttributesConstants,
                     CursesWindow,
-                    Numeric,
                     TextAttributes,
                     _make_chunk)
 
@@ -71,7 +71,7 @@ class DialogBox(BaseTextBox):
                             CursesTextAttributesConstants] = curses.A_BOLD,
         downtime_chars: Union[Tuple[str],
                             List[str]] = (",", ".", ":", ";", "!", "?"),
-        downtime_chars_delay: Numeric = .6,
+        downtime_chars_delay: Number = .6,
         end_indicator: str = "►"):
         BaseTextBox.__init__(self,
                              pos_x, pos_y,
@@ -127,8 +127,8 @@ class DialogBox(BaseTextBox):
         words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstant],
                           Dict[Tuple[str], CursesTextAttributesConstants]] = {},
         flash_screen: bool = False,
-        delay: Numeric = .04,
-        random_delay: Union[Tuple[Numeric], List[Numeric]] = (0, 0),
+        delay: Number = .04,
+        random_delay: Union[Tuple[Number], List[Number]] = (0, 0),
         callback: Callable = lambda: None,
         cargs: Union[Tuple, List] = ()):
         """Writes the given text character by character in the current
@@ -266,8 +266,8 @@ class DialogBox(BaseTextBox):
         words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstant],
                           Dict[Tuple[str], CursesTextAttributesConstants]] = {},
         flash_screen: bool = False,
-        delay: Numeric = .15,
-        random_delay: Union[Tuple[Numeric], List[Numeric]] = (0, 0),
+        delay: Number = .15,
+        random_delay: Union[Tuple[Number], List[Number]] = (0, 0),
         callback: Callable = lambda: None,
         cargs: Union[Tuple, List] = ()):
         """Writes the given text word by word at position in the current

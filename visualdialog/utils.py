@@ -25,8 +25,6 @@ from typing import (Generator, Iterable, List, NoReturn, Tuple, TypeVar,
 					Union)
 
 
-Numeric = TypeVar("Numeric", int, float)
-
 CursesWindow = _curses.window
 
 #: curses text attribute constants are integers.

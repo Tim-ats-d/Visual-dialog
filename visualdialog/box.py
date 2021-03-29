@@ -23,6 +23,7 @@ __all__ = ["BaseTextBox"]
 
 import curses
 import curses.textpad
+from numbers import Number
 from typing import List, Tuple, Union
 
 from .utils import (CursesKeyConstant,
@@ -30,7 +31,6 @@ from .utils import (CursesKeyConstant,
                     CursesTextAttributesConstant,
                     CursesTextAttributesConstants,
                     CursesWindow,
-                    Numeric,
                     TextAttributes)
 
 
@@ -105,7 +105,7 @@ class BaseTextBox:
                             CursesTextAttributesConstants] = curses.A_BOLD,
         downtime_chars: Union[Tuple[str],
                             List[str]] = (",", ".", ":", ";", "!", "?"),
-        downtime_chars_delay: Numeric = .6):
+        downtime_chars_delay: Number = .6):
         self.pos_x, self.pos_y = pos_x, pos_y
         self.length, self.width = length, width
 
