@@ -63,7 +63,7 @@ class DialogBox(BaseTextBox):
         self,
         pos_x: int,
         pos_y: int,
-        length: int,
+        height: int,
         width: int,
         title: str = "",
         title_colors_pair_nb: int = 0,
@@ -75,13 +75,13 @@ class DialogBox(BaseTextBox):
         end_indicator: str = "►"):
         BaseTextBox.__init__(self,
                              pos_x, pos_y,
-                             length, width,
+                             height, width,
                              title,
                              title_colors_pair_nb, title_text_attr,
                              downtime_chars, downtime_chars_delay)
 
         self.end_indicator_char = end_indicator
-        self.end_indicator_pos_x = self.pos_x + self.length - 2
+        self.end_indicator_pos_x = self.pos_x + self.height - 2
 
         if self.title:
             self.end_indicator_pos_y = self.pos_y + self.width + 1

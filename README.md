@@ -73,13 +73,13 @@ from visualdialog import DialogBox
 
 
 x, y = (0, 0)
-length, width = (35, 6)
+height, width = (35, 6)
 
 def main(stdscr):
     curses.curs_set(False)
 
     textbox = DialogBox(x, y,
-                        length, width,
+                        height, width,
                         title="Demo")
     textbox.char_by_char(stdscr,
                          "Hello world")
@@ -115,6 +115,8 @@ You can also generate the documentation in **Latex**, **Texinfo** or **man-pages
 ## Contributing
 
 We would love for you to contribute to improve **Visual-dialog**.
+
+For major changes, please open an issue first to discuss what you would like to change.
 
 Take a look at our [contributing guide](CONTRIBUTING.md) to get started.
 You can also help by reporting **bugs**.

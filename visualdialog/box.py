@@ -61,7 +61,7 @@ class BaseTextBox:
     :param pos_y: y position of the dialog box in ``curses`` window
         object on which methods will have effects.
 
-    :param length: Length of the dialog box in ``curses`` window object
+    :param height: Height of the dialog box in ``curses`` window object
         on which methods will have effects.
 
     :param width: Width of the dialog box in ``curses`` window object on
@@ -97,7 +97,7 @@ class BaseTextBox:
         self,
         pos_x: int,
         pos_y: int,
-        length: int,
+        height: int,
         width: int,
         title: str = "",
         title_colors_pair_nb: int = 0,
@@ -107,7 +107,7 @@ class BaseTextBox:
                             List[str]] = (",", ".", ":", ";", "!", "?"),
         downtime_chars_delay: Number = .6):
         self.pos_x, self.pos_y = pos_x, pos_y
-        self.length, self.width = length, width
+        self.height, self.width = height, width
 
         self.title_offsetting_y = 2 if title else 0
 
@@ -116,7 +116,7 @@ class BaseTextBox:
         # Compensation for the upper border of the dialog box.
         self.text_pos_y = pos_y + self.title_offsetting_y + 1
 
-        self.nb_char_max_line = length - 4
+        self.nb_char_max_line = height - 4
         self.nb_lines_max = width - 2
 
         self.title = title
@@ -149,9 +149,9 @@ class BaseTextBox:
     def dimensions(self) -> Tuple[int]:
         """Returns a tuple contains dimensions of ``TextBox``.
 
-        :returns: Length and width of ``TextBox``.
+        :returns: Height and width of ``TextBox``.
         """
-        return self.length, self.width
+        return self.height, self.width
 
     def framing_box(self, win: CursesWindow):
         """Displays dialog box borders and his title.
@@ -184,7 +184,7 @@ class BaseTextBox:
                                  self.pos_y + self.title_offsetting_y,
                                  self.pos_x,
                                  self.pos_y + self.title_offsetting_y + self.width,
-                                 self.pos_x + self.length)
+                                 self.pos_x + self.height)
 
     def getkey(self, win: CursesWindow):
         """Blocks execution as long as a key contained in
