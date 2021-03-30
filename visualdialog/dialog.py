@@ -1,5 +1,4 @@
 # dialog.py
-#
 # 2020 Timéo Arnouts <tim.arnouts@protonmail.com>
 
 __all__ = ["DialogBox"]
@@ -80,10 +79,10 @@ class DialogBox(BaseTextBox):
         ...
 
     def _display_end_indicator(
-        self,
-        win: CursesWindow,
-        text_attr: CursesTextAttributesConstants = (curses.A_BOLD,
-                                                    curses.A_BLINK)):
+            self,
+            win: CursesWindow,
+            text_attr: CursesTextAttributesConstants = (curses.A_BOLD,
+                                                        curses.A_BLINK)):
         """Displays an end indicator in the lower right corner of
         textbox.
 

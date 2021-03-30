@@ -1,5 +1,4 @@
 # choices.py
-#
 # 2020 Timéo Arnouts <tim.arnouts@protonmail.com>
 
 import curses

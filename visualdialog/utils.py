@@ -1,5 +1,4 @@
 # utils.py
-#
 # 2020 Timéo Arnouts <tim.arnouts@protonmail.com>
 
 from contextlib import ContextDecorator
@@ -11,12 +10,12 @@ from typing import (Generator, Iterable, List, NoReturn, Tuple, TypeVar,
 CursesWindow = _curses.window
 
 #: curses text attribute constants are integers.
-#: See https://docs.python.org/3/library/curses.html?#constants
+#: See https://docs.python.org/3/library/curses.html?#constants
 CursesTextAttributesConstant = int
 CursesTextAttributesConstants = Union[Tuple[int], List[int]]
 
-#: curses key constants are integers.
-#: See https://docs.python.org/3/library/curses.html?#constants
+#: curses key constants are integers.
+#: See https://docs.python.org/3/library/curses.html?#constants
 CursesKeyConstant = int
 CursesKeyConstants = Union[Tuple[int], List[int]]
 
