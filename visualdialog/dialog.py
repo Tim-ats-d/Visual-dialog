@@ -108,6 +108,7 @@ class DialogBox(BaseTextBox):
                          CursesTextAttributesConstants] = (),
         words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstant],
                           Dict[Tuple[str], CursesTextAttributesConstants]] = {},
+        word_delimiter: str = " ",
         flash_screen: bool = False,
         delay: Number = .04,
         random_delay: Union[Tuple[Number], List[Number]] = (0, 0),
@@ -137,6 +138,9 @@ class DialogBox(BaseTextBox):
             single curses text attribute or tuple as a value. Each key
             is colored with its associated values This defaults to an
             empty dictionary.
+
+        :param word_delimiter: The delimiter according which to
+            split the text in word. This defaults to ``" "``.
 
         :param flash_screen: Allows or not to flash screen with a short
             light effect done before writing the first character by
@@ -199,7 +203,7 @@ class DialogBox(BaseTextBox):
 
             for y, line in enumerate(paragraph):
                 offsetting_x = 0
-                for word in line.split():
+                for word in line.split(word_delimitation):
                     if word in words_attr.keys():
                         attr = words_attr[word]
 
@@ -242,11 +246,11 @@ class DialogBox(BaseTextBox):
         win: CursesWindow,
         text: str,
         colors_pair_nb: int = 0,
-        cut_char: str = " ",
         text_attr: Union[CursesTextAttributesConstant,
                          CursesTextAttributesConstants] = (),
         words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstant],
                           Dict[Tuple[str], CursesTextAttributesConstants]] = {},
+        word_delimiter: str = " ",
         flash_screen: bool = False,
         delay: Number = .15,
         random_delay: Union[Tuple[Number], List[Number]] = (0, 0),
@@ -277,8 +281,8 @@ class DialogBox(BaseTextBox):
             is colored with its associated values This defaults to an
             empty dictionary.
 
-        :param cut_char: The delimiter according which to split the text
-            in word. This defaults to ``" "``.
+        :param word_delimiter: The delimiter according which to
+            split the text in word. This defaults to ``" "``.
 
         :param flash_screen: Allows or not to flash screen with a short
             light effect done before writing the first character by
@@ -342,7 +346,7 @@ class DialogBox(BaseTextBox):
             self.framing_box(win)
             for y, line in enumerate(paragraph):
                 offsetting_x = 0
-                for word in line.split(cut_char):
+                for word in line.split(word_delimitation):
                     if word in words_attr.keys():
                         attr = words_attr[word]
 

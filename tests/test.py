@@ -9,7 +9,7 @@ import visualdialog
 
 def main(stdscr):
     text = (
-        "Hello world, how are you today ? test",
+        "Hello world, how are\n you today ? test",
         "Press a key to skip this dialog. ",
         "This is a basic example. See doc for more informations."
         " If you have a problem don't hesitate to open an issue.",
