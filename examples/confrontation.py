@@ -1,6 +1,5 @@
 # confrontation.py
-#
-# A concrete example exploiting the possibilities of Visual-dialog.
+# A concrete example exploiting the possibilities of Visual-dialog.
 
 import curses
 
@@ -11,8 +10,9 @@ from visualdialog import DialogBox
 # 10 and 32 correspond to enter and space keys.
 PASS_DIALOG_KEY = (10, 32)
 
+
 def main(stdscr):
-    # Makes the cursor invisible.
+    # Makes the cursor invisible.
     curses.curs_set(False)
 
     # Definition of several colors pairs.
@@ -20,19 +20,19 @@ def main(stdscr):
     curses.init_pair(2, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_RED, curses.COLOR_BLACK)
 
-    width, height  = 6, 35  # Width and height (in character).
+    width, height  = 6, 35  # Width and height (in character).
 
     max_y, max_x = stdscr.getmaxyx()
 
-    left_x = 2  # Left alignment.
-    right_x = max_x - height - 4 # Calculation of right alignment.
-    center_x = max_x // 2 - height // 2  # Calculation of center alignment.
-    bottom_y = max_y - width - 4  # Calculation of bottom alignment.
+    left_x = 2  # Left alignment.
+    right_x = max_x - height - 4 # Calculation of right alignment.
+    center_x = max_x//2 - height//2  # Calculation of center alignment.
+    bottom_y = max_y - width - 4  # Calculation of bottom alignment.
 
     phoenix_wright = DialogBox(left_x, bottom_y,
                                height, width,
                                title="Phoenix",
-                               title_colors_pair_nb=1)  # Title and color_pair used to colored title.
+                               title_colors_pair_nb=1)  # Title and color_pair used to colored title.
 
     april_may = DialogBox(center_x, bottom_y,
                           height, width,
@@ -44,14 +44,14 @@ def main(stdscr):
                                 title="Edgeworth",
                                 title_colors_pair_nb=3)
 
-    # Definition of accepted key codes to pass a dialog.
+    # Definition of accepted key codes to pass a dialog.
     phoenix_wright.confirm_dialog_key = PASS_DIALOG_KEY
     april_may.confirm_dialog_key = PASS_DIALOG_KEY
     miles_edgeworth.confirm_dialog_key = PASS_DIALOG_KEY
 
     phoenix_wright.char_by_char(stdscr,
                                 "This testimony is a pure invention !",
-                                delay=0.03)  # Set delay between writting each characters to 0.03 seconde.
+                                delay=0.03)  # Set delay between writting each characters to 0.03 seconde.
 
     phoenix_wright.char_by_char(stdscr,
                                 "You're lying April May !",

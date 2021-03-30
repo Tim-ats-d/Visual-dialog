@@ -1,5 +1,4 @@
 # text_attributes.py
-#
 # An example showing the possibilities of text formatting.
 
 import curses
@@ -12,8 +11,9 @@ from visualdialog import DialogBox
 ENTER_KEY = 10
 SPACE_KEY = 32
 
+
 def main(stdscr):
-    # Makes the cursor invisible.
+    # Makes the cursor invisible.
     curses.curs_set(False)
 
     # Definition of several colors pairs.
@@ -23,13 +23,13 @@ def main(stdscr):
     demo_textbox = DialogBox(1, 1,
                              40, 6,
                              title="Demo",
-                             title_colors_pair_nb=1,  # Display title colored with color pair 1.
-                             title_text_attr=curses.A_UNDERLINE)  # curse text attributes that will be applied to the title.
+                             title_colors_pair_nb=1,  # Display title colored with color pair 1.
+                             title_text_attr=curses.A_UNDERLINE)  # curse text attributes that will be applied to the title.
     demo_textbox.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
 
-    # A key/value dictionary containing the text and the attributes
-    # with which it will be displayed.
-    # You can pass one or more curses text attributes arguments as a tuple.
+    # A key/value dictionary containing the text and the attributes
+    # with which it will be displayed.
+    # You can pass one or more curses text attributes arguments as a tuple.
     sentences = {
         "An important text.": curses.A_BOLD,
         "An action performed by a character.": curses.A_ITALIC,
@@ -43,8 +43,8 @@ def main(stdscr):
     for text, attributes in sentences.items():
         demo_textbox.char_by_char(stdscr,
                                   text,
-                                  2,  # Display text colored with color pair 2.
-                                  text_attr=attributes)  # Pass attributes to text.
+                                  2,  # Display text colored with color pair 2.
+                                  text_attr=attributes)  # Pass attributes to text.
 
 
 # Execution of main function.
