@@ -95,7 +95,7 @@ class BaseTextBox:
 
         # Compensation for the left border of the dialog box.
         self.text_pos_x = pos_x + 2
-        # Compensation for the upper border of the dialog box.
+        # Compensation for the upper border of the dialog box.
         self.text_pos_y = pos_y + self.title_offsetting_y + 1
 
         self.nb_char_max_line = height - 4

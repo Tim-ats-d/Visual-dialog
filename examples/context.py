@@ -14,7 +14,7 @@ SPACE_KEY = 32
 
 
 def main(stdscr):
-    # Makes the cursor invisible.
+    # Makes the cursor invisible.
     curses.curs_set(False)
 
     replys = (
@@ -24,7 +24,7 @@ def main(stdscr):
     )
 
     for reply in replys:
-        # The keyword "as" allows to capture the returned DialogBox object.
+        # The keyword "as" allows to capture the returned DialogBox object.
         with DialogBox(1, 1, 30, 6) as db:
             db.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
             db.char_by_char(stdscr, reply)

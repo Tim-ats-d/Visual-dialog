@@ -25,7 +25,7 @@ def main(stdscr):
     max_y, max_x = stdscr.getmaxyx()
 
     left_x = 2  # Left alignment.
-    right_x = max_x - height - 4 # Calculation of right alignment.
+    right_x = max_x - height - 4  # Calculation of right alignment.
     center_x = max_x//2 - height//2  # Calculation of center alignment.
     bottom_y = max_y - width - 4  # Calculation of bottom alignment.
 

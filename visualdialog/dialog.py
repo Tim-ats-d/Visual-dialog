@@ -228,7 +228,7 @@ class DialogBox(BaseTextBox):
 
                             callback(*cargs)
 
-                        # Waiting for space character.
+                        # Waiting for space character.
                         time.sleep(delay)
 
                     # Compensates for the space between words.
