@@ -99,6 +99,82 @@ class DialogBox(BaseTextBox):
                           self.end_indicator_pos_x,
                           self.end_indicator_char)
 
+    def _one_by_one(self,
+                    mode,
+                    win,
+                    text,
+                    colors_pair_nb,
+                    text_attr,
+                    words_attr,
+                    word_delimiter,
+                    flash_screen,
+                    delay,
+                    random_delay,
+                    callback,
+                    cargs):
+        """Todo."""
+        if flash_screen:
+            curses.flash()
+
+        wrapped_text = self.text_wrapper.wrap(text)
+        wrapped_text = _make_chunk(wrapped_text, self.nb_lines_max)
+
+        for paragraph in wrapped_text:
+            win.clear()
+            self.framing_box(win)
+
+            for y, line in enumerate(paragraph):
+                offsetting_x = 0
+                for word in line.split(word_delimiter):
+                    if word in words_attr.keys():
+                        attr = words_attr[word]
+
+                        # Test if only one argument is passed instead of a tuple.
+                        if isinstance(attr, int):
+                            attr = (attr, )
+                    else:
+                        if isinstance(text_attr, int):
+                            text_attr = (text_attr, )
+
+                        attr = (curses.color_pair(colors_pair_nb),
+                                *text_attr)
+
+                    with TextAttributes(win, *attr):
+                        if mode == "char":
+                            for x, char in enumerate(word):
+                                win.addstr(self.text_pos_y + y,
+                                           self.text_pos_x + x + offsetting_x,
+                                           char)
+                                win.refresh()
+
+                                if char in self.downtime_chars:
+                                    time.sleep(self.downtime_chars_delay
+                                               + random.uniform(*random_delay))
+                                else:
+                                    time.sleep(delay
+                                               + random.uniform(*random_delay))
+
+                                callback(*cargs)
+
+                            # Waiting for space character.
+                            time.sleep(delay)
+                        elif mode == "word":
+                            win.addstr(self.text_pos_y + y,
+                                       self.text_pos_x + offsetting_x,
+                                       word)
+                            win.refresh()
+
+                            time.sleep(delay
+                                       + random.uniform(*random_delay))
+
+                            callback(*cargs)
+
+                        # Compensates for the space between words.
+                        offsetting_x += len(word) + 1
+
+            self._display_end_indicator(win)
+            self.getkey(win)
+
     def char_by_char(
         self,
         win: CursesWindow,
@@ -108,13 +184,13 @@ class DialogBox(BaseTextBox):
                          CursesTextAttributesConstants] = (),
         words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstant],
                           Dict[Tuple[str], CursesTextAttributesConstants]] = {},
+        word_delimiter: str = " ",
         flash_screen: bool = False,
         delay: Number = .04,
         random_delay: Union[Tuple[Number], List[Number]] = (0, 0),
         callback: Callable = lambda: None,
         cargs: Union[Tuple, List] = ()):
-        """Writes the given text character by character in the current
-        dialog box.
+        """Writes the given text character by character.
 
         :param win: ``curses`` window object on which the method will
             have effect.
@@ -137,6 +213,9 @@ class DialogBox(BaseTextBox):
             single curses text attribute or tuple as a value. Each key
             is colored with its associated values This defaults to an
             empty dictionary.
+
+        :param word_delimiter: The delimiter according which to
+            split the text in word. This defaults to ``" "``.
 
         :param flash_screen: Allows or not to flash screen with a short
             light effect done before writing the first character by
@@ -185,75 +264,35 @@ class DialogBox(BaseTextBox):
             paragraph by ``window.clear()`` method of ``curses``
             module.
         """
-        self.framing_box(win)
-
-        if flash_screen:
-            curses.flash()
-
-        wrapped_text = self.text_wrapper.wrap(text)
-        wrapped_text = _make_chunk(wrapped_text, self.nb_lines_max)
-
-        for paragraph in wrapped_text:
-            win.clear()
-            self.framing_box(win)
-
-            for y, line in enumerate(paragraph):
-                offsetting_x = 0
-                for word in line.split():
-                    if word in words_attr.keys():
-                        attr = words_attr[word]
-
-                        # Test if only one argument is passed instead of a tuple.
-                        if isinstance(attr, int):
-                            attr = (attr, )
-                    else:
-                        if isinstance(text_attr, int):
-                            text_attr = (text_attr, )
-
-                        attr = (curses.color_pair(colors_pair_nb), *text_attr)
-
-                    with TextAttributes(win, *attr):
-                        for x, char in enumerate(word):
-                            win.addstr(self.text_pos_y + y,
-                                       self.text_pos_x + x + offsetting_x,
-                                       char)
-                            win.refresh()
-
-                            if char in self.downtime_chars:
-                                time.sleep(self.downtime_chars_delay +
-                                           random.uniform(*random_delay))
-                            else:
-                                time.sleep(delay +
-                                           random.uniform(*random_delay))
-
-                            callback(*cargs)
-
-                        # Waiting for space character.
-                        time.sleep(delay)
-
-                    # Compensates for the space between words.
-                    offsetting_x += len(word) + 1
-
-            self._display_end_indicator(win)
-            self.getkey(win)
+        self._one_by_one("char",
+                         win,
+                         text,
+                         colors_pair_nb,
+                         text_attr,
+                         words_attr,
+                         word_delimiter,
+                         flash_screen,
+                         delay,
+                         random_delay,
+                         callback,
+                         cargs)
 
     def word_by_word(
         self,
         win: CursesWindow,
         text: str,
         colors_pair_nb: int = 0,
-        cut_char: str = " ",
         text_attr: Union[CursesTextAttributesConstant,
                          CursesTextAttributesConstants] = (),
         words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstant],
                           Dict[Tuple[str], CursesTextAttributesConstants]] = {},
+        word_delimiter: str = " ",
         flash_screen: bool = False,
         delay: Number = .15,
         random_delay: Union[Tuple[Number], List[Number]] = (0, 0),
         callback: Callable = lambda: None,
         cargs: Union[Tuple, List] = ()):
-        """Writes the given text word by word at position in the current
-        dialog box.
+        """Writes the given text word by word.
 
         :param win: ``curses`` window object on which the method will
             have effect.
@@ -277,8 +316,8 @@ class DialogBox(BaseTextBox):
             is colored with its associated values This defaults to an
             empty dictionary.
 
-        :param cut_char: The delimiter according which to split the text
-            in word. This defaults to ``" "``.
+        :param word_delimiter: The delimiter according which to
+            split the text in word. This defaults to ``" "``.
 
         :param flash_screen: Allows or not to flash screen with a short
             light effect done before writing the first character by
@@ -327,45 +366,15 @@ class DialogBox(BaseTextBox):
             paragraph by ``window.clear()`` method of ``curses``
             module.
         """
-        self.framing_box(win)
-
-        if flash_screen:
-            curses.flash()
-
-        attr = (curses.color_pair(colors_pair_nb), *text_attr)
-
-        wrapped_text = self.text_wrapper.wrap(text)
-        wrapped_text = _make_chunk(wrapped_text, self.nb_lines_max)
-
-        for paragraph in wrapped_text:
-            win.clear()
-            self.framing_box(win)
-            for y, line in enumerate(paragraph):
-                offsetting_x = 0
-                for word in line.split(cut_char):
-                    if word in words_attr.keys():
-                        attr = words_attr[word]
-
-                        # Test if only one argument is passed instead of a tuple.
-                        if isinstance(text_attr, int):
-                            text_attr = (text_attr, )
-                    else:
-                        if isinstance(text_attr, int):
-                            text_attr = (text_attr, )
-
-                        attr = (curses.color_pair(colors_pair_nb), *text_attr)
-
-                    with TextAttributes(win, *attr):
-                        win.addstr(self.text_pos_y + y,
-                                   self.text_pos_x + offsetting_x, word)
-                        win.refresh()
-
-                    # Compensates for the space between words.
-                    offsetting_x += len(word) + 1
-
-                    time.sleep(delay + random.uniform(*random_delay))
-
-                callback(*cargs)
-
-            self._display_end_indicator(win)
-            self.getkey(win)
+        self._one_by_one("word",
+                         win,
+                         text,
+                         colors_pair_nb,
+                         text_attr,
+                         words_attr,
+                         word_delimiter,
+                         flash_screen,
+                         delay,
+                         random_delay,
+                         callback,
+                         cargs)

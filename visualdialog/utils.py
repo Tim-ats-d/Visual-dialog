@@ -7,7 +7,7 @@ from typing import (Generator, Iterable, List, NoReturn, Tuple, TypeVar,
                     Union)
 
 
-CursesWindow = _curses.window
+CursesWindow = "_curses.window"
 
 #: curses text attribute constants are integers.
 #: See https://docs.python.org/3/library/curses.html?#constants
