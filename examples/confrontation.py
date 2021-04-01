@@ -11,7 +11,7 @@ from visualdialog import DialogBox
 PASS_DIALOG_KEY = (10, 32)
 
 
-def main(stdscr):
+def main(win):
     # Makes the cursor invisible.
     curses.curs_set(False)
 
@@ -22,7 +22,7 @@ def main(stdscr):
 
     width, height  = 6, 35  # Width and height (in character).
 
-    max_y, max_x = stdscr.getmaxyx()
+    max_y, max_x = win.getmaxyx()
 
     left_x = 2  # Left alignment.
     right_x = max_x - height - 4  # Calculation of right alignment.
@@ -49,28 +49,28 @@ def main(stdscr):
     april_may.confirm_dialog_key = PASS_DIALOG_KEY
     miles_edgeworth.confirm_dialog_key = PASS_DIALOG_KEY
 
-    phoenix_wright.char_by_char(stdscr,
+    phoenix_wright.char_by_char(win,
                                 "This testimony is a pure invention !",
                                 delay=0.03)  # Set delay between writting each characters to 0.03 seconde.
 
-    phoenix_wright.char_by_char(stdscr,
+    phoenix_wright.char_by_char(win,
                                 "You're lying April May !",
                                 flash_screen=True,  # A short luminous glow will be displayed before writing the text.
                                 delay=0.03,
                                 text_attr=curses.A_BOLD)
 
-    april_may.char_by_char(stdscr,
+    april_may.char_by_char(win,
                            "Arghh !",
                            delay=0.02,
                            text_attr=curses.A_ITALIC)
 
-    miles_edgeworth.char_by_char(stdscr,
+    miles_edgeworth.char_by_char(win,
                                  "OBJECTION !",
                                  flash_screen=True,
                                  delay=0.03,
                                  text_attr=curses.A_BOLD)
 
-    miles_edgeworth.char_by_char(stdscr,
+    miles_edgeworth.char_by_char(win,
                                  "These accusations are irrelevant !",
                                  delay=0.03)
 

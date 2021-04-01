@@ -7,7 +7,7 @@ from visualdialog import DialogBox
 import visualdialog
 
 
-def main(stdscr):
+def main(win):
     text = (
         "Hello world, how are\n you today ? test",
         "Press a key to skip this dialog. ",
@@ -36,17 +36,17 @@ def main(stdscr):
     }
 
     def func(text: str):
-        stdscr.addstr(0, 0, str(visualdialog.__version__))
+        win.addstr(0, 0, str(visualdialog.__version__))
 
     for reply in text:
-        textbox.char_by_char(stdscr,
+        textbox.char_by_char(win,
                              reply,
                              cargs=(reply, ),
                              callback=func,
                              text_attr=(curses.A_ITALIC, curses.A_BOLD),
                              words_attr=special_words)
 
-    with visualdialog.TextAttributes(stdscr, curses.A_BOLD, curses.A_ITALIC):
+    with visualdialog.TextAttributes(win, curses.A_BOLD, curses.A_ITALIC):
         ...
 
 

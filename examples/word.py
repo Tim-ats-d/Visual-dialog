@@ -18,11 +18,11 @@ instructions = (
 )
 
 
-def main(stdscr):
+def main(win):
     # Makes the cursor invisible.
     curses.curs_set(False)
 
-    textbox = DialogBox(1, 1,  # Position 1;1 in stdscr.
+    textbox = DialogBox(1, 1,  # Position 1;1 in win.
                         40, 6,  # Length and width of textbox (in character).
                         title="Robot")  # Title of textbox.
 
@@ -31,7 +31,7 @@ def main(stdscr):
 
     # Iterate on each sentence contained in instructions.
     for instruction in instructions:
-        textbox.word_by_word(stdscr,
+        textbox.word_by_word(win,
                              instruction,
                              delay=0.2)  # Set delay between writting each words to 0.1 seconde.
 

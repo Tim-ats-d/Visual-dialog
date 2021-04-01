@@ -13,7 +13,7 @@ ENTER_KEY = 10
 SPACE_KEY = 32
 
 
-def main(stdscr):
+def main(win):
     # Makes the cursor invisible.
     curses.curs_set(False)
 
@@ -27,7 +27,7 @@ def main(stdscr):
         # The keyword "as" allows to capture the returned DialogBox object.
         with DialogBox(1, 1, 30, 6) as db:
             db.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
-            db.char_by_char(stdscr, reply)
+            db.char_by_char(win, reply)
 
 
 # Execution of main function.

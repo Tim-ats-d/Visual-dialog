@@ -18,27 +18,27 @@ class ChoiceBox(DialogBox):
 
     def chain(
             self,
-            stdscr,
+            win,
             *propositions: Dict[str, Any]) -> Any:
         """"""
-        super().framing_box(stdscr)
+        super().framing_box(win)
 
         for y, proposition in enumerate(propositions):
-            stdscr.addstr(self.pos_y + y*2,
+            win.addstr(self.pos_y + y*2,
                           self.pos_x,
                           proposition)
-            stdscr.refresh()
+            win.refresh()
 
 
-def main(stdscr):
+def main(win):
     choices_box = ChoiceBox(10, 10, 40, 4)
 
-    choices_box.chain(stdscr,
+    choices_box.chain(win,
                       "Quel âge as-tu ?"
                       "14",
                       "16",
                       "18")
-    stdscr.getch()
+    win.getch()
 
 
 curses.wrapper(main)

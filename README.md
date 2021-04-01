@@ -76,13 +76,13 @@ from visualdialog import DialogBox
 x, y = (0, 0)
 height, width = (35, 6)
 
-def main(stdscr):
+def main(win):
     curses.curs_set(False)
 
     textbox = DialogBox(x, y,
                         height, width,
                         title="Demo")
-    textbox.char_by_char(stdscr,
+    textbox.char_by_char(win,
                          "Hello world")
 
 

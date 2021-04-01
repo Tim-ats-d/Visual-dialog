@@ -12,7 +12,7 @@ ENTER_KEY = 10
 SPACE_KEY = 32
 
 
-def main(stdscr):
+def main(win):
     replys = (
         "Hello world",
         "Press a key to skip this dialog.",
@@ -27,7 +27,7 @@ def main(stdscr):
     curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_BLACK)
 
-    textbox = DialogBox(1, 1,  # Position 1;1 in stdscr.
+    textbox = DialogBox(1, 1,  # Position 1;1 in win.
                         40, 6,  # Length and width of textbox (in character).
                         title="Tim-ats-d",  # Title of textbox.
                         title_colors_pair_nb=1)  # Curses color_pair used to colored title.
@@ -37,7 +37,7 @@ def main(stdscr):
 
     # Iterate on each sentence contained in replys.
     for reply in replys:
-        textbox.char_by_char(stdscr,
+        textbox.char_by_char(win,
             reply,
             2,  # Display text colored with color pair 2.
             delay=0.04)  # Set delay between writting each characters to 0.04 seconde.

@@ -12,7 +12,7 @@ ENTER_KEY = 10
 SPACE_KEY = 32
 
 
-def main(stdscr):
+def main(win):
     # Makes the cursor invisible.
     curses.curs_set(False)
 
@@ -41,7 +41,7 @@ def main(stdscr):
     }
 
     for text, attributes in sentences.items():
-        demo_textbox.char_by_char(stdscr,
+        demo_textbox.char_by_char(win,
                                   text,
                                   2,  # Display text colored with color pair 2.
                                   text_attr=attributes)  # Pass attributes to text.
