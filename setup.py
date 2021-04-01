@@ -1,7 +1,7 @@
 
 from setuptools import find_packages, setup
 
-from visualdialog import __author__, __version__
+from visualdialog import __author__, __doc__, __version__
 
 
 setup(
@@ -10,10 +10,11 @@ setup(
     packages=find_packages(),
     author=__author__,
     author_email="tim.arnouts@protonmail.com",
-    description="A library to make easier dialog box in terminal.",
+    description=__doc__,
     long_description=open("README.md").read(),
     include_package_data=True,
     url="https://github.com/Tim-ats-d/Visual-dialog",
+    requires_python=">=3.7",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Console :: Curses",
