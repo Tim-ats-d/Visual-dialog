@@ -34,12 +34,12 @@ This library is still under development. API can change.
 Install Visual-dialog using `pip` (The lib is not yet available on **pypi**):
 
 ```sh
-python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog
+pip install git+git://github.com/Tim-ats-d/Visual-dialog
 ```
 or update lib to the latest version:
 
 ```sh
-python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog --upgrade
+pip install git+git://github.com/Tim-ats-d/Visual-dialog --upgrade
 ```
 
 ### From source
@@ -47,7 +47,7 @@ python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog --upgrade
 ```sh
 git clone https://github.com/Tim-ats-d/Visual-dialog.git
 cd Visual-dialog
-python3 -m pip install .
+pip install .
 ```
 
 ## Requirements
