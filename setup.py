@@ -11,7 +11,7 @@ setup(
     author=__author__,
     author_email="tim.arnouts@protonmail.com",
     description="A library to make easier dialog box in terminal.",
-    long_description=open("README.md").read(),
+    long_description=open("README.md", encoding="utf-8").read(),
     include_package_data=True,
     url="https://github.com/Tim-ats-d/Visual-dialog",
     classifiers=[
