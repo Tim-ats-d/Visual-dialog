@@ -8,8 +8,7 @@ from visualdialog import DialogBox
 
 # Definition of curses key constants.
 # 10 and 32 correspond to enter and space keys.
-ENTER_KEY = 10
-SPACE_KEY = 32
+PASS_KEYS = (10, 32)
 
 instructions = (
     "Instead of the char_by_char method, word_by_word displays the "
@@ -27,7 +26,7 @@ def main(win):
                         title="Robot")  # Title of textbox.
 
     # Definition of accepted key codes to pass a dialog.
-    textbox.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
+    textbox.confirm_dialog_key = PASS_KEYS
 
     # Iterate on each sentence contained in instructions.
     for instruction in instructions:

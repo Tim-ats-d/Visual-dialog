@@ -8,18 +8,17 @@ from visualdialog import DialogBox
 
 # Definition of curses key constants.
 # 10 and 32 correspond to enter and space keys.
-ENTER_KEY = 10
-SPACE_KEY = 32
+PASS_KEYS = (10, 32)
+
+replys = (
+    "Hello world",
+    "Press a key to skip this dialog.",
+    "That is a basic example.",
+    "See doc for more informations."
+)
 
 
 def main(win):
-    replys = (
-        "Hello world",
-        "Press a key to skip this dialog.",
-        "That is a basic example.",
-        "See doc for more informations."
-    )
-
     # Makes the cursor invisible.
     curses.curs_set(False)
 
@@ -28,12 +27,12 @@ def main(win):
     curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_BLACK)
 
     textbox = DialogBox(1, 1,  # Position 1;1 in win.
-                        40, 6,  # Length and width of textbox (in character).
-                        title="Tim-ats-d",  # Title of textbox.
+                        30, 5,  # Length and width of textbox (in character).
+                        title="Tim-ats",  # Title of textbox.
                         title_colors_pair_nb=1)  # Curses color_pair used to colored title.
 
     # Definition of accepted key codes to pass a dialog.
-    textbox.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
+    textbox.confirm_dialog_key = PASS_KEYS
 
     # Iterate on each sentence contained in replys.
     for reply in replys:

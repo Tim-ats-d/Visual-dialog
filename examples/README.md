@@ -15,7 +15,11 @@ An example of using ``word_by_word`` method from text boxes.
 
 An example showing the possibilities of text formatting in a text box.
 
-## [Context](contex.py)
+## [Panic](panic.py)
+
+An example of the use of panic keys.
+
+## [Context](context.py)
 
 An example of how to use a text box as a **context manager**.
 

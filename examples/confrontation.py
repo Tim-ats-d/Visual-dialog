@@ -8,7 +8,7 @@ from visualdialog import DialogBox
 
 # Definition of curses key constants.
 # 10 and 32 correspond to enter and space keys.
-PASS_DIALOG_KEY = (10, 32)
+PASS_KEYS = (10, 32)
 
 
 def main(win):
@@ -45,9 +45,9 @@ def main(win):
                                 title_colors_pair_nb=3)
 
     # Definition of accepted key codes to pass a dialog.
-    phoenix_wright.confirm_dialog_key = PASS_DIALOG_KEY
-    april_may.confirm_dialog_key = PASS_DIALOG_KEY
-    miles_edgeworth.confirm_dialog_key = PASS_DIALOG_KEY
+    phoenix_wright.confirm_dialog_key = PASS_KEYS
+    april_may.confirm_dialog_key = PASS_KEYS
+    miles_edgeworth.confirm_dialog_key = PASS_KEYS
 
     phoenix_wright.char_by_char(win,
                                 "This testimony is a pure invention !",
