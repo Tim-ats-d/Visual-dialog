@@ -34,12 +34,12 @@ This library is still under development. API can change.
 Install Visual-dialog using `pip` (The lib is not yet available on **pypi**):
 
 ```sh
-python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog
+pip install git+git://github.com/Tim-ats-d/Visual-dialog
 ```
 or update lib to the latest version:
 
 ```sh
-python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog --upgrade
+pip install git+git://github.com/Tim-ats-d/Visual-dialog --upgrade
 ```
 
 ### From source
@@ -47,19 +47,23 @@ python3 -m pip install git+git://github.com/Tim-ats-d/Visual-dialog --upgrade
 ```sh
 git clone https://github.com/Tim-ats-d/Visual-dialog.git
 cd Visual-dialog
-python3 -m pip install .
+pip install .
 ```
 
 ## Requirements
+
+### Python version
+
+* [**Python 3.7**](https://www.python.org/downloads/) or more.
 
 ### Curses
 
 **Visual-dialog** works with `curses` Python module. It is available in the standard **Python** library on **UNIX** but it doesn’t work out-of-the-box on **Windows**.
 
-See [this explanations](https://www.devdungeon.com/content/curses-windows-python) to install `curses` on **Windows** (untested).
+See [this explanations](https://www.devdungeon.com/content/curses-windows-python) to install `curses` on **Windows**.
 
-### Other requirements
-* [**Python 3.7**](https://www.python.org/downloads/) or more.
+### To build the documentation
+
 * [**Sphinx**](https://www.sphinx-doc.org/en/master/usage/installation.html) to generate the documentation of library.
 * [**sphinx-rtd-theme**](https://pypi.org/project/sphinx-rtd-theme/) used as documentation theme.
 
