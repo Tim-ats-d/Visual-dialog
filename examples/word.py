@@ -22,11 +22,11 @@ def main(win):
     curses.curs_set(False)
 
     textbox = DialogBox(1, 1,  # Position 1;1 in win.
-                        40, 6,  # Length and width of textbox (in character).
-                        title="Robot")  # Title of textbox.
+                        40, 6,  # Height and width of textbox (in character).
+                        "Robot")  # Title of textbox.
 
     # Definition of accepted key codes to pass a dialog.
-    textbox.confirm_dialog_key = PASS_KEYS
+    textbox.confirm_dialog_keys = PASS_KEYS
 
     # Iterate on each sentence contained in instructions.
     for instruction in instructions:

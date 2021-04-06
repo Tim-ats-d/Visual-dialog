@@ -14,7 +14,7 @@
 <p align="center">
   <img width="400" src="https://user-images.githubusercontent.com/59396366/100594532-188c6900-32fa-11eb-8372-4796f53b122f.png" alt="Visual-dialog">
   <br>
-  A library to make easier dialog box in terminal.
+  A library to make easier dialog box in a terminal.
 </p>
 
 This library is still under development. API can change.

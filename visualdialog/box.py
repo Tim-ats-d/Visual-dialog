@@ -17,8 +17,8 @@ from .utils import (CursesKeyConstant,
 
 
 class PanicError(Exception):
-    """Exception thrown when a key contained in ``TextBox.panic_key`` is
-    pressed.
+    """Exception thrown when a key contained in ``TextBox.panic_keys``
+    is pressed.
 
     :param key: Key pressed that caused the exception to be thrown.
     """
@@ -74,7 +74,6 @@ class BaseTextBox:
         ``downtime_chars``.
         This defaults to ``0.6``.
     """
-
     def __init__(
         self,
         pos_x: int,
@@ -115,9 +114,9 @@ class BaseTextBox:
         self.downtime_chars_delay = downtime_chars_delay
 
         #: List of accepted key codes to skip dialog. ``curses`` constants are supported. This defaults to an empty tuple.
-        self.confirm_dialog_key: List[CursesKeyConstant] = []
+        self.confirm_dialog_keys: List[CursesKeyConstant] = []
         #: List of accepted key codes to raise PanicError. ``curses`` constants are supported. This defaults to an empty tuple.
-        self.panic_key: List[CursesKeyConstant] = []
+        self.panic_keys: List[CursesKeyConstant] = []
 
     @property
     def position(self) -> Tuple[int]:
@@ -170,12 +169,12 @@ class BaseTextBox:
 
     def getkey(self, win: CursesWindow):
         """Blocks execution as long as a key contained in
-        ``self.confirm_dialog_key`` is not detected.
+        ``self.confirm_dialog_keys`` is not detected.
 
 
         :param win: ``curses`` window object on which the method will
             have effect.
-        :raises PanicError: If a key contained in ``self.panic_key`` is
+        :raises PanicError: If a key contained in ``self.panic_keys`` is
             pressed.
 
         .. NOTE::
@@ -190,9 +189,9 @@ class BaseTextBox:
         while 1:
             key = win.getch()
 
-            if key in self.confirm_dialog_key:
+            if key in self.confirm_dialog_keys:
                 break
-            elif key in self.panic_key:
+            elif key in self.panic_keys:
                 raise PanicError(key)
             else:
                 # Ignore incorrect keys.

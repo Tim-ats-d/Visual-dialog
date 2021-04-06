@@ -20,15 +20,15 @@ def main(win):
                     40, 6)
 
     # Definition of accepted key codes to pass a dialog.
-    box.confirm_dialog_key = PASS_KEYS
+    box.confirm_dialog_keys = PASS_KEYS
 
-    box.panic_key = EXIT_KEYS
+    box.panic_keys = EXIT_KEYS
 
     try:
         box.char_by_char(win,
                          "When a key contained in EXIT_KEY has been "
                          "pressed a PanicError exception is raised.")
-    except PanicError:  # Catch PanicError.
+    except PanicError:  # Catch PanicError.
         box.char_by_char(win,
                          "PanicError exception has been caught. "
                          "One of the keys contained in EXIT_CHAR has "
@@ -37,7 +37,7 @@ def main(win):
         box.char_by_char(win,
                          "None of the keys contained in EXIT_CHAR have "
                          "been pressed.")
-    finally:  # Code executed in all cases.
+    finally:  # Code executed in all cases.
         box.char_by_char(win,
                          "End of dialog.")
 

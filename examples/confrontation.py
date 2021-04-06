@@ -31,23 +31,23 @@ def main(win):
 
     phoenix_wright = DialogBox(left_x, bottom_y,
                                height, width,
-                               title="Phoenix",
-                               title_colors_pair_nb=1)  # Title and color_pair used to colored title.
+                               "Phoenix",
+                               1)  # Title and color_pair used to colored title.
 
     april_may = DialogBox(center_x, bottom_y,
                           height, width,
-                          title="April",
-                          title_colors_pair_nb=2)
+                          "April",
+                          2)
 
     miles_edgeworth = DialogBox(right_x, bottom_y,
                                 height, width,
-                                title="Edgeworth",
-                                title_colors_pair_nb=3)
+                                "Edgeworth",
+                                3)
 
     # Definition of accepted key codes to pass a dialog.
-    phoenix_wright.confirm_dialog_key = PASS_KEYS
-    april_may.confirm_dialog_key = PASS_KEYS
-    miles_edgeworth.confirm_dialog_key = PASS_KEYS
+    phoenix_wright.confirm_dialog_keys = PASS_KEYS
+    april_may.confirm_dialog_keys = PASS_KEYS
+    miles_edgeworth.confirm_dialog_keys = PASS_KEYS
 
     phoenix_wright.char_by_char(win,
                                 "This testimony is a pure invention !",

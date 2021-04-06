@@ -43,7 +43,7 @@ def main(win):
         demo_textbox.char_by_char(win,
                                   text,
                                   2,  # Display text colored with color pair 2.
-                                  text_attr=attributes)  # Pass attributes to text.
+                                  attributes)  # Pass attributes to text.
 
 
 # Execution of main function.
