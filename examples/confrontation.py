@@ -12,7 +12,7 @@ PASS_KEYS = (10, 32)
 
 
 def main(win):
-    # Makes the cursor invisible.
+    # Make the cursor invisible.
     curses.curs_set(False)
 
     # Definition of several colors pairs.
@@ -51,28 +51,28 @@ def main(win):
 
     phoenix_wright.char_by_char(win,
                                 "This testimony is a pure invention !",
-                                delay=0.03)  # Set delay between writting each characters to 0.03 seconde.
+                                delay=30)  # Set delay between writting each characters to 30 milliseconds
 
     phoenix_wright.char_by_char(win,
                                 "You're lying April May !",
                                 flash_screen=True,  # A short luminous glow will be displayed before writing the text.
-                                delay=0.03,
+                                delay=30,
                                 text_attr=curses.A_BOLD)
 
     april_may.char_by_char(win,
                            "Arghh !",
-                           delay=0.02,
+                           delay=30,
                            text_attr=curses.A_ITALIC)
 
     miles_edgeworth.char_by_char(win,
                                  "OBJECTION !",
                                  flash_screen=True,
-                                 delay=0.03,
+                                 delay=30,
                                  text_attr=curses.A_BOLD)
 
     miles_edgeworth.char_by_char(win,
                                  "These accusations are irrelevant !",
-                                 delay=0.03)
+                                 delay=30)
 
 
 # Execution of main function.

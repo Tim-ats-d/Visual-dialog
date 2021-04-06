@@ -25,7 +25,6 @@ sentences = {
 
 
 def main(win):
-    # Makes the cursor invisible.
     curses.curs_set(False)
 
     # Definition of several colors pairs.

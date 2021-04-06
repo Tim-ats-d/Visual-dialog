@@ -4,11 +4,9 @@
 __all__ = ["DialogBox"]
 
 import curses
-from numbers import Number
 import random
 import textwrap
-import time
-from typing import Callable, Dict, List, Optional, Tuple, Union
+from typing import Callable, Dict, List, Tuple, Union
 
 from .box import BaseTextBox
 from .utils import (CursesTextAttributesConstant,
@@ -52,7 +50,7 @@ class DialogBox(BaseTextBox):
                             CursesTextAttributesConstants] = curses.A_BOLD,
         downtime_chars: Union[Tuple[str],
                             List[str]] = (",", ".", ":", ";", "!", "?"),
-        downtime_chars_delay: Number = .6,
+        downtime_chars_delay: int = 60,
         end_indicator: str = "►"):
         BaseTextBox.__init__(self,
                              pos_x, pos_y,
@@ -147,24 +145,24 @@ class DialogBox(BaseTextBox):
                                 win.refresh()
 
                                 if char in self.downtime_chars:
-                                    time.sleep(self.downtime_chars_delay
-                                               + random.uniform(*random_delay))
+                                    curses.napms(self.downtime_chars_delay
+                                                 + int(random.uniform(*random_delay)))
                                 else:
-                                    time.sleep(delay
-                                               + random.uniform(*random_delay))
+                                    curses.napms(delay
+                                                 + int(random.uniform(*random_delay)))
 
                                 callback(*cargs)
 
                             # Waiting for space character.
-                            time.sleep(delay)
+                            curses.napms(delay)
                         elif mode == "word":
                             win.addstr(self.text_pos_y + y,
                                        self.text_pos_x + offsetting_x,
                                        word)
                             win.refresh()
 
-                            time.sleep(delay
-                                       + random.uniform(*random_delay))
+                            curses.napms(delay
+                                         + int(random.uniform(*random_delay)))
 
                             callback(*cargs)
 
@@ -185,8 +183,8 @@ class DialogBox(BaseTextBox):
                           Dict[Tuple[str], CursesTextAttributesConstants]] = {},
         word_delimiter: str = " ",
         flash_screen: bool = False,
-        delay: Number = .04,
-        random_delay: Union[Tuple[Number], List[Number]] = (0, 0),
+        delay: int = 40,
+        random_delay: Union[Tuple[int], List[int]] = (0, 0),
         callback: Callable = lambda: None,
         cargs: Union[Tuple, List] = ()):
         """Writes the given text character by character.
@@ -222,12 +220,12 @@ class DialogBox(BaseTextBox):
             ``False``.
 
         :param delay: Waiting time between the writing of each character
-            of text in second. This defaults to ``0.04``.
+            of text in milliseconds. This defaults to ``40``.
 
         :param random_delay: Waiting time between the writing of each
-            character in seconds where time waited is a random number
-            generated in ``random_delay`` interval. This defaults to
-            ``(0, 0)``.
+            character in milliseconds where time waited is a random
+            number generated in ``random_delay`` interval. This defaults
+            to ``(0, 0)``.
 
         :param callback: Callable called after writing a character and
             the delay time has elapsed. This defaults to a lambda which
@@ -287,8 +285,8 @@ class DialogBox(BaseTextBox):
                           Dict[Tuple[str], CursesTextAttributesConstants]] = {},
         word_delimiter: str = " ",
         flash_screen: bool = False,
-        delay: Number = .15,
-        random_delay: Union[Tuple[Number], List[Number]] = (0, 0),
+        delay: int = 150,
+        random_delay: Union[Tuple[int], List[int]] = (0, 0),
         callback: Callable = lambda: None,
         cargs: Union[Tuple, List] = ()):
         """Writes the given text word by word.
@@ -324,10 +322,10 @@ class DialogBox(BaseTextBox):
             ``False``.
 
         :param delay: Waiting time between the writing of each word of
-            ``text`` in second. This defaults to ``0.15``.
+            ``text`` in second. This defaults to ``150``.
 
         :param random_delay: Waiting time between the writing of each
-            word in seconds where time waited is a random number
+            word in milliseconds where time waited is a random number
             generated in ``random_delay`` interval. This defaults to
             ``(0, 0)``.
 

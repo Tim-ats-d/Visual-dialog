@@ -13,7 +13,6 @@ EXIT_KEYS = (113, )
 
 
 def main(win):
-    # Makes the cursor invisible.
     curses.curs_set(False)
 
     box = DialogBox(1, 1,

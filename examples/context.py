@@ -18,7 +18,6 @@ replys = (
 
 
 def main(win):
-    # Makes the cursor invisible.
     curses.curs_set(False)
 
     for reply in replys:

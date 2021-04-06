@@ -19,7 +19,7 @@ replys = (
 
 
 def main(win):
-    # Makes the cursor invisible.
+    # Make the cursor invisible.
     curses.curs_set(False)
 
     # Definition of several colors pairs.
@@ -27,7 +27,7 @@ def main(win):
     curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_BLACK)
 
     textbox = DialogBox(1, 1,  # Position 1;1 in win.
-                        30, 5,  # Height and width of textbox (in character).
+                        30, 5,  # Height and width of textbox.
                         "Tim-ats",  # Title of textbox.
                         1)  # Curses color_pair used to colored title.
 
@@ -40,7 +40,7 @@ def main(win):
             win,
             reply,
             2,  # Display text colored with color pair 2.
-            delay=0.04)  # Set delay between writting each characters to 0.04 seconde.
+            delay=40)  # Set delay between writting each characters to 40 milliseconds.
 
 
 # Execution of main function.

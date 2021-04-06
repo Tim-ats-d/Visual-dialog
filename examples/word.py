@@ -18,11 +18,11 @@ instructions = (
 
 
 def main(win):
-    # Makes the cursor invisible.
+    # Make the cursor invisible.
     curses.curs_set(False)
 
     textbox = DialogBox(1, 1,  # Position 1;1 in win.
-                        40, 6,  # Height and width of textbox (in character).
+                        40, 6,  # Height and width of textbox.
                         "Robot")  # Title of textbox.
 
     # Definition of accepted key codes to pass a dialog.
@@ -32,7 +32,7 @@ def main(win):
     for instruction in instructions:
         textbox.word_by_word(win,
                              instruction,
-                             delay=0.2)  # Set delay between writting each words to 0.1 seconde.
+                             delay=200)  # Set delay between writting each words to 200 milliseconds.
 
 
 # Execution of main function.
