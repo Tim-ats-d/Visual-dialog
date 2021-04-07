@@ -6,8 +6,8 @@ import curses
 from visualdialog import DialogBox
 
 
-PASS_KEYS = (10, 32)
-HEIGHT, WIDTH = (35, 6)
+PASS_KEYS = (" ", "\n")
+HEIGHT, WIDTH = 35, 6
 
 
 # It is preferable to create its own class derived from DialogBox for

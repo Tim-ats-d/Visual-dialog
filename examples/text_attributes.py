@@ -6,9 +6,8 @@ import curses
 from visualdialog import DialogBox
 
 
-# Definition of curses key constants.
-# 10 and 32 correspond to enter and space keys.
-PASS_KEYS = (10, 32)
+# Definition of keys to pass a dialog.
+PASS_KEYS = (" ", "\n")
 
 # A key/value dictionary containing the text and the attributes
 # with which it will be displayed.
@@ -31,18 +30,19 @@ def main(win):
     curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_YELLOW)
     curses.init_pair(2, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
 
-    demo_textbox = DialogBox(1, 1,
-                             30, 6,
-                             title="Demo",
-                             title_colors_pair_nb=1,  # Display title colored with color pair 1.
-                             title_text_attr=curses.A_UNDERLINE)  # curse text attributes that will be applied to the title.
-    demo_textbox.confirm_dialog_key = PASS_KEYS
+    textbox = DialogBox(1, 1,
+                        30, 6,
+                        title="Demo",
+                        title_colors_pair_nb=1,  # Display title colored with color pair 1.
+                        title_text_attr=curses.A_UNDERLINE)  # curse text attributes that will be applied to the title.
+
+    textbox.confirm_dialog_keys = PASS_KEYS
 
     for text, attributes in sentences.items():
-        demo_textbox.char_by_char(win,
-                                  text,
-                                  2,  # Display text colored with color pair 2.
-                                  attributes)  # Pass attributes to text.
+        textbox.char_by_char(win,
+                             text,
+                             2,  # Display text colored with color pair 2.
+                             attributes)  # Pass attributes to text.
 
 
 # Execution of main function.

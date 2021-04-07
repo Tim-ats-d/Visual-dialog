@@ -7,24 +7,26 @@ __all__ = ["CursesWindow",
            "CursesKeyConstant",
            "CursesKeyConstants",
            "CursesWindow",
-           "TextBox"]
+           "TextAttributes"]
 
 from contextlib import ContextDecorator
 import _curses
-from typing import Generator, Iterable, List, NoReturn, Tuple Union
+from typing import Generator, Iterable, List, NoReturn, Tuple, Union
 
 
 CursesWindow = _curses.window
 
 #: curses key constants are integers.
 #: See https://docs.python.org/3/library/curses.html?#constants
-CursesKeyConstant = int
-CursesKeyConstants = Union[Tuple[int], List[int]]
+CursesKeyConstant = Union[int, str]
+CursesKeyConstants = Union[Tuple[CursesKeyConstant],
+                           List[CursesKeyConstant]]
 
 #: curses text attribute constants are integers.
 #: See https://docs.python.org/3/library/curses.html?#constants
 CursesTextAttributesConstant = int
-CursesTextAttributesConstants = Union[Tuple[int], List[int]]
+CursesTextAttributesConstants = Union[Tuple[CursesTextAttributesConstant],
+                                      List[CursesTextAttributesConstant]]
 
 
 def _make_chunk(iterable: Union[Tuple, List],

@@ -170,7 +170,7 @@ class DialogBox(BaseTextBox):
                         offsetting_x += len(word) + 1
 
             self._display_end_indicator(win)
-            self.getkey(win)
+            self.get_input(win)
 
     def char_by_char(
         self,
@@ -244,7 +244,7 @@ class DialogBox(BaseTextBox):
                 - Writing each line of the current paragraph, character
                   by character.
                 - Waits until a key contained in the class attribute
-                  ``confirm_dialog_key`` was pressed before writing the
+                  ``confirm_dialog_keys`` was pressed before writing the
                   following paragraph.
                 - Complete cleaning ``win``.
 
@@ -345,7 +345,7 @@ class DialogBox(BaseTextBox):
                 - Writing each line of the current paragraph, word by
                   word.
                 - Waits until a key contained in the class attribute
-                  ``confirm_dialog_key`` was pressed before writing the
+                  ``confirm_dialog_keys`` was pressed before writing the
                   following paragraph.
                 - Complete cleaning ``win``.
 

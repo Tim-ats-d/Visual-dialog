@@ -1,11 +1,12 @@
 # box.py
 # 2020 Timéo Arnouts <tim.arnouts@protonmail.com>
 
-__all__ = ["BaseTextBox"]
+__all__ = ["BaseTextBox",
+           "PanicError"]
 
 import curses
 import curses.textpad
-from typing import List, Tuple, Union
+from typing import List, Literal, Tuple, Union
 
 from .utils import (CursesKeyConstant,
                     CursesKeyConstants,
@@ -112,9 +113,12 @@ class BaseTextBox:
         self.downtime_chars = downtime_chars
         self.downtime_chars_delay = downtime_chars_delay
 
-        #: List of accepted key codes to skip dialog. ``curses`` constants are supported. This defaults to an empty tuple.
+        #: Keystroke acquisition mode for the TextBox.get_input method.
+        self.key_detection_mode: Literal["key", "code"] = "key"
+
+        #: List of accepted key to skip dialog. This defaults to an empty list.
         self.confirm_dialog_keys: List[CursesKeyConstant] = []
-        #: List of accepted key codes to raise PanicError. ``curses`` constants are supported. This defaults to an empty tuple.
+        #: List of accepted key to raise PanicError. This defaults to an empty list.
         self.panic_keys: List[CursesKeyConstant] = []
 
     @property
@@ -166,26 +170,36 @@ class BaseTextBox:
                                  self.pos_y + self.title_offsetting_y + self.width,
                                  self.pos_x + self.height)
 
-    def getkey(self, win: CursesWindow):
+    def get_input(self, win: CursesWindow):
         """Blocks execution as long as a key contained in
         ``self.confirm_dialog_keys`` is not detected.
 
+        The method of key detection depends on the variable
+        ``self.key_detection_mode``. ``"key"`` will acquire the key as
+        a character and ``"code"`` as a key code. This is default to
+        ``"key"``.
+
         :param win: ``curses`` window object on which the method will
             have effect.
+
         :raises PanicError: If a key contained in ``self.panic_keys`` is
             pressed.
 
         .. NOTE::
-            - To see the list of key constants please refer to
-              `this curses documentation
-              <https://docs.python.org/3/library/curses.html?#constants>`_.
             - This method uses ``window.getch`` method from ``curses``
               module. Please refer to `curses documentation
               <https://docs.python.org/3/library/curses.html?#curses.window.getch>`_
               for more informations.
+            - This method uses ``window.getkey`` method from ``curses``
+              module. Please refer to `curses documentation
+              <https://docs.python.org/3/library/curses.html?#curses.window.getkey>`_
+              for more informations.
         """
         while 1:
-            key = win.getch()
+            if self.key_detection_mode == "key":
+                key = win.getkey()
+            elif self.key_detection_mode == "code":
+                key = win.getch()
 
             if key in self.confirm_dialog_keys:
                 break

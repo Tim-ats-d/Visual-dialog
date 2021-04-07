@@ -6,9 +6,8 @@ import curses
 from visualdialog import DialogBox
 
 
-# Definition of curses key constants.
-# 10 and 32 correspond to enter and space keys.
-PASS_KEYS = (10, 32)
+# Definition of keys to pass a dialog.
+PASS_KEYS = (" ", "\n")
 
 instructions = (
     "Instead of the char_by_char method, word_by_word displays the "
