@@ -6,9 +6,30 @@ import curses
 from visualdialog import DialogBox
 
 
-# Definition of curses key constants.
-# 10 and 32 correspond to enter and space keys.
 PASS_KEYS = (10, 32)
+HEIGHT, WIDTH = (35, 6)
+
+
+# It is preferable to create its own class derived from DialogBox for
+# complex applications
+class CustomDialogBox(DialogBox): 
+
+    def __init__(self,
+                 pos_x: int,
+                 pos_y: int,
+                 title: str,
+                 title_colors_pair_nb: int,
+                 **kwargs):
+        super().__init__(pos_x=pos_x,
+                         pos_y=pos_y,
+                         height=HEIGHT,
+                         width=WIDTH,
+                         title=title,
+                         title_colors_pair_nb=title_colors_pair_nb,
+                         **kwargs)
+
+        # Definition of accepted key codes to pass a dialog.
+        self.confirm_dialog_keys = PASS_KEYS
 
 
 def main(win):
@@ -20,34 +41,24 @@ def main(win):
     curses.init_pair(2, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_RED, curses.COLOR_BLACK)
 
-    width, height  = 6, 35  # Width and height (in character).
-
-    max_y, max_x = win.getmaxyx()
+    max_y, max_x = win.getmaxyx()  # Get height and width of the window.
 
     left_x = 2  # Left alignment.
-    right_x = max_x - height - 4  # Calculation of right alignment.
-    center_x = max_x//2 - height//2  # Calculation of center alignment.
-    bottom_y = max_y - width - 4  # Calculation of bottom alignment.
+    right_x = max_x - HEIGHT - 4  # Calculation of right alignment.
+    center_x = max_x//2 - HEIGHT//2  # Calculation of center alignment.
+    bottom_y = max_y - WIDTH - 4  # Calculation of bottom alignment.
 
-    phoenix_wright = DialogBox(left_x, bottom_y,
-                               height, width,
-                               "Phoenix",
-                               1)  # Title and color_pair used to colored title.
+    phoenix_wright = CustomDialogBox(left_x, bottom_y,
+                                     "Phoenix",  # Title of dialog box.
+                                     1)  # Color pair used to colored title.
 
-    april_may = DialogBox(center_x, bottom_y,
-                          height, width,
-                          "April",
-                          2)
+    april_may = CustomDialogBox(center_x, bottom_y,
+                                "April",
+                                2)
 
-    miles_edgeworth = DialogBox(right_x, bottom_y,
-                                height, width,
-                                "Edgeworth",
-                                3)
-
-    # Definition of accepted key codes to pass a dialog.
-    phoenix_wright.confirm_dialog_keys = PASS_KEYS
-    april_may.confirm_dialog_keys = PASS_KEYS
-    miles_edgeworth.confirm_dialog_keys = PASS_KEYS
+    miles_edgeworth = CustomDialogBox(right_x, bottom_y,
+                                      "Edgeworth",
+                                      3)
 
     phoenix_wright.char_by_char(win,
                                 "This testimony is a pure invention !",

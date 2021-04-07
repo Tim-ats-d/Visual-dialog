@@ -170,7 +170,6 @@ class BaseTextBox:
         """Blocks execution as long as a key contained in
         ``self.confirm_dialog_keys`` is not detected.
 
-
         :param win: ``curses`` window object on which the method will
             have effect.
         :raises PanicError: If a key contained in ``self.panic_keys`` is

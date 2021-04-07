@@ -1,23 +1,30 @@
 # utils.py
 # 2020 Timéo Arnouts <tim.arnouts@protonmail.com>
 
+__all__ = ["CursesWindow",
+           "CursesTextAttributesConstant",
+           "CursesTextAttributesConstants",
+           "CursesKeyConstant",
+           "CursesKeyConstants",
+           "CursesWindow",
+           "TextBox"]
+
 from contextlib import ContextDecorator
 import _curses
-from typing import (Generator, Iterable, List, NoReturn, Tuple, TypeVar,
-                    Union)
+from typing import Generator, Iterable, List, NoReturn, Tuple Union
 
 
 CursesWindow = _curses.window
-
-#: curses text attribute constants are integers.
-#: See https://docs.python.org/3/library/curses.html?#constants
-CursesTextAttributesConstant = int
-CursesTextAttributesConstants = Union[Tuple[int], List[int]]
 
 #: curses key constants are integers.
 #: See https://docs.python.org/3/library/curses.html?#constants
 CursesKeyConstant = int
 CursesKeyConstants = Union[Tuple[int], List[int]]
+
+#: curses text attribute constants are integers.
+#: See https://docs.python.org/3/library/curses.html?#constants
+CursesTextAttributesConstant = int
+CursesTextAttributesConstants = Union[Tuple[int], List[int]]
 
 
 def _make_chunk(iterable: Union[Tuple, List],
