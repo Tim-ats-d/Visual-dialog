@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <img width="400" src="https://user-images.githubusercontent.com/59396366/100594532-188c6900-32fa-11eb-8372-4796f53b122f.png" alt="Visual-dialog">
+  <img width="300" src="https://user-images.githubusercontent.com/59396366/113866239-5f5d0480-97ad-11eb-879f-fa7d4098b689.png" alt="Visual-dialog">
   <br>
   A library to make easier dialog box in a terminal.
 </p>
@@ -60,7 +60,7 @@ pip install .
 
 **Visual-dialog** works with `curses` Python module. It is available in the standard **Python** library on **UNIX** but it doesn’t work out-of-the-box on **Windows**.
 
-To install `curses` on **Windows**.
+To install `curses` on **Windows**, you need `windows-curses` module:
 
 ```sh
 pip install curses-windows

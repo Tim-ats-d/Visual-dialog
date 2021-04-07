@@ -11,12 +11,14 @@ Welcome to Visual-dialog's documentation
 
 .. image:: _static/visual-dialog.png
    :align: center
+   :width: 300
+   :alt: Visual-dialog
 
 **Features:**
 
-   - Automatic text scrolling.
-   - Text coloring and formatting.
-   - Hackable and configurable.
+- Automatic text scrolling.
+- Text coloring and formatting.
+- Hackable and configurable.
 
 .. IMPORTANT::
    I recommend that you have some knowledge of Python ``curses`` module in order to use the library to its full potential.

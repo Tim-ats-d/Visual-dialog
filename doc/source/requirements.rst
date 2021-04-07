@@ -12,7 +12,7 @@ Curses
 **Visual-dialog** works with ``curses`` Python module.
 It is available in the standard **Python** library on **UNIX** but it doesn't work out-of-the-box on **Windows**.
 
-To install ``curses`` on **Windows**, you need the ``windows-curses`` module:
+To install ``curses`` on **Windows**, you need ``windows-curses`` module:
 
 .. code-block::
 
