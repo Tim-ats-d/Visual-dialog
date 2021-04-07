@@ -34,7 +34,7 @@ class BaseTextBox:
 
     .. NOTE::
         This class provides a general API for text boxes, it is not
-         intended to be instantiated.
+        intended to be instantiated.
 
     :param pos_x: x position of the dialog box in ``curses`` window
         object on which methods will have effects.

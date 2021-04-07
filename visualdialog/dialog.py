@@ -258,8 +258,7 @@ class DialogBox(BaseTextBox):
 
         .. WARNING::
             ``win`` will be completely cleaned when writing each
-            paragraph by ``window.clear()`` method of ``curses``
-            module.
+            paragraph by ``window.clear`` method of ``curses`` module.
         """
         self._one_by_one("char",
                          win,
@@ -360,8 +359,7 @@ class DialogBox(BaseTextBox):
 
         .. WARNING::
             ``win`` will be completely cleaned when writing each
-            paragraph by ``window.clear()`` method of ``curses``
-            module.
+            paragraph by ``window.clear`` method of ``curses`` module.
         """
         self._one_by_one("word",
                          win,

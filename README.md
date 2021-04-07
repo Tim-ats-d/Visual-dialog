@@ -60,12 +60,20 @@ pip install .
 
 **Visual-dialog** works with `curses` Python module. It is available in the standard **Python** library on **UNIX** but it doesn’t work out-of-the-box on **Windows**.
 
-See [this explanations](https://www.devdungeon.com/content/curses-windows-python) to install `curses` on **Windows**.
+To install `curses` on **Windows**.
+
+```sh
+pip install curses-windows
+```
 
 ### To build the documentation
 
 * [**Sphinx**](https://www.sphinx-doc.org/en/master/usage/installation.html) to generate the documentation of library.
 * [**sphinx-rtd-theme**](https://pypi.org/project/sphinx-rtd-theme/) used as documentation theme.
+
+```sh
+pip install sphinx sphinx_rtd_theme
+```
 
 ## Quick-start
 
@@ -77,8 +85,8 @@ import curses
 from visualdialog import DialogBox
 
 
-x, y = (0, 0)
-height, width = (35, 6)
+x, y = 0, 0
+height, width = 35, 6
 
 def main(win):
     curses.curs_set(False)

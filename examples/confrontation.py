@@ -11,7 +11,7 @@ HEIGHT, WIDTH = (35, 6)
 
 
 # It is preferable to create its own class derived from DialogBox for
-# complex applications
+# complex applications.
 class CustomDialogBox(DialogBox): 
 
     def __init__(self,
