@@ -26,8 +26,11 @@ class PanicError(Exception):
                  key: CursesKeyConstant):
         self.key = key
 
-    def __str__(self):
-        return f"text box was aborted by pressing the {self.key} key"
+    def __str__(self) -> str:
+        return ("text box was aborted "
+                + (f"keycode {self.key}"
+                  if isinstance(self.key, int)
+                  else f'by pressing "{self.key}" key'))
 
 
 class BaseTextBox:
