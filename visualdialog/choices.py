@@ -7,7 +7,7 @@ from typing import Any, Dict, Tuple, Union
 from .dialog import DialogBox
 from .utils import (CursesTextAttributesConstants,
                     TextAttributes,
-                    _make_chunk)
+                    chunked)
 
 
 class ChoiceBox(DialogBox):

@@ -13,7 +13,7 @@ from .utils import (CursesTextAttributesConstant,
                     CursesTextAttributesConstants,
                     CursesWindow,
                     TextAttributes,
-                    _make_chunk)
+                    chunked)
 
 
 class DialogBox(BaseTextBox):
@@ -114,7 +114,7 @@ class DialogBox(BaseTextBox):
             text_attr = (text_attr, )
 
         wrapped_text = self.text_wrapper.wrap(text)
-        wrapped_text = _make_chunk(wrapped_text, self.nb_lines_max)
+        wrapped_text = chunked(wrapped_text, self.nb_lines_max)
 
         if flash_screen:
             curses.flash()

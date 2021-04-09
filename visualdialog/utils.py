@@ -27,7 +27,7 @@ CursesTextAttributesConstant = int
 CursesTextAttributesConstants = Sequence[CursesTextAttributesConstant]
 
 
-def _make_chunk(seq: Sequence,
+def chunked(seq: Sequence,
                 chunk_length: int) -> Generator:
     """Returns a tuple that contains given sequence separated into
     ``chunk_length`` bundles.
