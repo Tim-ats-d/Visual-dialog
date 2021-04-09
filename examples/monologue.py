@@ -31,7 +31,7 @@ def main(win):
                         1)  # Curses color_pair used to colored title.
 
     # Definition of accepted key codes to pass a dialog.
-    textbox.confirm_dialog_keys = PASS_KEYS
+    textbox.confirm_keys = PASS_KEYS
 
     # Iterate on each sentence contained in replys.
     for reply in replys:

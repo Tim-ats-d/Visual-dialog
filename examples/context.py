@@ -23,7 +23,7 @@ def main(win):
         # The keyword "as" allows to capture the returned DialogBox object.
         with DialogBox(1, 1,
                        30, 6) as db:
-            db.confirm_dialog_keys = PASS_KEYS
+            db.confirm_keys = PASS_KEYS
             db.char_by_char(win,
                             reply)
 

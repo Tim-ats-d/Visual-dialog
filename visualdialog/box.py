@@ -119,7 +119,7 @@ class BaseTextBox:
         self.key_detection_mode: Literal["key", "code"] = "key"
 
         #: List of accepted key to skip dialog. This defaults to an empty list.
-        self.confirm_dialog_keys: List[CursesKeyConstant] = []
+        self.confirm_keys: List[CursesKeyConstant] = []
         #: List of accepted key to raise PanicError. This defaults to an empty list.
         self.panic_keys: List[CursesKeyConstant] = []
 
@@ -174,7 +174,7 @@ class BaseTextBox:
 
     def get_input(self, win: CursesWindow):
         """Blocks execution as long as a key contained in
-        ``self.confirm_dialog_keys`` is not detected.
+        ``self.confirm_keys`` is not detected.
 
         The method of key detection depends on the variable
         ``self.key_detection_mode``. ``"key"`` will acquire the key as
@@ -203,7 +203,7 @@ class BaseTextBox:
             elif self.key_detection_mode == "code":
                 key = win.getch()
 
-            if key in self.confirm_dialog_keys:
+            if key in self.confirm_keys:
                 break
             elif key in self.panic_keys:
                 raise PanicError(key)

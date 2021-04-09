@@ -25,7 +25,7 @@ def main(win):
                         "Robot")  # Title of textbox.
 
     # Definition of accepted key codes to pass a dialog.
-    textbox.confirm_dialog_keys = PASS_KEYS
+    textbox.confirm_keys = PASS_KEYS
 
     # Iterate on each sentence contained in instructions.
     for instruction in instructions:

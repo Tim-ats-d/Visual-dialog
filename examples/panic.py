@@ -18,7 +18,7 @@ def main(win):
     box = DialogBox(1, 1,
                     40, 6)
 
-    box.confirm_dialog_keys = PASS_KEYS    
+    box.confirm_keys = PASS_KEYS    
     box.panic_keys = EXIT_KEYS
 
     try:

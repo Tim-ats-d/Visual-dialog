@@ -29,7 +29,7 @@ class CustomDialogBox(DialogBox):
                          **kwargs)
 
         # Definition of accepted key codes to pass a dialog.
-        self.confirm_dialog_keys = PASS_KEYS
+        self.confirm_keys = PASS_KEYS
 
 
 def main(win):

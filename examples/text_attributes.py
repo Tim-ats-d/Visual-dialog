@@ -36,7 +36,7 @@ def main(win):
                         title_colors_pair_nb=1,  # Display title colored with color pair 1.
                         title_text_attr=curses.A_UNDERLINE)  # curse text attributes that will be applied to the title.
 
-    textbox.confirm_dialog_keys = PASS_KEYS
+    textbox.confirm_keys = PASS_KEYS
 
     for text, attributes in sentences.items():
         textbox.char_by_char(win,
