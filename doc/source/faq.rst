@@ -17,7 +17,7 @@ You can also pass arguments to this callback via ``cargs`` parameter.
 The past callback is executed after downtime delay between character or word display.
 You can use this behavior to perform multiple tasks while ``DialogBox`` scrolling.
 
-I am not satisfied with the behavior of DialogBox, how can I change it? 
+I am not satisfied with the behavior of DialogBox, how can I change it?
 -----------------------------------------------------------------------
 
 You can create your own derived class by inheriting from ``BaseTextBox``.

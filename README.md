@@ -54,7 +54,7 @@ pip install .
 
 ### Python version
 
-* [**Python 3.7**](https://www.python.org/downloads/) or more.
+* [**Python 3.8**](https://www.python.org/downloads/) or more.
 
 ### Curses
 

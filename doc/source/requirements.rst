@@ -4,7 +4,7 @@ Requirements
 Python version
 --------------
 
-- `Python 3.7 or more <https://www.python.org/downloads/>`_.
+- `Python 3.8 or more <https://www.python.org/downloads/>`_.
 
 Curses
 ------
