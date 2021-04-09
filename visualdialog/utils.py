@@ -11,7 +11,7 @@ __all__ = ["CursesWindow",
 
 from contextlib import ContextDecorator
 import _curses
-from typing import Generator, Iterable, List, NoReturn, Tuple, Union
+from typing import Generator, Iterable, NoReturn, Sequence, Union
 
 
 CursesWindow = _curses.window
@@ -19,25 +19,23 @@ CursesWindow = _curses.window
 #: curses key constants are integers.
 #: See https://docs.python.org/3/library/curses.html?#constants
 CursesKeyConstant = Union[int, str]
-CursesKeyConstants = Union[Tuple[CursesKeyConstant],
-                           List[CursesKeyConstant]]
+CursesKeyConstants = Sequence[CursesKeyConstant]
 
 #: curses text attribute constants are integers.
 #: See https://docs.python.org/3/library/curses.html?#constants
 CursesTextAttributesConstant = int
-CursesTextAttributesConstants = Union[Tuple[CursesTextAttributesConstant],
-                                      List[CursesTextAttributesConstant]]
+CursesTextAttributesConstants = Sequence[CursesTextAttributesConstant]
 
 
-def _make_chunk(iterable: Union[Tuple, List],
+def _make_chunk(seq: Sequence,
                 chunk_length: int) -> Generator:
-    """Returns a tuple that contains given iterable separated into
+    """Returns a tuple that contains given sequence separated into
     ``chunk_length`` bundles.
 
     :returns: Generator separated into ``chunk_length`` bundles.
     """
-    return (iterable[chunk:chunk + chunk_length]
-                for chunk in range(0, len(iterable), chunk_length))
+    return (seq[chunk:chunk + chunk_length]
+                for chunk in range(0, len(seq), chunk_length))
 
 
 class TextAttributes(ContextDecorator):

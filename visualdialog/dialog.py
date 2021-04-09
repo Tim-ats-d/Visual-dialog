@@ -6,7 +6,7 @@ __all__ = ["DialogBox"]
 import curses
 import random
 import textwrap
-from typing import Callable, Dict, List, Tuple, Union
+from typing import Callable, Dict, List, Sequence, Tuple, Union
 
 from .box import BaseTextBox
 from .utils import (CursesTextAttributesConstant,
@@ -48,8 +48,7 @@ class DialogBox(BaseTextBox):
         title_colors_pair_nb: int = 0,
         title_text_attr: Union[CursesTextAttributesConstant,
                             CursesTextAttributesConstants] = curses.A_BOLD,
-        downtime_chars: Union[Tuple[str],
-                            List[str]] = (",", ".", ":", ";", "!", "?"),
+        downtime_chars: Sequence[str] = (",", ".", ":", ";", "!", "?"),
         downtime_chars_delay: int = 60,
         end_indicator: str = "►"):
         BaseTextBox.__init__(self,
@@ -110,11 +109,15 @@ class DialogBox(BaseTextBox):
                     callback,
                     cargs):
         """Todo."""
-        if flash_screen:
-            curses.flash()
+        # Test if only one argument is passed instead of a tuple.
+        if isinstance(text_attr, int):
+            text_attr = (text_attr, )
 
         wrapped_text = self.text_wrapper.wrap(text)
         wrapped_text = _make_chunk(wrapped_text, self.nb_lines_max)
+
+        if flash_screen:
+            curses.flash()
 
         for paragraph in wrapped_text:
             win.clear()
@@ -126,13 +129,9 @@ class DialogBox(BaseTextBox):
                     if word in words_attr.keys():
                         attr = words_attr[word]
 
-                        # Test if only one argument is passed instead of a tuple.
                         if isinstance(attr, int):
                             attr = (attr, )
                     else:
-                        if isinstance(text_attr, int):
-                            text_attr = (text_attr, )
-
                         attr = (curses.color_pair(colors_pair_nb),
                                 *text_attr)
 
@@ -179,14 +178,14 @@ class DialogBox(BaseTextBox):
         colors_pair_nb: int = 0,
         text_attr: Union[CursesTextAttributesConstant,
                          CursesTextAttributesConstants] = (),
-        words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstant],
-                          Dict[Tuple[str], CursesTextAttributesConstants]] = {},
+        words_attr: Dict[Sequence[str], Union[CursesTextAttributesConstant,
+                                              CursesTextAttributesConstants]] = {},
         word_delimiter: str = " ",
         flash_screen: bool = False,
         delay: int = 40,
         random_delay: Union[Tuple[int], List[int]] = (0, 0),
         callback: Callable = lambda: None,
-        cargs: Union[Tuple, List] = ()):
+        cargs: Sequence = ()):
         """Writes the given text character by character.
 
         :param win: ``curses`` window object on which the method will
@@ -280,8 +279,8 @@ class DialogBox(BaseTextBox):
         colors_pair_nb: int = 0,
         text_attr: Union[CursesTextAttributesConstant,
                          CursesTextAttributesConstants] = (),
-        words_attr: Union[Dict[Tuple[str], CursesTextAttributesConstant],
-                          Dict[Tuple[str], CursesTextAttributesConstants]] = {},
+        words_attr: Dict[Sequence[str], Union[CursesTextAttributesConstant,
+                                              CursesTextAttributesConstants]] = {},
         word_delimiter: str = " ",
         flash_screen: bool = False,
         delay: int = 150,

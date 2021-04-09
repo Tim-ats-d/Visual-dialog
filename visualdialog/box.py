@@ -6,7 +6,7 @@ __all__ = ["BaseTextBox",
 
 import curses
 import curses.textpad
-from typing import List, Literal, Tuple, Union
+from typing import List, Literal, Sequence, Tuple, Union
 
 from .utils import (CursesKeyConstant,
                     CursesKeyConstants,
@@ -87,8 +87,7 @@ class BaseTextBox:
         title_colors_pair_nb: int = 0,
         title_text_attr: Union[CursesTextAttributesConstant,
                             CursesTextAttributesConstants] = curses.A_BOLD,
-        downtime_chars: Union[Tuple[str],
-                            List[str]] = (",", ".", ":", ";", "!", "?"),
+        downtime_chars: Sequence[str] = (",", ".", ":", ";", "!", "?"),
         downtime_chars_delay: int = 600):
         self.pos_x, self.pos_y = pos_x, pos_y
         self.height, self.width = height, width
