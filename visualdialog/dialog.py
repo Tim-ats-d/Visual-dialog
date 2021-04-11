@@ -9,6 +9,10 @@ import textwrap
 from typing import Callable, Dict, List, Sequence, Tuple, Union
 
 from .box import BaseTextBox
+from .effect import (Effect,
+                     EachChar,
+                     EachWord,
+                     EachParagraph)
 from .utils import (CursesTextAttributesConstant,
                     CursesTextAttributesConstants,
                     CursesWindow,
@@ -106,9 +110,9 @@ class DialogBox(BaseTextBox):
                     flash_screen,
                     delay,
                     random_delay,
+                    effect,
                     callback,
                     cargs):
-        """Todo."""
         # Test if only one argument is passed instead of a tuple.
         if isinstance(text_attr, int):
             text_attr = (text_attr, )
@@ -120,56 +124,66 @@ class DialogBox(BaseTextBox):
             curses.flash()
 
         for paragraph in wrapped_text:
-            win.clear()
-            self.framing_box(win)
+            with effect(EachParagraph, win):
+                win.clear()
+                self.framing_box(win)
 
-            for y, line in enumerate(paragraph):
-                offsetting_x = 0
-                for word in line.split(word_delimiter):
-                    if word in words_attr.keys():
-                        attr = words_attr[word]
+                for y, line in enumerate(paragraph):
+                    offsetting_x = 0
+                    for word in line.split(word_delimiter):
+                        if word in words_attr.keys():
+                            attr = words_attr[word]
 
-                        if isinstance(attr, int):
-                            attr = (attr, )
-                    else:
-                        attr = (curses.color_pair(colors_pair_nb),
-                                *text_attr)
+                            if isinstance(attr, int):
+                                attr = (attr, )
+                        else:
+                            attr = (curses.color_pair(colors_pair_nb),
+                                    *text_attr)
 
-                    with TextAttributes(win, *attr):
-                        if mode == "char":
-                            for x, char in enumerate(word):
-                                win.addstr(self.text_pos_y + y,
-                                           self.text_pos_x + x + offsetting_x,
-                                           char)
-                                win.refresh()
+                        with TextAttributes(win, *attr):
+                            if mode == "char":
+                                for x, char in enumerate(word):
+                                    with effect(EachChar, win):
+                                        win.addstr(
+                                            self.text_pos_y + y,
+                                            self.text_pos_x + x + offsetting_x,
+                                            char)
+                                        win.refresh()
 
-                                if char in self.downtime_chars:
-                                    curses.napms(self.downtime_chars_delay
-                                                 + int(random.uniform(*random_delay)))
-                                else:
+                                        if char in self.downtime_chars:
+                                            curses.napms(
+                                                self.downtime_chars_delay
+                                                + int(random.uniform(
+                                                          *random_delay)))
+                                        else:
+                                            curses.napms(
+                                                delay
+                                                + int(random.uniform(
+                                                          *random_delay)))
+
+                                        callback(*cargs)
+
+                                # Waiting for space character.
+                                curses.napms(delay)
+                            elif mode == "word":
+                                with effect(EachWord, win):
+                                    win.addstr(
+                                            self.text_pos_y + y,
+                                            self.text_pos_x + offsetting_x,
+                                            word)
+                                    win.refresh()
+
                                     curses.napms(delay
-                                                 + int(random.uniform(*random_delay)))
+                                                + int(random.uniform(
+                                                          *random_delay)))
 
-                                callback(*cargs)
+                                    callback(*cargs)
 
-                            # Waiting for space character.
-                            curses.napms(delay)
-                        elif mode == "word":
-                            win.addstr(self.text_pos_y + y,
-                                       self.text_pos_x + offsetting_x,
-                                       word)
-                            win.refresh()
+                            # Compensates for the space between words.
+                            offsetting_x += len(word) + 1
 
-                            curses.napms(delay
-                                         + int(random.uniform(*random_delay)))
-
-                            callback(*cargs)
-
-                        # Compensates for the space between words.
-                        offsetting_x += len(word) + 1
-
-            self._display_end_indicator(win)
-            self.get_input(win)
+                self._display_end_indicator(win)
+                self.get_input(win)
 
     def char_by_char(
         self,
@@ -184,6 +198,7 @@ class DialogBox(BaseTextBox):
         flash_screen: bool = False,
         delay: int = 40,
         random_delay: Union[Tuple[int], List[int]] = (0, 0),
+        effect: Union[EachChar, EachWord, EachParagraph] = Effect,
         callback: Callable = lambda: None,
         cargs: Sequence = ()):
         """Writes the given text character by character.
@@ -269,6 +284,7 @@ class DialogBox(BaseTextBox):
                          flash_screen,
                          delay,
                          random_delay,
+                         effect,
                          callback,
                          cargs)
 
@@ -285,6 +301,7 @@ class DialogBox(BaseTextBox):
         flash_screen: bool = False,
         delay: int = 150,
         random_delay: Union[Tuple[int], List[int]] = (0, 0),
+        effect: Union[EachChar, EachWord, EachParagraph] = Effect,
         callback: Callable = lambda: None,
         cargs: Union[Tuple, List] = ()):
         """Writes the given text word by word.
@@ -370,5 +387,6 @@ class DialogBox(BaseTextBox):
                          flash_screen,
                          delay,
                          random_delay,
+                         effect,
                          callback,
                          cargs)

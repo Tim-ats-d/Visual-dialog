@@ -8,4 +8,5 @@ __author__ = "Timéo Arnouts"
 
 from .box import *
 from .dialog import *
+from .effect import *
 from .utils import *
