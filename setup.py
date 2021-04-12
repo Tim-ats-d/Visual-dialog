@@ -13,6 +13,7 @@ setup(
     description=__doc__,
     long_description=open("README.md").read(),
     install_requires=["windows-curses; platform_system=='Windows'"],
+    extras_require={"doc": ["sphinx", "sphinx-rtd-theme"]},
     include_package_data=True,
     url="https://github.com/Tim-ats-d/Visual-dialog",
     requires_python=">=3.8",
