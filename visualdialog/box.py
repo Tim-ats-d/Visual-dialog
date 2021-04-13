@@ -197,11 +197,13 @@ class BaseTextBox:
               <https://docs.python.org/3/library/curses.html?#curses.window.getkey>`_
               for more informations.
         """
+        curses.flushinp()
+
         while 1:
+            key = win.getch()
+
             if self.key_detection_mode == "key":
-                key = win.getkey()
-            elif self.key_detection_mode == "code":
-                key = win.getch()
+                key = chr(key)
 
             if key in self.confirm_keys:
                 break
