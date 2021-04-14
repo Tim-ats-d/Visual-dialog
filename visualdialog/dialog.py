@@ -13,10 +13,10 @@ from .effect import (Effect,
                      EachChar,
                      EachWord,
                      EachParagraph)
-from .utils import (CursesTextAttributesConstant,
-                    CursesTextAttributesConstants,
+from .utils import (CursesTextAttrConstant,
+                    CursesTextAttrConstants,
                     CursesWindow,
-                    TextAttributes,
+                    TextAttr,
                     chunked)
 
 
@@ -43,18 +43,18 @@ class DialogBox(BaseTextBox):
         not affect ``word_by_word`` method.
     """
     def __init__(
-        self,
-        pos_x: int,
-        pos_y: int,
-        height: int,
-        width: int,
-        title: str = "",
-        title_colors_pair_nb: int = 0,
-        title_text_attr: Union[CursesTextAttributesConstant,
-                            CursesTextAttributesConstants] = curses.A_BOLD,
-        downtime_chars: Sequence[str] = (",", ".", ":", ";", "!", "?"),
-        downtime_chars_delay: int = 60,
-        end_indicator: str = "►"):
+            self,
+            pos_x: int,
+            pos_y: int,
+            height: int,
+            width: int,
+            title: str = "",
+            title_colors_pair_nb: int = 0,
+            title_text_attr: Union[CursesTextAttrConstant,
+                                   CursesTextAttrConstants] = curses.A_BOLD,
+            downtime_chars: Sequence[str] = (",", ".", ":", ";", "!", "?"),
+            downtime_chars_delay: int = 60,
+            end_indicator: str = "►"):
         BaseTextBox.__init__(self,
                              pos_x, pos_y,
                              height, width,
@@ -81,8 +81,8 @@ class DialogBox(BaseTextBox):
     def _display_end_indicator(
             self,
             win: CursesWindow,
-            text_attr: CursesTextAttributesConstants = (curses.A_BOLD,
-                                                        curses.A_BLINK)):
+            text_attr: CursesTextAttrConstants = (curses.A_BOLD,
+                                                  curses.A_BLINK)):
         """Displays an end indicator in the lower right corner of
         textbox.
 
@@ -94,7 +94,7 @@ class DialogBox(BaseTextBox):
             ``(curses.A_BOLD, curses.A_BLINK)``.
         """
         if self.end_indicator_char:
-            with TextAttributes(win, *text_attr):
+            with TextAttr(win, *text_attr):
                 win.addch(self.end_indicator_pos_y,
                           self.end_indicator_pos_x,
                           self.end_indicator_char)
@@ -140,7 +140,7 @@ class DialogBox(BaseTextBox):
                             attr = (curses.color_pair(colors_pair_nb),
                                     *text_attr)
 
-                        with TextAttributes(win, *attr):
+                        with TextAttr(win, *attr):
                             if mode == "char":
                                 for x, char in enumerate(word):
                                     with effect(EachChar, win):
@@ -174,7 +174,7 @@ class DialogBox(BaseTextBox):
                                     win.refresh()
 
                                     curses.napms(delay
-                                                + int(random.uniform(
+                                                 + int(random.uniform(
                                                           *random_delay)))
 
                                     callback(*cargs)
@@ -186,21 +186,21 @@ class DialogBox(BaseTextBox):
                 self.get_input(win)
 
     def char_by_char(
-        self,
-        win: CursesWindow,
-        text: str,
-        colors_pair_nb: int = 0,
-        text_attr: Union[CursesTextAttributesConstant,
-                         CursesTextAttributesConstants] = (),
-        words_attr: Dict[Sequence[str], Union[CursesTextAttributesConstant,
-                                              CursesTextAttributesConstants]] = {},
-        word_delimiter: str = " ",
-        flash_screen: bool = False,
-        delay: int = 40,
-        random_delay: Union[Tuple[int], List[int]] = (0, 0),
-        effect: Union[EachChar, EachWord, EachParagraph] = Effect,
-        callback: Callable = lambda: None,
-        cargs: Sequence = ()):
+            self,
+            win: CursesWindow,
+            text: str,
+            colors_pair_nb: int = 0,
+            text_attr: Union[CursesTextAttrConstant,
+                             CursesTextAttrConstants] = (),
+            words_attr: Dict[Sequence[str], Union[CursesTextAttrConstant,
+                                                  CursesTextAttrConstants]] = {},
+            word_delimiter: str = " ",
+            flash_screen: bool = False,
+            delay: int = 40,
+            random_delay: Union[Tuple[int], List[int]] = (0, 0),
+            effect: Union[EachChar, EachWord, EachParagraph] = Effect,
+            callback: Callable = lambda: None,
+            cargs: Sequence = ()):
         """Writes the given text character by character.
 
         :param win: ``curses`` window object on which the method will
@@ -289,21 +289,21 @@ class DialogBox(BaseTextBox):
                          cargs)
 
     def word_by_word(
-        self,
-        win: CursesWindow,
-        text: str,
-        colors_pair_nb: int = 0,
-        text_attr: Union[CursesTextAttributesConstant,
-                         CursesTextAttributesConstants] = (),
-        words_attr: Dict[Sequence[str], Union[CursesTextAttributesConstant,
-                                              CursesTextAttributesConstants]] = {},
-        word_delimiter: str = " ",
-        flash_screen: bool = False,
-        delay: int = 150,
-        random_delay: Union[Tuple[int], List[int]] = (0, 0),
-        effect: Union[EachChar, EachWord, EachParagraph] = Effect,
-        callback: Callable = lambda: None,
-        cargs: Union[Tuple, List] = ()):
+            self,
+            win: CursesWindow,
+            text: str,
+            colors_pair_nb: int = 0,
+            text_attr: Union[CursesTextAttrConstant,
+                             CursesTextAttrConstants] = (),
+            words_attr: Dict[Sequence[str], Union[CursesTextAttrConstant,
+                                                  CursesTextAttrConstants]] = {},
+            word_delimiter: str = " ",
+            flash_screen: bool = False,
+            delay: int = 150,
+            random_delay: Union[Tuple[int], List[int]] = (0, 0),
+            effect: Union[EachChar, EachWord, EachParagraph] = Effect,
+            callback: Callable = lambda: None,
+            cargs: Union[Tuple, List] = ()):
         """Writes the given text word by word.
 
         :param win: ``curses`` window object on which the method will

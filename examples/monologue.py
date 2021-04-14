@@ -6,9 +6,6 @@ import curses
 from visualdialog import DialogBox
 
 
-# Definition of keys to pass a dialog.
-PASS_KEYS = (" ", "\n")
-
 replys = (
     "Hello world",
     "Press a key to skip this dialog.",
@@ -22,8 +19,8 @@ def main(win):
     curses.curs_set(False)
 
     # Definition of several colors pairs.
-    curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
-    curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_BLACK)
+    curses.init_pair(1, curses.COLOR_GREEN, 0)
+    curses.init_pair(2, curses.COLOR_CYAN, 0)
 
     textbox = DialogBox(1, 1,  # Position 1;1 in win.
                         30, 5,  # Height and width of textbox.
@@ -31,7 +28,8 @@ def main(win):
                         1)  # Curses color_pair used to colored title.
 
     # Definition of accepted key codes to pass a dialog.
-    textbox.confirm_keys = PASS_KEYS
+    # This defaults to [" "] to match space key.
+    textbox.confirm_keys.append("\n")
 
     # Iterate on each sentence contained in replys.
     for reply in replys:

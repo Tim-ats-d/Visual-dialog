@@ -17,9 +17,9 @@ def main(win):
 
     curses.curs_set(0)
 
-    curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
-    curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_BLACK)
-    curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK)
+    curses.init_pair(1, curses.COLOR_RED, 0)
+    curses.init_pair(2, curses.COLOR_CYAN, 0)
+    curses.init_pair(3, curses.COLOR_GREEN, 0)
 
     textbox = DialogBox(0, 0,
                         40, 6,
@@ -46,7 +46,7 @@ def main(win):
                              text_attr=(curses.A_ITALIC, curses.A_BOLD),
                              words_attr=special_words)
 
-    with visualdialog.TextAttributes(win, curses.A_BOLD, curses.A_ITALIC):
+    with visualdialog.TextAttr(win, curses.A_BOLD, curses.A_ITALIC):
         ...
 
 

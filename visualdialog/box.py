@@ -10,10 +10,10 @@ from typing import List, Literal, Sequence, Tuple, Union
 
 from .utils import (CursesKeyConstant,
                     CursesKeyConstants,
-                    CursesTextAttributesConstant,
-                    CursesTextAttributesConstants,
+                    CursesTextAttrConstant,
+                    CursesTextAttrConstants,
                     CursesWindow,
-                    TextAttributes)
+                    TextAttr)
 
 
 class PanicError(Exception):
@@ -29,8 +29,8 @@ class PanicError(Exception):
     def __str__(self) -> str:
         return ("text box was aborted "
                 + (f"keycode {self.key}"
-                  if isinstance(self.key, int)
-                  else f'by pressing "{self.key}" key'))
+                   if isinstance(self.key, int)
+                   else f'by pressing "{self.key}" key'))
 
 
 class BaseTextBox:
@@ -78,17 +78,17 @@ class BaseTextBox:
         This defaults to ``600``.
     """
     def __init__(
-        self,
-        pos_x: int,
-        pos_y: int,
-        height: int,
-        width: int,
-        title: str = "",
-        title_colors_pair_nb: int = 0,
-        title_text_attr: Union[CursesTextAttributesConstant,
-                            CursesTextAttributesConstants] = curses.A_BOLD,
-        downtime_chars: Sequence[str] = (",", ".", ":", ";", "!", "?"),
-        downtime_chars_delay: int = 600):
+            self,
+            pos_x: int,
+            pos_y: int,
+            height: int,
+            width: int,
+            title: str = "",
+            title_colors_pair_nb: int = 0,
+            title_text_attr: Union[CursesTextAttrConstant,
+                                   CursesTextAttrConstants] = curses.A_BOLD,
+            downtime_chars: Sequence[str] = (",", ".", ":", ";", "!", "?"),
+            downtime_chars_delay: int = 600):
         self.pos_x, self.pos_y = pos_x, pos_y
         self.height, self.width = height, width
 
@@ -118,8 +118,8 @@ class BaseTextBox:
         #: Keystroke acquisition mode for the TextBox.get_input method.
         self.key_detection_mode: Literal["key", "code"] = "key"
 
-        #: List of accepted key to skip dialog. This defaults to an empty list.
-        self.confirm_keys: List[CursesKeyConstant] = []
+        #: List of accepted key to skip dialog. This defaults to a list contains " ".
+        self.confirm_keys: List[CursesKeyConstant] = [" "]
         #: List of accepted key to raise PanicError. This defaults to an empty list.
         self.panic_keys: List[CursesKeyConstant] = []
 
@@ -160,7 +160,7 @@ class BaseTextBox:
                                      self.pos_y + title_width,
                                      self.pos_x + title_length)
 
-            with TextAttributes(win, *attr):
+            with TextAttr(win, *attr):
                 win.addstr(self.pos_y + 1,
                            self.pos_x + 3,
                            self.title)
@@ -169,7 +169,9 @@ class BaseTextBox:
         curses.textpad.rectangle(win,
                                  self.pos_y + self.title_offsetting_y,
                                  self.pos_x,
-                                 self.pos_y + self.title_offsetting_y + self.width,
+                                 self.pos_y
+                                 + self.title_offsetting_y
+                                 + self.width,
                                  self.pos_x + self.height)
 
     def get_input(self, win: CursesWindow):

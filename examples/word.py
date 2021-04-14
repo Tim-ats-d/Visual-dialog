@@ -6,9 +6,6 @@ import curses
 from visualdialog import DialogBox
 
 
-# Definition of keys to pass a dialog.
-PASS_KEYS = (" ", "\n")
-
 instructions = (
     "Instead of the char_by_char method, word_by_word displays the "
     "given text word by word.",
@@ -25,7 +22,8 @@ def main(win):
                         "Robot")  # Title of textbox.
 
     # Definition of accepted key codes to pass a dialog.
-    textbox.confirm_keys = PASS_KEYS
+    # This defaults to [" "] to match space key.
+    textbox.confirm_keys.append("\n")
 
     # Iterate on each sentence contained in instructions.
     for instruction in instructions:

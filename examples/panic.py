@@ -6,20 +6,15 @@ import curses
 from visualdialog import DialogBox, PanicError
 
 
-# Definition of keys to pass a dialog.
-PASS_KEYS = (" ", "\n")
-# Definition of keys to exit a dialog.
-EXIT_KEYS = ("q", )
-
-
 def main(win):
     curses.curs_set(False)
 
     box = DialogBox(1, 1,
                     40, 6)
 
-    box.confirm_keys = PASS_KEYS    
-    box.panic_keys = EXIT_KEYS
+    # Definition of keys to pass and exit a dialog.
+    box.confirm_keys.append("\n")
+    box.panic_keys = ("q", )
 
     try:
         box.char_by_char(win,

@@ -27,8 +27,8 @@ def main(win):
     curses.curs_set(False)
 
     # Definition of several colors pairs.
-    curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_YELLOW)
-    curses.init_pair(2, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
+    curses.init_pair(1, 0, curses.COLOR_YELLOW)
+    curses.init_pair(2, curses.COLOR_MAGENTA, 0)
 
     textbox = DialogBox(1, 1,
                         30, 6,

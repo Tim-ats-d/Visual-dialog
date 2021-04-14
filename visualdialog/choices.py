@@ -5,8 +5,8 @@ import curses
 from typing import Any, Dict, Tuple, Union
 
 from .dialog import DialogBox
-from .utils import (CursesTextAttributesConstants,
-                    TextAttributes,
+from .utils import (CursesTextAttrConstants,
+                    TextAttr,
                     chunked)
 
 
@@ -25,20 +25,6 @@ class ChoiceBox(DialogBox):
 
         for y, proposition in enumerate(propositions):
             win.addstr(self.pos_y + y*2,
-                          self.pos_x,
-                          proposition)
+                       self.pos_x,
+                       proposition)
             win.refresh()
-
-
-def main(win):
-    choices_box = ChoiceBox(10, 10, 40, 4)
-
-    choices_box.chain(win,
-                      "Quel âge as-tu ?"
-                      "14",
-                      "16",
-                      "18")
-    win.getch()
-
-
-curses.wrapper(main)

@@ -2,12 +2,12 @@
 # 2020 Timéo Arnouts <tim.arnouts@protonmail.com>
 
 __all__ = ["CursesWindow",
-           "CursesTextAttributesConstant",
-           "CursesTextAttributesConstants",
+           "CursesTextAttrConstant",
+           "CursesTextAttrConstants",
            "CursesKeyConstant",
            "CursesKeyConstants",
            "CursesWindow",
-           "TextAttributes"]
+           "TextAttr"]
 
 from contextlib import ContextDecorator
 import _curses
@@ -23,22 +23,22 @@ CursesKeyConstants = Sequence[CursesKeyConstant]
 
 #: curses text attribute constants are integers.
 #: See https://docs.python.org/3/library/curses.html?#constants
-CursesTextAttributesConstant = int
-CursesTextAttributesConstants = Sequence[CursesTextAttributesConstant]
+CursesTextAttrConstant = int
+CursesTextAttrConstants = Sequence[CursesTextAttrConstant]
 
 
 def chunked(seq: Sequence,
-                chunk_length: int) -> Generator:
+            chunk_length: int) -> Generator:
     """Returns a tuple that contains given sequence separated into
     ``chunk_length`` bundles.
 
     :returns: Generator separated into ``chunk_length`` bundles.
     """
     return (seq[chunk:chunk + chunk_length]
-                for chunk in range(0, len(seq), chunk_length))
+            for chunk in range(0, len(seq), chunk_length))
 
 
-class TextAttributes(ContextDecorator):
+class TextAttr(ContextDecorator):
     """A context manager to manage ``curses`` text attributes.
 
     :param win: ``curses`` window object for which the attributes will
@@ -49,7 +49,7 @@ class TextAttributes(ContextDecorator):
     """
     def __init__(self,
                  win: CursesWindow,
-                 *attributes: Iterable[CursesTextAttributesConstant]):
+                 *attributes: Iterable[CursesTextAttrConstant]):
         self.win = win
         self.attributes = attributes
 

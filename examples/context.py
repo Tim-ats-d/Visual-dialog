@@ -6,9 +6,6 @@ import curses
 from visualdialog import DialogBox
 
 
-# Definition of keys to pass a dialog.
-PASS_KEYS = (" ", "\n")
-
 replys = (
     "This text is displayed by an anonymous text box.",
     "Its behavior is the same as that of a normal dialog box.",
@@ -23,7 +20,7 @@ def main(win):
         # The keyword "as" allows to capture the returned DialogBox object.
         with DialogBox(1, 1,
                        30, 6) as db:
-            db.confirm_keys = PASS_KEYS
+            db.confirm_keys.append("\n")  # To match enter key.
             db.char_by_char(win,
                             reply)
 
