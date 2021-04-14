@@ -62,7 +62,8 @@ def main(win):
 
     phoenix_wright.char_by_char(win,
                                 "This testimony is a pure invention !",
-                                delay=30)  # Set delay between writting each characters to 30 milliseconds
+                                delay=30)
+    # Set delay between writting each characters to 30 milliseconds
 
     phoenix_wright.char_by_char(win,
                                 "You're lying April May !",

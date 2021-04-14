@@ -115,9 +115,11 @@ class BaseTextBox:
         #: Keystroke acquisition mode for the TextBox.get_input method.
         self.key_detection_mode: Literal["key", "code"] = "key"
 
-        #: List of accepted key to skip dialog. This defaults to a list contains " ".
+        #: List of accepted key to skip dialog.
+        #: This defaults to a list contains " ".
         self.confirm_keys: List[CursesKeyConstant] = [" "]
-        #: List of accepted key to raise PanicError. This defaults to an empty list.
+        #: List of accepted key to raise PanicError.
+        #: This defaults to an empty list.
         self.panic_keys: List[CursesKeyConstant] = []
 
     @property

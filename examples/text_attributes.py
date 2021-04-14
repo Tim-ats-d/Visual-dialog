@@ -33,8 +33,10 @@ def main(win):
     textbox = DialogBox(1, 1,
                         30, 6,
                         title="Demo",
-                        title_colors_pair_nb=1,  # Display title colored with color pair 1.
-                        title_text_attr=curses.A_UNDERLINE)  # curse text attributes that will be applied to the title.
+                        title_colors_pair_nb=1,
+                        # Display title colored with color pair 1.
+                        title_text_attr=curses.A_UNDERLINE)
+                        # curse text attributes that will be applied to the title.
 
     textbox.confirm_keys = PASS_KEYS
 

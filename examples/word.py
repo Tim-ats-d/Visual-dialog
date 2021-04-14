@@ -29,7 +29,8 @@ def main(win):
     for instruction in instructions:
         textbox.word_by_word(win,
                              instruction,
-                             delay=200)  # Set delay between writting each words to 200 milliseconds.
+                             delay=200)
+        # Set delay between writting each words to 200 milliseconds.
 
 
 # Execution of main function.
