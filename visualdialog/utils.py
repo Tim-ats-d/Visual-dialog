@@ -10,9 +10,9 @@ __all__ = ["CursesWindow",
            "TextAttr"]
 
 from contextlib import ContextDecorator
-import _curses
 from typing import Generator, Iterable, NoReturn, Sequence, Union
 
+import _curses
 
 CursesWindow = _curses.window
 

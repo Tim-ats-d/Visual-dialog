@@ -9,15 +9,9 @@ import textwrap
 from typing import Callable, Dict, List, Sequence, Tuple, Union
 
 from .box import BaseTextBox
-from .effect import (Effect,
-                     EachChar,
-                     EachWord,
-                     EachParagraph)
-from .utils import (CursesTextAttrConstant,
-                    CursesTextAttrConstants,
-                    CursesWindow,
-                    TextAttr,
-                    chunked)
+from .effect import EachChar, EachParagraph, EachWord, Effect
+from .utils import (CursesTextAttrConstant, CursesTextAttrConstants,
+                    CursesWindow, TextAttr, chunked)
 
 
 class DialogBox(BaseTextBox):

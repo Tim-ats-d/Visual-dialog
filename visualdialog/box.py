@@ -8,12 +8,9 @@ import curses
 import curses.textpad
 from typing import List, Literal, Sequence, Tuple, Union
 
-from .utils import (CursesKeyConstant,
-                    CursesKeyConstants,
-                    CursesTextAttrConstant,
-                    CursesTextAttrConstants,
-                    CursesWindow,
-                    TextAttr)
+from .utils import (CursesKeyConstant, CursesKeyConstants,
+                    CursesTextAttrConstant, CursesTextAttrConstants,
+                    CursesWindow, TextAttr)
 
 
 class PanicError(Exception):

@@ -1,7 +1,7 @@
 
-from .effect import EachChar
-
 import curses
+
+from .effect import EachChar
 
 
 class ScrollEffect(EachChar):
