@@ -13,11 +13,11 @@ An example of using ``word_by_word`` method from text boxes.
 
 ## [`Text attributes`](text_attributes.py)
 
-An example showing the possibilities of text formatting in a text box.
+An example showing the possibilities of **text formatting** in a text box.
 
 ## [`Panic`](panic.py)
 
-An example of the use of panic keys.
+An example of the use of **panic keys**.
 
 ## [`Context`](context.py)
 
