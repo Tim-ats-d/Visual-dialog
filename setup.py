@@ -18,7 +18,7 @@ setup(
     url="https://github.com/Tim-ats-d/Visual-dialog",
     requires_python=">=3.8",
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Environment :: Console :: Curses",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",

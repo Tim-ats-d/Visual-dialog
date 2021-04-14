@@ -2,22 +2,10 @@
 # Visual-dialog
 
 <p align="center">
-  <a href="#features">Features</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#requirements">Requirements</a> •
-  <a href="#documentation">Documentation</a> •
-  <a href="#quick-start">Quick start</a> •
-  <a href="#contributing">Contributing</a> •
-  <a href="#license">License</a>
-</p>
-
-<p align="center">
   <img width="300" src="https://user-images.githubusercontent.com/59396366/113866239-5f5d0480-97ad-11eb-879f-fa7d4098b689.png" alt="Visual-dialog">
   <br>
   A library to make easier dialog box in a terminal.
 </p>
-
-This library is still under development. API can change.
 
 ## Features
 
@@ -26,6 +14,8 @@ This library is still under development. API can change.
 🔖 Text coloring and formatting.
 
 ⚙️ Hackable and configurable.
+
+⚠️ This library is still under development. API can change.
 
 ## Installation
 
