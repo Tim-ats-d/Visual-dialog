@@ -10,7 +10,7 @@ __all__ = ["CursesWindow",
            "TextAttr"]
 
 from contextlib import ContextDecorator
-from typing import Generator, Iterable, NoReturn, Sequence, Union
+from typing import Iterable, NoReturn, Sequence, Union
 
 import _curses
 
@@ -28,11 +28,12 @@ CursesTextAttrConstants = Sequence[CursesTextAttrConstant]
 
 
 def chunked(seq: Sequence,
-            chunk_length: int) -> Generator:
+            chunk_length: int) -> Iterable:
     """Returns a tuple that contains given sequence separated into
     ``chunk_length`` bundles.
 
-    :returns: Generator separated into ``chunk_length`` bundles.
+    :returns: Sequence as iterator separated into ``chunk_length``
+        bundles.
     """
     return (seq[chunk:chunk + chunk_length]
             for chunk in range(0, len(seq), chunk_length))
@@ -58,8 +59,11 @@ class TextAttr(ContextDecorator):
         on ``self.win``.
         """
         for attr in self.attributes:
-            self.win.attrset(attr)
+            self.win.attron(attr)
 
     def __exit__(self, type, value, traceback) -> NoReturn:
-        """Disable all text attributes on ``self.win``."""
-        self.win.attrset(0)
+        """Disable one by one attributes contained in self.attributes
+        on ``self.win``.
+        """
+        for attr in self.attributes:
+            self.win.attroff(attr)

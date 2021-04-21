@@ -21,6 +21,7 @@ setup(
         "Development Status :: 4 - Beta",
         "Environment :: Console :: Curses",
         "Intended Audience :: Developers",
+        "Typing :: Typed",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "Natural Language :: English", "Natural Language :: French",
         "Operating System :: MacOS",
@@ -31,6 +32,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: Implementation",
+        "Topic :: Software Development :: User Interfaces",
         "Topic :: Games/Entertainment :: Role-Playing",
         "Topic :: Software Development :: Libraries :: Python Modules"
     ],
