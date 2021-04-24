@@ -29,11 +29,11 @@ CursesTextAttrConstants = Sequence[CursesTextAttrConstant]
 
 def chunked(seq: Sequence,
             chunk_length: int) -> Iterable:
-    """Returns a tuple that contains given sequence separated into
+    """Return a iterable that contains given sequence separated into
     ``chunk_length`` bundles.
 
-    :returns: Sequence as iterator separated into ``chunk_length``
-        bundles.
+    :returns: An iterator contains sequence separated into
+        ``chunk_length`` bundles.
     """
     return (seq[chunk:chunk + chunk_length]
             for chunk in range(0, len(seq), chunk_length))

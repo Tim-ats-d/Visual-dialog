@@ -13,19 +13,6 @@ from .utils import (CursesTextAttrConstant, CursesTextAttrConstants,
                     CursesWindow, TextAttr, chunked)
 
 
-def determine_attr(word: str,
-                   words_attr: Dict[str, CursesTextAttrConstants],
-                   default: Any) -> Union[Any,
-                                          Tuple[CursesTextAttrConstants]]:
-    if word in words_attr:
-        attr = words_attr[word]
-
-        if isinstance(attr, int):
-            return (attr, )
-    else:
-        return default
-
-
 class DialogBox(BaseTextBox):
     """This class provides methods and attributs to manage a dialog box.
 
@@ -82,7 +69,7 @@ class DialogBox(BaseTextBox):
         return self
 
     def __exit__(self, type, value, traceback):
-        ...
+        pass
 
     def _display_end_indicator(
             self,
@@ -111,9 +98,10 @@ class DialogBox(BaseTextBox):
                                  pos_y: int,
                                  word: str,
                                  delay: int,
-                                 random_delay,
-                                 callback,
-                                 cargs):
+                                 random_delay: Sequence[int],
+                                 callback: Callable,
+                                 cargs: Sequence):
+        """Write word char by char at given positon."""
         for x, char in enumerate(word):
             win.addstr(pos_y,
                        pos_x + x,
@@ -133,13 +121,14 @@ class DialogBox(BaseTextBox):
 
     def _write_word(self,
                     win,
-                    pos_x,
-                    pos_y,
-                    word,
-                    delay,
-                    random_delay,
-                    callback,
-                    cargs):
+                    pos_x: int,
+                    pos_y: int,
+                    word: str,
+                    delay: int,
+                    random_delay: Sequence[int],
+                    callback: Callable,
+                    cargs: Sequence):
+        """Write word at given position."""
         win.addstr(pos_y,
                    pos_x,
                    word)
@@ -154,16 +143,19 @@ class DialogBox(BaseTextBox):
     def _one_by_one(self,
                     write_method: Callable,
                     win,
-                    text,
-                    colors_pair_nb,
-                    text_attr,
-                    words_attr,
-                    word_delimiter,
-                    flash_screen,
-                    delay,
-                    random_delay,
-                    callback,
-                    cargs):
+                    text: str,
+                    colors_pair_nb: int,
+                    text_attr: Union[CursesTextAttrConstant,
+                                     CursesTextAttrConstants],
+                    words_attr: Dict[Sequence[str],
+                                     Union[CursesTextAttrConstant,
+                                           CursesTextAttrConstants]],
+                    word_delimiter: str,
+                    flash_screen: bool,
+                    delay: int,
+                    random_delay: Sequence[int],
+                    callback: Callable,
+                    cargs: Sequence):
         # Test if only one argument is passed instead of a tuple.
         if isinstance(text_attr, int):
             text_attr = (text_attr, )
@@ -183,12 +175,16 @@ class DialogBox(BaseTextBox):
             for y, line in enumerate(paragraph):
                 offsetting_x = 0
                 for word in line.split(word_delimiter):
-                    attr = determine_attr(word,
-                                          words_attr,
-                                          default=(colors_pair, *text_attr))
+                    if word in words_attr:
+                        attr = words_attr[word]
+
+                        if isinstance(attr, int):
+                            attr = (attr, )
+                    else:
+                        attr = (colors_pair, *text_attr)
 
                     with TextAttr(win, *attr):
-                        write_method = getattr(self,write_method.__name__)
+                        write_method = getattr(self, write_method.__name__)
                         write_method(win,
                                      self.text_pos_x + offsetting_x,
                                      self.text_pos_y + y,
@@ -200,7 +196,7 @@ class DialogBox(BaseTextBox):
 
                         # Waiting for space character.
                         curses.napms(delay)
-                        # Compensates for the space between words.
+                        # Compensate for the space between words.
                         offsetting_x += len(word) + 1
 
             self._display_end_indicator(win)
@@ -219,10 +215,10 @@ class DialogBox(BaseTextBox):
             word_delimiter: str = " ",
             flash_screen: bool = False,
             delay: int = 40,
-            random_delay: Union[Tuple[int], List[int]] = (0, 0),
+            random_delay: Sequence[int] = (0, 0),
             callback: Callable = lambda: None,
             cargs: Sequence = ()):
-        """Writes the given text character by character.
+        """Write the given text character by character.
 
         :param win: ``curses`` window object on which the method will
             have effect.
@@ -321,10 +317,10 @@ class DialogBox(BaseTextBox):
             word_delimiter: str = " ",
             flash_screen: bool = False,
             delay: int = 150,
-            random_delay: Union[Tuple[int], List[int]] = (0, 0),
+            random_delay: Sequence[int] = (0, 0),
             callback: Callable = lambda: None,
-            cargs: Union[Tuple, List] = ()):
-        """Writes the given text word by word.
+            cargs: Sequence = ()):
+        """Write the given text word by word.
 
         :param win: ``curses`` window object on which the method will
             have effect.

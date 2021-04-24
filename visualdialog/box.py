@@ -124,7 +124,7 @@ class BaseTextBox:
 
     @property
     def position(self) -> Tuple[int]:
-        """Returns a tuple contains x;y position of ``TextBox``.
+        """Return a tuple contains x;y position of ``TextBox``.
 
         :returns: x;y position of ``TextBox``.
         """
@@ -132,14 +132,14 @@ class BaseTextBox:
 
     @property
     def dimensions(self) -> Tuple[int]:
-        """Returns a tuple contains dimensions of ``TextBox``.
+        """Return a tuple contains dimensions of ``TextBox``.
 
         :returns: Height and width of ``TextBox``.
         """
         return self.height, self.width
 
     def framing_box(self, win: CursesWindow):
-        """Displays dialog box borders and his title.
+        """Display dialog box borders and his title.
 
         If attribute ``self.title`` is empty doesn't display the title.
 
@@ -174,7 +174,7 @@ class BaseTextBox:
                                  self.pos_x + self.height)
 
     def get_input(self, win: CursesWindow):
-        """Blocks execution as long as a key contained in
+        """Block execution as long as a key contained in
         ``self.confirm_keys`` is not detected.
 
         The method of key detection depends on the variable
