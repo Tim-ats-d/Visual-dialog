@@ -9,8 +9,8 @@ import textwrap
 from typing import Any, Callable, List, Mapping, Sequence, Tuple, Union
 
 from .box import BaseTextBox
-from .utils import (CursesTextAttribute, CursesTextAttributes,
-                    CursesWindow, TextAttr, chunked)
+from .type import CursesTextAttribute, CursesTextAttributes, CursesWindow
+from .utils import TextAttr, chunked
 
 
 class DialogBox(BaseTextBox):

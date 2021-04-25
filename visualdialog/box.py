@@ -8,9 +8,8 @@ import curses
 import curses.textpad
 from typing import List, Literal, Sequence, Tuple, Union
 
-from .utils import (CursesKey, CursesKeys,
-                    CursesTextAttribute, CursesTextAttributes,
-                    CursesWindow, TextAttr)
+from .type import CursesKey, CursesTextAttribute, CursesTextAttributes, CursesWindow
+from .utils import TextAttr
 
 
 class PanicError(Exception):
@@ -210,6 +209,3 @@ class BaseTextBox:
                 break
             elif key in self.panic_keys:
                 raise PanicError(key)
-            else:
-                # Ignore incorrect keys.
-                ...

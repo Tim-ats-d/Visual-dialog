@@ -6,4 +6,5 @@ __author__ = "Timéo Arnouts"
 
 from .box import *
 from .dialog import *
+from .type import *
 from .utils import *

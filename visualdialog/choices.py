@@ -5,7 +5,8 @@ import curses
 from typing import Any, Mapping, Tuple, Union
 
 from .dialog import DialogBox
-from .utils import CursesTextAttributes, TextAttr, chunked
+from .type import *
+from .utils import TextAttr, chunked
 
 
 class ChoiceBox(DialogBox):
