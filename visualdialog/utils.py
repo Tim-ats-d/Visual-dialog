@@ -2,8 +2,8 @@
 # 2020 Timéo Arnouts <tim.arnouts@protonmail.com>
 
 __all__ = ["CursesWindow",
-           "CursesTextAttrConstant",
-           "CursesTextAttrConstants",
+           "CursesTextAttribute",
+           "CursesTextAttributes",
            "CursesKey",
            "CursesKeys",
            "CursesWindow",
@@ -23,8 +23,8 @@ CursesKeys = Sequence[CursesKey]
 
 #: curses text attribute constants are integers.
 #: See https://docs.python.org/3/library/curses.html?#constants
-CursesTextAttrConstant = int
-CursesTextAttrConstants = Sequence[CursesTextAttrConstant]
+CursesTextAttribute = int
+CursesTextAttributes = Sequence[CursesTextAttribute]
 
 
 def chunked(seq: Sequence,
@@ -50,7 +50,7 @@ class TextAttr(ContextDecorator):
     """
     def __init__(self,
                  win: CursesWindow,
-                 *attributes: Iterable[CursesTextAttrConstant]):
+                 *attributes: CursesTextAttribute):
         self.win = win
         self.attributes = attributes
 

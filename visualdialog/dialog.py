@@ -9,7 +9,7 @@ import textwrap
 from typing import Any, Callable, List, Mapping, Sequence, Tuple, Union
 
 from .box import BaseTextBox
-from .utils import (CursesTextAttrConstant, CursesTextAttrConstants,
+from .utils import (CursesTextAttribute, CursesTextAttributes,
                     CursesWindow, TextAttr, chunked)
 
 
@@ -43,8 +43,8 @@ class DialogBox(BaseTextBox):
             width: int,
             title: str = "",
             title_colors_pair_nb: int = 0,
-            title_text_attr: Union[CursesTextAttrConstant,
-                                   CursesTextAttrConstants] = curses.A_BOLD,
+            title_text_attr: Union[CursesTextAttribute,
+                                   CursesTextAttributes] = curses.A_BOLD,
             downtime_chars: Sequence[str] = (",", ".", ":", ";", "!", "?"),
             downtime_chars_delay: int = 60,
             end_indicator: str = "►"):
@@ -74,8 +74,8 @@ class DialogBox(BaseTextBox):
     def _display_end_indicator(
             self,
             win: CursesWindow,
-            text_attr: CursesTextAttrConstants = (curses.A_BOLD,
-                                                  curses.A_BLINK)):
+            text_attr: CursesTextAttributes= (curses.A_BOLD,
+                                              curses.A_BLINK)):
         """Displays an end indicator in the lower right corner of
         textbox.
 
@@ -120,7 +120,7 @@ class DialogBox(BaseTextBox):
             callback(*cargs)
 
     def _write_word(self,
-                    win,
+                    win: CursesWindow,
                     pos_x: int,
                     pos_y: int,
                     word: str,
@@ -142,14 +142,14 @@ class DialogBox(BaseTextBox):
 
     def _one_by_one(self,
                     write_method: Callable,
-                    win,
+                    win: CursesWindow,
                     text: str,
                     colors_pair_nb: int,
-                    text_attr: Union[CursesTextAttrConstant,
-                                     CursesTextAttrConstants],
+                    text_attr: Union[CursesTextAttribute,
+                                     CursesTextAttributes],
                     words_attr: Mapping[Sequence[str],
-                                        Union[CursesTextAttrConstant,
-                                              CursesTextAttrConstants]],
+                                        Union[CursesTextAttribute,
+                                              CursesTextAttributes]],
                     word_delimiter: str,
                     flash_screen: bool,
                     delay: int,
@@ -207,11 +207,11 @@ class DialogBox(BaseTextBox):
             win: CursesWindow,
             text: str,
             colors_pair_nb: int = 0,
-            text_attr: Union[CursesTextAttrConstant,
-                             CursesTextAttrConstants] = (),
+            text_attr: Union[CursesTextAttribute,
+                             CursesTextAttributes] = (),
             words_attr: Mapping[Sequence[str],
-                                Union[CursesTextAttrConstant,
-                                      CursesTextAttrConstants]] = {},
+                                Union[CursesTextAttribute,
+                                      CursesTextAttributes]] = {},
             word_delimiter: str = " ",
             flash_screen: bool = False,
             delay: int = 40,
@@ -309,11 +309,11 @@ class DialogBox(BaseTextBox):
             win: CursesWindow,
             text: str,
             colors_pair_nb: int = 0,
-            text_attr: Union[CursesTextAttrConstant,
-                             CursesTextAttrConstants] = (),
+            text_attr: Union[CursesTextAttribute,
+                             CursesTextAttributes] = (),
             words_attr: Mapping[Sequence[str],
-                                Union[CursesTextAttrConstant,
-                                      CursesTextAttrConstants]] = {},
+                                Union[CursesTextAttribute,
+                                      CursesTextAttributes]] = {},
             word_delimiter: str = " ",
             flash_screen: bool = False,
             delay: int = 150,

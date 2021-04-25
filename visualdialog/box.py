@@ -9,7 +9,7 @@ import curses.textpad
 from typing import List, Literal, Sequence, Tuple, Union
 
 from .utils import (CursesKey, CursesKeys,
-                    CursesTextAttrConstant, CursesTextAttrConstants,
+                    CursesTextAttribute, CursesTextAttributes,
                     CursesWindow, TextAttr)
 
 
@@ -82,8 +82,8 @@ class BaseTextBox:
             width: int,
             title: str = "",
             title_colors_pair_nb: int = 0,
-            title_text_attr: Union[CursesTextAttrConstant,
-                                   CursesTextAttrConstants] = curses.A_BOLD,
+            title_text_attr: Union[CursesTextAttribute,
+                                   CursesTextAttributes] = curses.A_BOLD,
             downtime_chars: Sequence[str] = (",", ".", ":", ";", "!", "?"),
             downtime_chars_delay: int = 600):
         self.pos_x, self.pos_y = pos_x, pos_y
