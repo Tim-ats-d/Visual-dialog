@@ -4,8 +4,8 @@
 __all__ = ["CursesWindow",
            "CursesTextAttrConstant",
            "CursesTextAttrConstants",
-           "CursesKeyConstant",
-           "CursesKeyConstants",
+           "CursesKey",
+           "CursesKeys",
            "CursesWindow",
            "TextAttr"]
 
@@ -16,10 +16,10 @@ import _curses
 
 CursesWindow = _curses.window
 
-#: curses key constants are integers.
+#: curses key constants are integers or strings depending on input method used..
 #: See https://docs.python.org/3/library/curses.html?#constants
-CursesKeyConstant = Union[int, str]
-CursesKeyConstants = Sequence[CursesKeyConstant]
+CursesKey = Union[int, str]
+CursesKeys = Sequence[CursesKey]
 
 #: curses text attribute constants are integers.
 #: See https://docs.python.org/3/library/curses.html?#constants

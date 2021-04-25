@@ -8,7 +8,7 @@ import curses
 import curses.textpad
 from typing import List, Literal, Sequence, Tuple, Union
 
-from .utils import (CursesKeyConstant, CursesKeyConstants,
+from .utils import (CursesKey, CursesKeys,
                     CursesTextAttrConstant, CursesTextAttrConstants,
                     CursesWindow, TextAttr)
 
@@ -20,7 +20,7 @@ class PanicError(Exception):
     :param key: Key pressed that caused the exception to be thrown.
     """
     def __init__(self,
-                 key: CursesKeyConstant):
+                 key: CursesKey):
         self.key = key
 
     def __str__(self) -> str:
@@ -117,10 +117,10 @@ class BaseTextBox:
 
         #: List of accepted key to skip dialog.
         #: This defaults to a list contains " ".
-        self.confirm_keys: List[CursesKeyConstant] = [" "]
+        self.confirm_keys: List[CursesKey] = [" "]
         #: List of accepted key to raise PanicError.
         #: This defaults to an empty list.
-        self.panic_keys: List[CursesKeyConstant] = []
+        self.panic_keys: List[CursesKey] = []
 
     @property
     def position(self) -> Tuple[int]:
