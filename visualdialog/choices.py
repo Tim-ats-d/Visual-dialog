@@ -2,7 +2,7 @@
 # 2020 Timéo Arnouts <tim.arnouts@protonmail.com>
 
 import curses
-from typing import Any, Dict, Tuple, Union
+from typing import Any, Mapping, Tuple, Union
 
 from .dialog import DialogBox
 from .utils import CursesTextAttrConstants, TextAttr, chunked
@@ -17,7 +17,7 @@ class ChoiceBox(DialogBox):
     def chain(
             self,
             win,
-            *propositions: Dict[str, Any]) -> Any:
+            *propositions: Mapping[str, Any]) -> Any:
         """"""
         super().framing_box(win)
 

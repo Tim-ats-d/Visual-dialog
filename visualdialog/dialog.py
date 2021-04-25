@@ -6,7 +6,7 @@ __all__ = ["DialogBox"]
 import curses
 import random
 import textwrap
-from typing import Any, Callable, Dict, List, Sequence, Tuple, Union
+from typing import Any, Callable, List, Mapping, Sequence, Tuple, Union
 
 from .box import BaseTextBox
 from .utils import (CursesTextAttrConstant, CursesTextAttrConstants,
@@ -147,9 +147,9 @@ class DialogBox(BaseTextBox):
                     colors_pair_nb: int,
                     text_attr: Union[CursesTextAttrConstant,
                                      CursesTextAttrConstants],
-                    words_attr: Dict[Sequence[str],
-                                     Union[CursesTextAttrConstant,
-                                           CursesTextAttrConstants]],
+                    words_attr: Mapping[Sequence[str],
+                                        Union[CursesTextAttrConstant,
+                                              CursesTextAttrConstants]],
                     word_delimiter: str,
                     flash_screen: bool,
                     delay: int,
@@ -209,9 +209,9 @@ class DialogBox(BaseTextBox):
             colors_pair_nb: int = 0,
             text_attr: Union[CursesTextAttrConstant,
                              CursesTextAttrConstants] = (),
-            words_attr: Dict[Sequence[str],
-                             Union[CursesTextAttrConstant,
-                                   CursesTextAttrConstants]] = {},
+            words_attr: Mapping[Sequence[str],
+                                Union[CursesTextAttrConstant,
+                                      CursesTextAttrConstants]] = {},
             word_delimiter: str = " ",
             flash_screen: bool = False,
             delay: int = 40,
@@ -237,7 +237,7 @@ class DialogBox(BaseTextBox):
             be a single curses text attribute or a tuple of curses text
             attribute. This defaults an empty tuple.
 
-        :param words_attr: Dictionary composed of string as a key and a
+        :param words_attr: Mapping composed of string as a key and a
             single curses text attribute or tuple as a value. Each key
             is colored with its associated values This defaults to an
             empty dictionary.
@@ -311,9 +311,9 @@ class DialogBox(BaseTextBox):
             colors_pair_nb: int = 0,
             text_attr: Union[CursesTextAttrConstant,
                              CursesTextAttrConstants] = (),
-            words_attr: Dict[Sequence[str],
-                             Union[CursesTextAttrConstant,
-                                   CursesTextAttrConstants]] = {},
+            words_attr: Mapping[Sequence[str],
+                                Union[CursesTextAttrConstant,
+                                      CursesTextAttrConstants]] = {},
             word_delimiter: str = " ",
             flash_screen: bool = False,
             delay: int = 150,
@@ -339,7 +339,7 @@ class DialogBox(BaseTextBox):
             be a single curses text attribute or a tuple of curses text
             attribute. This defaults an empty tuple.
 
-        :param words_attr: Dictionary composed of string as a key and a
+        :param words_attr: Mapping composed of string as a key and a
             single curses text attribute or tuple as a value. Each key
             is colored with its associated values This defaults to an
             empty dictionary.

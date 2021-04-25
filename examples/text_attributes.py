@@ -9,7 +9,7 @@ from visualdialog import DialogBox
 # Definition of keys to pass a dialog.
 PASS_KEYS = (" ", "\n")
 
-# A key/value dictionary containing the text and the attributes
+# A key/value mapping containing the text and the attributes
 # with which it will be displayed.
 # You can pass one or more curses text attributes arguments as a tuple.
 sentences = {
