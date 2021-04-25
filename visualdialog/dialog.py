@@ -71,11 +71,11 @@ class DialogBox(BaseTextBox):
     def __exit__(self, type, value, traceback):
         pass
 
-    def _display_end_indicator(
-            self,
-            win: CursesWindow,
-            text_attr: CursesTextAttributes= (curses.A_BOLD,
-                                              curses.A_BLINK)):
+    def _display_end_indicator(self,
+                               win: CursesWindow,
+                               text_attr: CursesTextAttributes = (
+                                   curses.A_BOLD,
+                                   curses.A_BLINK)):
         """Displays an end indicator in the lower right corner of
         textbox.
 
@@ -202,22 +202,21 @@ class DialogBox(BaseTextBox):
             self._display_end_indicator(win)
             self.get_input(win)
 
-    def char_by_char(
-            self,
-            win: CursesWindow,
-            text: str,
-            colors_pair_nb: int = 0,
-            text_attr: Union[CursesTextAttribute,
-                             CursesTextAttributes] = (),
-            words_attr: Mapping[Sequence[str],
-                                Union[CursesTextAttribute,
-                                      CursesTextAttributes]] = {},
-            word_delimiter: str = " ",
-            flash_screen: bool = False,
-            delay: int = 40,
-            random_delay: Sequence[int] = (0, 0),
-            callback: Callable = lambda: None,
-            cargs: Sequence = ()):
+    def char_by_char(self,
+                     win: CursesWindow,
+                     text: str,
+                     colors_pair_nb: int = 0,
+                     text_attr: Union[CursesTextAttribute,
+                                      CursesTextAttributes] = (),
+                     words_attr: Mapping[Sequence[str],
+                                         Union[CursesTextAttribute,
+                                         CursesTextAttributes]] = {},
+                     word_delimiter: str = " ",
+                     flash_screen: bool = False,
+                     delay: int = 40,
+                     random_delay: Sequence[int] = (0, 0),
+                     callback: Callable = lambda: None,
+                     cargs: Sequence = ()):
         """Write the given text character by character.
 
         :param win: ``curses`` window object on which the method will
@@ -304,22 +303,21 @@ class DialogBox(BaseTextBox):
                          callback,
                          cargs)
 
-    def word_by_word(
-            self,
-            win: CursesWindow,
-            text: str,
-            colors_pair_nb: int = 0,
-            text_attr: Union[CursesTextAttribute,
-                             CursesTextAttributes] = (),
-            words_attr: Mapping[Sequence[str],
-                                Union[CursesTextAttribute,
-                                      CursesTextAttributes]] = {},
-            word_delimiter: str = " ",
-            flash_screen: bool = False,
-            delay: int = 150,
-            random_delay: Sequence[int] = (0, 0),
-            callback: Callable = lambda: None,
-            cargs: Sequence = ()):
+    def word_by_word(self,
+                     win: CursesWindow,
+                     text: str,
+                     colors_pair_nb: int = 0,
+                     text_attr: Union[CursesTextAttribute,
+                                      CursesTextAttributes] = (),
+                     words_attr: Mapping[Sequence[str],
+                                         Union[CursesTextAttribute,
+                                               CursesTextAttributes]] = {},
+                     word_delimiter: str = " ",
+                     flash_screen: bool = False,
+                     delay: int = 150,
+                     random_delay: Sequence[int] = (0, 0),
+                     callback: Callable = lambda: None,
+                     cargs: Sequence = ()):
         """Write the given text word by word.
 
         :param win: ``curses`` window object on which the method will

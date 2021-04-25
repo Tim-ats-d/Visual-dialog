@@ -111,8 +111,10 @@ class BaseTextBox:
         self.downtime_chars = downtime_chars
         self.downtime_chars_delay = downtime_chars_delay
 
-        #: Keystroke acquisition mode for the TextBox.get_input method.
-        self.key_detection_mode: Literal["key", "code"] = "key"
+        #: Keystroke acquisition curses method for BaseTextBox.get_input.
+        self.key_detection: Literal["getkey",
+                                    "getch",
+                                    "get_wch"] = "getkey"
 
         #: List of accepted key to skip dialog.
         #: This defaults to a list contains " ".
@@ -200,10 +202,7 @@ class BaseTextBox:
         curses.flushinp()
 
         while 1:
-            key = win.getch()
-
-            if self.key_detection_mode == "key":
-                key = chr(key)
+            key = getattr(win, self.key_detection)()
 
             if key in self.confirm_keys:
                 break
