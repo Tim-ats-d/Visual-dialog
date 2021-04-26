@@ -14,6 +14,7 @@ from typing import Sequence, Union
 
 import _curses
 
+
 CursesWindow = _curses.window
 
 #: curses key constants are integers or strings depending on input method used.
