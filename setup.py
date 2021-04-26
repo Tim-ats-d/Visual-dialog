@@ -11,7 +11,7 @@ setup(
     author=__author__,
     author_email="tim.arnouts@protonmail.com",
     description=__doc__,
-    long_description=open("README.md").read(),
+    long_description=open("README.md", encoding="utf-8").read(),
     install_requires=["windows-curses; platform_system=='Windows'"],
     extras_require={"doc": ["sphinx", "sphinx-rtd-theme"]},
     include_package_data=True,
