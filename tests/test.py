@@ -27,22 +27,24 @@ def main(win):
                         # title_colors_pair_nb=3,
                         end_indicator="o")
 
-    textbox.confirm_dialog_key = (32, )
-    textbox.panic_key = (10, )
+    textbox.confirm_dialog_keys = (32, )
+    textbox.panic_keys = (10, )
 
     special_words = {
         "test": (curses.A_BOLD, curses.A_ITALIC),
         "this": (curses.A_BLINK, curses.color_pair(1))
     }
 
-    def func(text: str):
+    def func1():
         win.addstr(0, 0, str(visualdialog.__version__))
+
+    def func2():
+        win.addstr(0, 3, str(visualdialog.__version__))
 
     for reply in text:
         textbox.char_by_char(win,
                              reply,
-                             cargs=(reply, ),
-                             callback=func,
+                             callbacks=(func1, func2),
                              text_attr=(curses.A_ITALIC, curses.A_BOLD),
                              words_attr=special_words)
 

@@ -6,7 +6,8 @@ __all__ = ["DialogBox"]
 import curses
 import random
 import textwrap
-from typing import Any, Callable, List, Mapping, Sequence, Tuple, Union
+from typing import (Any, Callable, Iterable, List, Mapping, Sequence, Tuple,
+                    Union)
 
 from .box import BaseTextBox
 from .type import CursesTextAttribute, CursesTextAttributes, CursesWindow
@@ -99,8 +100,7 @@ class DialogBox(BaseTextBox):
                                  word: str,
                                  delay: int,
                                  random_delay: Sequence[int],
-                                 callback: Callable,
-                                 cargs: Sequence):
+                                 callbacks: Iterable[Callable]):
         """Write word char by char at given positon."""
         for x, char in enumerate(word):
             win.addstr(pos_y,
@@ -117,7 +117,8 @@ class DialogBox(BaseTextBox):
                 curses.napms(delay
                              + rand_delay)
 
-            callback(*cargs)
+            for callback in callbacks:
+                callback()
 
     def _write_word(self,
                     win: CursesWindow,
@@ -126,8 +127,7 @@ class DialogBox(BaseTextBox):
                     word: str,
                     delay: int,
                     random_delay: Sequence[int],
-                    callback: Callable,
-                    cargs: Sequence):
+                    callbacks: Iterable[Callable]):
         """Write word at given position."""
         win.addstr(pos_y,
                    pos_x,
@@ -138,7 +138,8 @@ class DialogBox(BaseTextBox):
         curses.napms(delay
                      + rand_delay)
 
-        callback(*cargs)
+        for callback in callbacks:
+            callback()
 
     def _one_by_one(self,
                     write_method: Callable,
@@ -154,11 +155,9 @@ class DialogBox(BaseTextBox):
                     flash_screen: bool,
                     delay: int,
                     random_delay: Sequence[int],
-                    callback: Callable,
-                    cargs: Sequence):
+                    callbacks: Iterable[Callable]):
         # Test if only one argument is passed instead of a tuple.
-        if isinstance(text_attr, int):
-            text_attr = (text_attr, )
+        text_attr = to_tuple(text_attr)
 
         colors_pair = curses.color_pair(colors_pair_nb)
 
@@ -188,8 +187,7 @@ class DialogBox(BaseTextBox):
                                      word,
                                      delay,
                                      random_delay,
-                                     callback,
-                                     cargs)
+                                     callbacks)
 
                         # Waiting for space character.
                         curses.napms(delay)
@@ -212,8 +210,7 @@ class DialogBox(BaseTextBox):
                      flash_screen: bool = False,
                      delay: int = 40,
                      random_delay: Sequence[int] = (0, 0),
-                     callback: Callable = lambda: None,
-                     cargs: Sequence = ()):
+                     callbacks: Iterable[Callable] = ()):
         """Write the given text character by character.
 
         :param win: ``curses`` window object on which the method will
@@ -254,12 +251,9 @@ class DialogBox(BaseTextBox):
             number generated in ``random_delay`` interval. This defaults
             to ``(0, 0)``.
 
-        :param callback: Callable called after writing a character and
-            the delay time has elapsed. This defaults to a lambda which
-            do nothing.
-
-        :param cargs: All the arguments that will be passed to callback.
-            This defaults to an empty tuple.
+        :param callback: Iterable of callable called one by one after
+            writing a character and the delay time has elapsed. This
+            defaults to an empty tuple.
 
         .. NOTE::
             Method flow:
@@ -268,8 +262,10 @@ class DialogBox(BaseTextBox):
                 - Cutting text into line to stay within the dialog box
                   frame.
                 - Writing paragraph by paragraph.
-                - Writing each line of the current paragraph, character
-                  by character.
+                - Writing each line of the current paragraph.
+                - Writing each word of line.
+                - Writing each character of word and execute callbacks
+                  between.
                 - Waits until a key contained in the class attribute
                   ``confirm_keys`` was pressed before writing the
                   following paragraph.
@@ -297,8 +293,7 @@ class DialogBox(BaseTextBox):
                          flash_screen,
                          delay,
                          random_delay,
-                         callback,
-                         cargs)
+                         callbacks)
 
     def word_by_word(self,
                      win: CursesWindow,
@@ -313,8 +308,7 @@ class DialogBox(BaseTextBox):
                      flash_screen: bool = False,
                      delay: int = 150,
                      random_delay: Sequence[int] = (0, 0),
-                     callback: Callable = lambda: None,
-                     cargs: Sequence = ()):
+                     callbacks: Iterable[Callable] = ()):
         """Write the given text word by word.
 
         :param win: ``curses`` window object on which the method will
@@ -355,12 +349,9 @@ class DialogBox(BaseTextBox):
             generated in ``random_delay`` interval. This defaults to
             ``(0, 0)``.
 
-        :param callback: Callable called after writing a word and the
-            delay time has elapsed. This defaults to a lambda which do
-            nothing.
-
-        :param cargs: All the arguments that will be passed to callback.
-            This defaults to an empty tuple.
+        :param callback: Iterable of callable called one by one after
+            writing a word and the delay time has elapsed. This defaults
+            to an empty tuple.
 
         .. NOTE::
             Method flow:
@@ -369,8 +360,8 @@ class DialogBox(BaseTextBox):
                 - Cutting text into line to stay within the dialog box
                   frame.
                 - Writing paragraph by paragraph.
-                - Writing each line of the current paragraph, word by
-                  word.
+                - Writing each line of the current paragraph.
+                - Writing each word of line and execute callbacks between.
                 - Waits until a key contained in the class attribute
                   ``confirm_keys`` was pressed before writing the
                   following paragraph.
@@ -398,5 +389,4 @@ class DialogBox(BaseTextBox):
                          flash_screen,
                          delay,
                          random_delay,
-                         callback,
-                         cargs)
+                         callbacks)
