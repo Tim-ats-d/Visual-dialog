@@ -118,7 +118,7 @@ class DialogBox(BaseTextBox):
                              + rand_delay)
 
             for callback in callbacks:
-                callback()
+                callback(self, char, x)
 
     def _write_word(self,
                     win: CursesWindow,
@@ -139,7 +139,7 @@ class DialogBox(BaseTextBox):
                      + rand_delay)
 
         for callback in callbacks:
-            callback()
+            callback(self, word)
 
     def _one_by_one(self,
                     write_method: Callable,

@@ -35,16 +35,22 @@ def main(win):
         "this": (curses.A_BLINK, curses.color_pair(1))
     }
 
-    def func1():
-        win.addstr(0, 0, str(visualdialog.__version__))
+    def display_position(self: DialogBox,
+                         char: str,
+                         char_index: int):
+        win.addstr(0, 0, char + str(char_index))
+        win.refresh()
 
-    def func2():
-        win.addstr(0, 3, str(visualdialog.__version__))
+    def display_char_info(self: DialogBox,
+                          char: str,
+                          char_index: str):
+        win.addstr(5, 0, char + str(char_index))
+        win.refresh()
 
     for reply in text:
         textbox.char_by_char(win,
                              reply,
-                             callbacks=(func1, func2),
+                             callbacks=(display_position, display_char_info),
                              text_attr=(curses.A_ITALIC, curses.A_BOLD),
                              words_attr=special_words)
 
