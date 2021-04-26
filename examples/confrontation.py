@@ -6,73 +6,85 @@ import curses
 from visualdialog import DialogBox
 
 
-# Definition of curses key constants.
-# 10 and 32 correspond to enter and space keys.
-PASS_DIALOG_KEY = (10, 32)
+PASS_KEYS = (" ", "\n")
+HEIGHT, WIDTH = 35, 6
 
 
-def main(stdscr):
-    # Makes the cursor invisible.
+# It is preferable to create its own class derived from DialogBox for
+# complex applications.
+class CustomDialogBox(DialogBox):
+
+    def __init__(self,
+                 pos_x: int,
+                 pos_y: int,
+                 title: str,
+                 title_colors_pair_nb: int,
+                 **kwargs):
+        super().__init__(pos_x=pos_x,
+                         pos_y=pos_y,
+                         height=HEIGHT,
+                         width=WIDTH,
+                         title=title,
+                         title_colors_pair_nb=title_colors_pair_nb,
+                         **kwargs)
+
+        # Definition of accepted key codes to pass a dialog.
+        self.confirm_keys = PASS_KEYS
+
+
+def main(win):
+    # Make the cursor invisible.
     curses.curs_set(False)
 
     # Definition of several colors pairs.
-    curses.init_pair(1, curses.COLOR_BLUE, curses.COLOR_BLACK)
-    curses.init_pair(2, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
-    curses.init_pair(3, curses.COLOR_RED, curses.COLOR_BLACK)
+    curses.init_pair(1, curses.COLOR_BLUE, 0)
+    curses.init_pair(2, curses.COLOR_MAGENTA, 0)
+    curses.init_pair(3, curses.COLOR_RED, 0)
 
-    width, height  = 6, 35  # Width and height (in character).
-
-    max_y, max_x = stdscr.getmaxyx()
+    max_y, max_x = win.getmaxyx()  # Get height and width of the window.
 
     left_x = 2  # Left alignment.
-    right_x = max_x - height - 4 # Calculation of right alignment.
-    center_x = max_x//2 - height//2  # Calculation of center alignment.
-    bottom_y = max_y - width - 4  # Calculation of bottom alignment.
+    right_x = max_x - HEIGHT - 4  # Calculation of right alignment.
+    center_x = max_x//2 - HEIGHT//2  # Calculation of center alignment.
+    bottom_y = max_y - WIDTH - 4  # Calculation of bottom alignment.
 
-    phoenix_wright = DialogBox(left_x, bottom_y,
-                               height, width,
-                               title="Phoenix",
-                               title_colors_pair_nb=1)  # Title and color_pair used to colored title.
+    phoenix_wright = CustomDialogBox(left_x, bottom_y,
+                                     "Phoenix",  # Title of dialog box.
+                                     1)  # Color pair used to colored title.
 
-    april_may = DialogBox(center_x, bottom_y,
-                          height, width,
-                          title="April",
-                          title_colors_pair_nb=2)
+    april_may = CustomDialogBox(center_x, bottom_y,
+                                "April",
+                                2)
 
-    miles_edgeworth = DialogBox(right_x, bottom_y,
-                                height, width,
-                                title="Edgeworth",
-                                title_colors_pair_nb=3)
+    miles_edgeworth = CustomDialogBox(right_x, bottom_y,
+                                      "Edgeworth",
+                                      3)
 
-    # Definition of accepted key codes to pass a dialog.
-    phoenix_wright.confirm_dialog_key = PASS_DIALOG_KEY
-    april_may.confirm_dialog_key = PASS_DIALOG_KEY
-    miles_edgeworth.confirm_dialog_key = PASS_DIALOG_KEY
-
-    phoenix_wright.char_by_char(stdscr,
+    phoenix_wright.char_by_char(win,
                                 "This testimony is a pure invention !",
-                                delay=0.03)  # Set delay between writting each characters to 0.03 seconde.
+                                delay=30)
+    # Set delay between writting each characters to 30 milliseconds
 
-    phoenix_wright.char_by_char(stdscr,
+    phoenix_wright.char_by_char(win,
                                 "You're lying April May !",
                                 flash_screen=True,  # A short luminous glow will be displayed before writing the text.
-                                delay=0.03,
+                                delay=30,
                                 text_attr=curses.A_BOLD)
 
-    april_may.char_by_char(stdscr,
+    april_may.char_by_char(win,
                            "Arghh !",
-                           delay=0.02,
+                           delay=30,
                            text_attr=curses.A_ITALIC)
 
-    miles_edgeworth.char_by_char(stdscr,
+    miles_edgeworth.char_by_char(win,
                                  "OBJECTION !",
                                  flash_screen=True,
-                                 delay=0.03,
+                                 delay=30,
                                  text_attr=curses.A_BOLD)
 
-    miles_edgeworth.char_by_char(stdscr,
+    miles_edgeworth.char_by_char(win,
                                  "These accusations are irrelevant !",
-                                 delay=0.03)
+                                 delay=30)
 
 
 # Execution of main function.

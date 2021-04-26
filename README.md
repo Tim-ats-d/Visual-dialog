@@ -2,22 +2,10 @@
 # Visual-dialog
 
 <p align="center">
-  <a href="#features">Features</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#requirements">Requirements</a> •
-  <a href="#documentation">Documentation</a> •
-  <a href="#quick-start">Quick start</a> •
-  <a href="#contributing">Contributing</a> •
-  <a href="#license">License</a>
-</p>
-
-<p align="center">
-  <img width="400" src="https://user-images.githubusercontent.com/59396366/100594532-188c6900-32fa-11eb-8372-4796f53b122f.png" alt="Visual-dialog">
+  <img width="300" src="https://user-images.githubusercontent.com/59396366/113866239-5f5d0480-97ad-11eb-879f-fa7d4098b689.png" alt="Visual-dialog">
   <br>
-  A library to make easier dialog box in terminal.
+  A library to make easier dialog box in a terminal.
 </p>
-
-This library is still under development. API can change.
 
 ## Features
 
@@ -26,6 +14,8 @@ This library is still under development. API can change.
 🔖 Text coloring and formatting.
 
 ⚙️ Hackable and configurable.
+
+⚠️ This library is still under development. API can change.
 
 ## Installation
 
@@ -52,16 +42,28 @@ pip install .
 
 ## Requirements
 
+### Python version
+
+* [**Python 3.8**](https://www.python.org/downloads/) or more.
+
 ### Curses
 
 **Visual-dialog** works with `curses` Python module. It is available in the standard **Python** library on **UNIX** but it doesn’t work out-of-the-box on **Windows**.
 
-See [this explanations](https://www.devdungeon.com/content/curses-windows-python) to install `curses` on **Windows** (untested).
+To install `curses` on **Windows**, you need `windows-curses` module:
 
-### Other requirements
-* [**Python 3.7**](https://www.python.org/downloads/) or more.
+```sh
+pip install curses-windows
+```
+
+### To build the documentation
+
 * [**Sphinx**](https://www.sphinx-doc.org/en/master/usage/installation.html) to generate the documentation of library.
 * [**sphinx-rtd-theme**](https://pypi.org/project/sphinx-rtd-theme/) used as documentation theme.
+
+```sh
+pip install sphinx sphinx_rtd_theme
+```
 
 ## Quick-start
 
@@ -73,16 +75,16 @@ import curses
 from visualdialog import DialogBox
 
 
-x, y = (0, 0)
-height, width = (35, 6)
+x, y = 0, 0
+height, width = 35, 6
 
-def main(stdscr):
+def main(win):
     curses.curs_set(False)
 
     textbox = DialogBox(x, y,
                         height, width,
                         title="Demo")
-    textbox.char_by_char(stdscr,
+    textbox.char_by_char(win,
                          "Hello world")
 
 
@@ -124,7 +126,7 @@ You can also help by reporting **bugs**.
 
 ## License
 
-Distributed under the **GPL-2.0 License** . See [license](LICENSE) for more information.
+Distributed under the **GPL-2.0 License**. See [license](LICENSE) for more information.
 
 
 ## Acknowledgements

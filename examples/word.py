@@ -6,11 +6,6 @@ import curses
 from visualdialog import DialogBox
 
 
-# Definition of curses key constants.
-# 10 and 32 correspond to enter and space keys.
-ENTER_KEY = 10
-SPACE_KEY = 32
-
 instructions = (
     "Instead of the char_by_char method, word_by_word displays the "
     "given text word by word.",
@@ -18,22 +13,24 @@ instructions = (
 )
 
 
-def main(stdscr):
-    # Makes the cursor invisible.
+def main(win):
+    # Make the cursor invisible.
     curses.curs_set(False)
 
-    textbox = DialogBox(1, 1,  # Position 1;1 in stdscr.
-                        40, 6,  # Length and width of textbox (in character).
-                        title="Robot")  # Title of textbox.
+    textbox = DialogBox(1, 1,  # Position 1;1 in win.
+                        40, 6,  # Height and width of textbox.
+                        "Robot")  # Title of textbox.
 
     # Definition of accepted key codes to pass a dialog.
-    textbox.confirm_dialog_key = (ENTER_KEY, SPACE_KEY)
+    # This defaults to [" "] to match space key.
+    textbox.confirm_keys.append("\n")
 
     # Iterate on each sentence contained in instructions.
     for instruction in instructions:
-        textbox.word_by_word(stdscr,
+        textbox.word_by_word(win,
                              instruction,
-                             delay=0.2)  # Set delay between writting each words to 0.1 seconde.
+                             delay=200)
+        # Set delay between writting each words to 200 milliseconds.
 
 
 # Execution of main function.

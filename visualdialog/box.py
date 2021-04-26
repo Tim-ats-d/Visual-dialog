@@ -1,33 +1,32 @@
 # box.py
 # 2020 Timéo Arnouts <tim.arnouts@protonmail.com>
 
-__all__ = ["BaseTextBox"]
+__all__ = ["BaseTextBox",
+           "PanicError"]
 
 import curses
 import curses.textpad
-from numbers import Number
-from typing import List, Tuple, Union
+from typing import List, Literal, Sequence, Tuple, Union
 
-from .utils import (CursesKeyConstant,
-                    CursesKeyConstants,
-                    CursesTextAttributesConstant,
-                    CursesTextAttributesConstants,
-                    CursesWindow,
-                    TextAttributes)
+from .type import CursesKey, CursesTextAttribute, CursesTextAttributes, CursesWindow
+from .utils import TextAttr, to_tuple
 
 
 class PanicError(Exception):
-    """Exception thrown when a key contained in ``TextBox.panic_key`` is
-    pressed.
+    """Exception thrown when a key contained in ``TextBox.panic_keys``
+    is pressed.
 
     :param key: Key pressed that caused the exception to be thrown.
     """
     def __init__(self,
-                 key: CursesKeyConstant):
+                 key: CursesKey):
         self.key = key
 
-    def __str__(self):
-        return f"text box was aborted by pressing the {self.key} key"
+    def __str__(self) -> str:
+        return ("text box was aborted "
+                + (f"keycode {self.key}"
+                   if isinstance(self.key, int)
+                   else f'by pressing "{self.key}" key'))
 
 
 class BaseTextBox:
@@ -35,7 +34,7 @@ class BaseTextBox:
 
     .. NOTE::
         This class provides a general API for text boxes, it is not
-         intended to be instantiated.
+        intended to be instantiated.
 
     :param pos_x: x position of the dialog box in ``curses`` window
         object on which methods will have effects.
@@ -70,24 +69,22 @@ class BaseTextBox:
         This defaults to ``(",", ".", ":", ";", "!", "?")``.
 
     :param downtime_chars_delay:
-        Waiting time in seconds after writing a character contained in
-        ``downtime_chars``.
-        This defaults to ``0.6``.
+        Waiting time in milliseconds after writing a character contained
+        in ``downtime_chars``.
+        This defaults to ``600``.
     """
-
     def __init__(
-        self,
-        pos_x: int,
-        pos_y: int,
-        height: int,
-        width: int,
-        title: str = "",
-        title_colors_pair_nb: int = 0,
-        title_text_attr: Union[CursesTextAttributesConstant,
-                            CursesTextAttributesConstants] = curses.A_BOLD,
-        downtime_chars: Union[Tuple[str],
-                            List[str]] = (",", ".", ":", ";", "!", "?"),
-        downtime_chars_delay: Number = .6):
+            self,
+            pos_x: int,
+            pos_y: int,
+            height: int,
+            width: int,
+            title: str = "",
+            title_colors_pair_nb: int = 0,
+            title_text_attr: Union[CursesTextAttribute,
+                                   CursesTextAttributes] = curses.A_BOLD,
+            downtime_chars: Sequence[str] = (",", ".", ":", ";", "!", "?"),
+            downtime_chars_delay: int = 600):
         self.pos_x, self.pos_y = pos_x, pos_y
         self.height, self.width = height, width
 
@@ -95,7 +92,7 @@ class BaseTextBox:
 
         # Compensation for the left border of the dialog box.
         self.text_pos_x = pos_x + 2
-        # Compensation for the upper border of the dialog box.
+        # Compensation for the upper border of the dialog box.
         self.text_pos_y = pos_y + self.title_offsetting_y + 1
 
         self.nb_char_max_line = height - 4
@@ -104,24 +101,27 @@ class BaseTextBox:
         self.title = title
         if title:
             self.title_colors = curses.color_pair(title_colors_pair_nb)
-
-            # Test if only one argument is passed instead of a tuple
-            if isinstance(title_text_attr, int):
-                self.title_text_attr = (title_text_attr, )
-            else:
-                self.title_text_attr = title_text_attr
+            # Test if only one argument is passed instead of a sequence.
+            self.title_text_attr = to_tuple(title_text_attr)
 
         self.downtime_chars = downtime_chars
         self.downtime_chars_delay = downtime_chars_delay
 
-        #: List of accepted key codes to skip dialog. ``curses`` constants are supported. This defaults to an empty tuple.
-        self.confirm_dialog_key: List[CursesKeyConstant] = []
-        #: List of accepted key codes to raise PanicError. ``curses`` constants are supported. This defaults to an empty tuple.
-        self.panic_key: List[CursesKeyConstant] = []
+        #: Keystroke acquisition curses method for BaseTextBox.get_input.
+        self.key_detection: Literal["getkey",
+                                    "getch",
+                                    "get_wch"] = "getkey"
+
+        #: List of accepted key to skip dialog.
+        #: This defaults to a list contains " ".
+        self.confirm_keys: List[CursesKey] = [" "]
+        #: List of accepted key to raise PanicError.
+        #: This defaults to an empty list.
+        self.panic_keys: List[CursesKey] = []
 
     @property
     def position(self) -> Tuple[int]:
-        """Returns a tuple contains x;y position of ``TextBox``.
+        """Return a tuple contains x;y position of ``TextBox``.
 
         :returns: x;y position of ``TextBox``.
         """
@@ -129,14 +129,14 @@ class BaseTextBox:
 
     @property
     def dimensions(self) -> Tuple[int]:
-        """Returns a tuple contains dimensions of ``TextBox``.
+        """Return a tuple contains dimensions of ``TextBox``.
 
         :returns: Height and width of ``TextBox``.
         """
         return self.height, self.width
 
     def framing_box(self, win: CursesWindow):
-        """Displays dialog box borders and his title.
+        """Display dialog box borders and his title.
 
         If attribute ``self.title`` is empty doesn't display the title.
 
@@ -156,7 +156,7 @@ class BaseTextBox:
                                      self.pos_y + title_width,
                                      self.pos_x + title_length)
 
-            with TextAttributes(win, *attr):
+            with TextAttr(win, *attr):
                 win.addstr(self.pos_y + 1,
                            self.pos_x + 3,
                            self.title)
@@ -165,35 +165,42 @@ class BaseTextBox:
         curses.textpad.rectangle(win,
                                  self.pos_y + self.title_offsetting_y,
                                  self.pos_x,
-                                 self.pos_y + self.title_offsetting_y + self.width,
+                                 self.pos_y
+                                 + self.title_offsetting_y
+                                 + self.width,
                                  self.pos_x + self.height)
 
-    def getkey(self, win: CursesWindow):
-        """Blocks execution as long as a key contained in
-        ``self.confirm_dialog_key`` is not detected.
+    def get_input(self, win: CursesWindow):
+        """Block execution as long as a key contained in
+        ``self.confirm_keys`` is not detected.
 
+        The method of key detection depends on the variable
+        ``self.key_detection_mode``. ``"key"`` will acquire the key as
+        a character and ``"code"`` as a key code. This is default to
+        ``"key"``.
 
         :param win: ``curses`` window object on which the method will
             have effect.
-        :raises PanicError: If a key contained in ``self.panic_key`` is
+
+        :raises PanicError: If a key contained in ``self.panic_keys`` is
             pressed.
 
         .. NOTE::
-            - To see the list of key constants please refer to
-              `this curses documentation
-              <https://docs.python.org/3/library/curses.html?#constants>`_.
             - This method uses ``window.getch`` method from ``curses``
               module. Please refer to `curses documentation
               <https://docs.python.org/3/library/curses.html?#curses.window.getch>`_
               for more informations.
+            - This method uses ``window.getkey`` method from ``curses``
+              module. Please refer to `curses documentation
+              <https://docs.python.org/3/library/curses.html?#curses.window.getkey>`_
+              for more informations.
         """
-        while 1:
-            key = win.getch()
+        curses.flushinp()
 
-            if key in self.confirm_dialog_key:
+        while 1:
+            key = getattr(win, self.key_detection)()
+
+            if key in self.confirm_keys:
                 break
-            elif key in self.panic_key:
+            elif key in self.panic_keys:
                 raise PanicError(key)
-            else:
-                # Ignore incorrect keys.
-                ...

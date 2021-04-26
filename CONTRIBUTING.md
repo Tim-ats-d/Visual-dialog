@@ -17,7 +17,7 @@ Please push on the `dev` branch, any pull request on the `main` branch will be r
 
 When you make a pull request make sure to:
 
-* Test your code with `Python3.7` to be sure not to break compatability.
+* Test your code with `Python 3.8` to be sure not to break compatability.
 * Format your code according [PEP 8](https://www.python.org/dev/peps/pep-0008/). [PEP8 Check](https://github.com/quentinguidee/actions-pep8) will ensure that your code is correctly formatted .
 * Document your code with [reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html) if you add new functionality.
 
