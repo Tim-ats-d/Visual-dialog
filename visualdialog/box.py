@@ -108,6 +108,7 @@ class BaseTextBox:
         self.downtime_chars_delay = downtime_chars_delay
 
         #: Keystroke acquisition curses method for BaseTextBox.get_input.
+        #: See https://docs.python.org/3/library/curses.html?#curses.window.getch
         self.key_detection: Literal["getkey",
                                     "getch",
                                     "get_wch"] = "getkey"
@@ -175,25 +176,13 @@ class BaseTextBox:
         ``self.confirm_keys`` is not detected.
 
         The method of key detection depends on the variable
-        ``self.key_detection_mode``. ``"key"`` will acquire the key as
-        a character and ``"code"`` as a key code. This is default to
-        ``"key"``.
+        ``self.key_detection``.
 
         :param win: ``curses`` window object on which the method will
             have effect.
 
         :raises PanicError: If a key contained in ``self.panic_keys`` is
             pressed.
-
-        .. NOTE::
-            - This method uses ``window.getch`` method from ``curses``
-              module. Please refer to `curses documentation
-              <https://docs.python.org/3/library/curses.html?#curses.window.getch>`_
-              for more informations.
-            - This method uses ``window.getkey`` method from ``curses``
-              module. Please refer to `curses documentation
-              <https://docs.python.org/3/library/curses.html?#curses.window.getkey>`_
-              for more informations.
         """
         curses.flushinp()
 

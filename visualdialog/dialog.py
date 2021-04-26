@@ -180,7 +180,6 @@ class DialogBox(BaseTextBox):
                         attr = (colors_pair, *text_attr)
 
                     with TextAttr(win, *attr):
-                        write_method = getattr(self, write_method.__name__)
                         write_method(win,
                                      self.text_pos_x + offsetting_x,
                                      self.text_pos_y + y,
