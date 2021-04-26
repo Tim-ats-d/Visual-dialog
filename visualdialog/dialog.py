@@ -10,7 +10,7 @@ from typing import Any, Callable, List, Mapping, Sequence, Tuple, Union
 
 from .box import BaseTextBox
 from .type import CursesTextAttribute, CursesTextAttributes, CursesWindow
-from .utils import TextAttr, chunked
+from .utils import TextAttr, chunked, to_tuple
 
 
 class DialogBox(BaseTextBox):
@@ -176,10 +176,7 @@ class DialogBox(BaseTextBox):
                 offsetting_x = 0
                 for word in line.split(word_delimiter):
                     if word in words_attr:
-                        attr = words_attr[word]
-
-                        if isinstance(attr, int):
-                            attr = (attr, )
+                        attr = to_tuple(words_attr[word])
                     else:
                         attr = (colors_pair, *text_attr)
 

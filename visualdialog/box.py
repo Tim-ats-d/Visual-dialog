@@ -9,7 +9,7 @@ import curses.textpad
 from typing import List, Literal, Sequence, Tuple, Union
 
 from .type import CursesKey, CursesTextAttribute, CursesTextAttributes, CursesWindow
-from .utils import TextAttr
+from .utils import TextAttr, to_tuple
 
 
 class PanicError(Exception):
@@ -101,12 +101,8 @@ class BaseTextBox:
         self.title = title
         if title:
             self.title_colors = curses.color_pair(title_colors_pair_nb)
-
-            # Test if only one argument is passed instead of a tuple
-            if isinstance(title_text_attr, int):
-                self.title_text_attr = (title_text_attr, )
-            else:
-                self.title_text_attr = title_text_attr
+            # Test if only one argument is passed instead of a sequence.
+            self.title_text_attr = to_tuple(title_text_attr)
 
         self.downtime_chars = downtime_chars
         self.downtime_chars_delay = downtime_chars_delay

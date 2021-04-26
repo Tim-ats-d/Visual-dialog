@@ -4,7 +4,7 @@
 __all__ = ["TextAttr"]
 
 from contextlib import ContextDecorator
-from typing import Iterable, NoReturn, Sequence
+from typing import Iterable, NoReturn, Sequence, Tuple, Union
 
 from .type import CursesTextAttribute, CursesWindow
 
@@ -19,6 +19,16 @@ def chunked(seq: Sequence,
     """
     return (seq[chunk:chunk + chunk_length]
             for chunk in range(0, len(seq), chunk_length))
+
+
+def to_tuple(obj: Union[object, Sequence]) -> Union[Tuple, Sequence]:
+    """Check if the given object is a sequence, if so returns it,
+    otherwise returns it as a tuple.
+    """
+    if isinstance(obj, Sequence):
+        return obj
+    else:
+        return (obj, )
 
 
 class TextAttr(ContextDecorator):
