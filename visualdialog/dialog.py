@@ -254,6 +254,11 @@ class DialogBox(BaseTextBox):
         :param callback: Iterable of callable called one by one after
             writing a character and the delay time has elapsed. This
             defaults to an empty tuple.
+            The arguments passed to the given callables are:
+                - the current instance (``self``).
+                - the character previously written.
+                - the index of the character previously written in the
+                  word being written.
 
         .. NOTE::
             Method flow:
@@ -352,6 +357,9 @@ class DialogBox(BaseTextBox):
         :param callback: Iterable of callable called one by one after
             writing a word and the delay time has elapsed. This defaults
             to an empty tuple.
+            The arguments passed to the given callables are:
+                - the current instance (``self``).
+                - the word previously written.
 
         .. NOTE::
             Method flow:
