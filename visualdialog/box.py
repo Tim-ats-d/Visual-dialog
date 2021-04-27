@@ -86,7 +86,7 @@ class BaseTextBox:
             downtime_chars: Sequence[str] = (",", ".", ":", ";", "!", "?"),
             downtime_chars_delay: int = 600):
         self.pos_x, self.pos_y = pos_x, pos_y
-        self.height, self.width = height, width
+        self.height, self.width = height - 1, width - 1
 
         self.title_offsetting_y = 2 if title else 0
 
@@ -95,8 +95,8 @@ class BaseTextBox:
         # Compensation for the upper border of the dialog box.
         self.text_pos_y = pos_y + self.title_offsetting_y + 1
 
-        self.nb_char_max_line = height - 4
-        self.nb_lines_max = width - 2
+        self.nb_char_max_line = height - 5
+        self.nb_lines_max = width - 3
 
         self.title = title
         if title:
@@ -123,9 +123,12 @@ class BaseTextBox:
     def position(self) -> Tuple[int]:
         """Return a tuple contains x;y position of ``TextBox``.
 
+        The position represents the x;y coordinates of the top left
+        corner of text box.
+
         :returns: x;y position of ``TextBox``.
         """
-        return self.text_pos_x - 2, self.text_pos_y - 3
+        return self.pos_x, self.pos_y
 
     @property
     def dimensions(self) -> Tuple[int]:
@@ -133,7 +136,8 @@ class BaseTextBox:
 
         :returns: Height and width of ``TextBox``.
         """
-        return self.height, self.width
+        return (self.height + 1,
+                self.width + 1 + self.title_offsetting_y)
 
     def framing_box(self, win: CursesWindow):
         """Display dialog box borders and his title.
