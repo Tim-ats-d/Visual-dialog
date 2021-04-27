@@ -6,8 +6,8 @@ __all__ = ["DialogBox"]
 import curses
 import random
 import textwrap
-from typing import (Any, Callable, Iterable, List, Mapping, Sequence, Tuple,
-                    Union)
+from typing import (Any, Callable, Iterable, List, Mapping, Optional, Sequence,
+                    Tuple, Union)
 
 from .box import BaseTextBox
 from .type import CursesTextAttribute, CursesTextAttributes, CursesWindow
@@ -302,7 +302,8 @@ class DialogBox(BaseTextBox):
                                  word: str,
                                  delay: int,
                                  random_delay: Sequence[int],
-                                 callbacks: Iterable[Callable]):
+                                 callbacks: Iterable[Callable[[BaseTextBox, str, str],
+                                                              Optional[Any]]]):
         """Write word char by char at given positon."""
         for x, char in enumerate(word):
             win.addstr(pos_y,
@@ -330,7 +331,7 @@ class DialogBox(BaseTextBox):
                     word: str,
                     delay: int,
                     random_delay: Sequence[int],
-                    callbacks: Iterable[Callable]):
+                    callbacks: Iterable[Callable[[BaseTextBox, str], Optional[Any]]]):
         """Write word at given position."""
         win.addstr(pos_y,
                    pos_x,
