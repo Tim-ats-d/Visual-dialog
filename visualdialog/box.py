@@ -15,7 +15,7 @@ from .utils import TextAttr, to_tuple
 
 def value_checker(initializer: Callable) -> Callable:
     """A decorator which ensures that correct values are passed to
-    ``BaseTextBox`` to avoid unexpected behavior.
+    ``BaseTextBox`` initializer to avoid unexpected behavior.
     """
     def __init__(self,
                  pos_x, pos_y,

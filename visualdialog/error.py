@@ -1,7 +1,7 @@
 # error.py
 # 2020 Timéo Arnouts <tim.arnouts@protonmail.com>
 
-__all__ = ["PanicError"]
+__all__ = ["PanicError", "ValueNotInBound"]
 
 from typing import Callable
 
@@ -9,8 +9,8 @@ from .type import CursesKey
 
 
 class ValueNotInBound(ValueError):
-    """Exception thrown when when incorrect values are passed as
-    parameters to the ``BaseTextBox`` constructor.
+    """Exception thrown when incorrect values are passed as parameters
+    to the ``BaseTextBox`` constructor.
     """
     pass
 

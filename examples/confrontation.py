@@ -7,7 +7,7 @@ from visualdialog import DialogBox
 
 
 PASS_KEYS = (" ", "\n")
-HEIGHT, WIDTH = 35, 6
+HEIGHT, WIDTH = 37, 7
 
 
 # It is preferable to create its own class derived from DialogBox for
