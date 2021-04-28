@@ -21,8 +21,8 @@ def main(win):
     curses.init_pair(2, curses.COLOR_CYAN, 0)
     curses.init_pair(3, curses.COLOR_GREEN, 0)
 
-    textbox = DialogBox(1, 5,
-                        40, 6,
+    textbox = DialogBox(1, 4,
+                        14, 4,
                         title="Tim-ats-d",
                         # title_colors_pair_nb=3,
                         end_indicator="o")

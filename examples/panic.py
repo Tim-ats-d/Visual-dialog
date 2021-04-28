@@ -18,8 +18,9 @@ def main(win):
 
     try:
         box.char_by_char(win,
-                         "When a key contained in EXIT_KEY has been "
-                         "pressed a PanicError exception is raised.")
+                            "When a key contained in EXIT_KEY has been "
+                            "pressed at end of dialog PanicError "
+                            "exception is raised.")
     except PanicError:  # Catch PanicError.
         box.char_by_char(win,
                          "PanicError exception has been caught. "

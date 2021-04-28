@@ -8,25 +8,35 @@ import curses
 import curses.textpad
 from typing import List, Literal, Sequence, Tuple, Union
 
+from .error import PanicError, ValueNotInBound
 from .type import CursesKey, CursesTextAttribute, CursesTextAttributes, CursesWindow
 from .utils import TextAttr, to_tuple
 
 
-class PanicError(Exception):
-    """Exception thrown when a key contained in ``TextBox.panic_keys``
-    is pressed.
+MINIMUM_BOX_WIDTH = 4
 
-    :param key: Key pressed that caused the exception to be thrown.
-    """
+
+def value_checker(initializer: Callable) -> Callable:
+    """A decorator """
     def __init__(self,
-                 key: CursesKey):
-        self.key = key
+                 pos_x, pos_y,
+                 height, width,
+                 title,
+                 *args, **kwargs):
+        minimum_box_height = len(title) + 5
 
-    def __str__(self) -> str:
-        return ("text box was aborted "
-                + (f"keycode {self.key}"
-                   if isinstance(self.key, int)
-                   else f'by pressing "{self.key}" key'))
+        if width < MINIMUM_BOX_WIDTH:
+            raise ValueNotInBound("ne peut pas faire moins de 4 de hauteur")
+        elif minimum_box_height > height:
+            raise ValueNotInBound("ne peut pas faire plus de len(title) + 5")
+
+        initializer(self,
+                    pos_x, pos_y,
+                    height, width,
+                    title,
+                    *args, **kwargs)
+
+    return __init__
 
 
 class BaseTextBox:
@@ -73,6 +83,7 @@ class BaseTextBox:
         in ``downtime_chars``.
         This defaults to ``600``.
     """
+    @value_checker
     def __init__(
             self,
             pos_x: int,
