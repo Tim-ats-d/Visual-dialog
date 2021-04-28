@@ -12,7 +12,7 @@ class ValueNotInBound(ValueError):
     """Exception thrown when when incorrect values are passed as
     parameters to the ``BaseTextBox`` constructor.
     """
-    ...
+    pass
 
 
 class PanicError(KeyboardInterrupt):

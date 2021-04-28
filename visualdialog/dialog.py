@@ -27,7 +27,7 @@ class DialogBox(BaseTextBox):
         of ``TextBox``.
 
     .. NOTE::
-        This class inherits from ``BaseTextBox``.
+        This class inherits of ``BaseTextBox``.
 
     .. NOTE::
         This class is a context manager.
@@ -360,7 +360,10 @@ class DialogBox(BaseTextBox):
                     delay: int,
                     random_delay: Sequence[int],
                     callbacks: Iterable[Callable]):
-        # Test if only one argument is passed instead of a tuple.
+        """This method offers a general purpose API to display text
+        regardless of whether it is written word by word or character by
+        character.
+        """
         text_attr = to_tuple(text_attr)
 
         colors_pair = curses.color_pair(colors_pair_nb)
@@ -400,5 +403,3 @@ class DialogBox(BaseTextBox):
 
             self._display_end_indicator(win)
             self.get_input(win)
-
-

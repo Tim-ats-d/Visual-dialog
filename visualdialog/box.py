@@ -6,29 +6,31 @@ __all__ = ["BaseTextBox",
 
 import curses
 import curses.textpad
-from typing import List, Literal, Sequence, Tuple, Union
+from typing import Callable, List, Literal, Sequence, Tuple, Union
 
 from .error import PanicError, ValueNotInBound
 from .type import CursesKey, CursesTextAttribute, CursesTextAttributes, CursesWindow
 from .utils import TextAttr, to_tuple
 
 
-MINIMUM_BOX_WIDTH = 4
-
-
 def value_checker(initializer: Callable) -> Callable:
-    """A decorator """
+    """A decorator which ensures that correct values are passed to
+    ``BaseTextBox`` to avoid unexpected behavior.
+    """
     def __init__(self,
                  pos_x, pos_y,
                  height, width,
                  title,
                  *args, **kwargs):
-        minimum_box_height = len(title) + 5
+        minimum_box_width = 4
 
-        if width < MINIMUM_BOX_WIDTH:
-            raise ValueNotInBound("ne peut pas faire moins de 4 de hauteur")
-        elif minimum_box_height > height:
-            raise ValueNotInBound("ne peut pas faire plus de len(title) + 5")
+        title_box_borders_total_height = 5
+        minimum_box_height = len(title) + title_box_borders_total_height
+
+        if width < minimum_box_width:
+            raise ValueNotInBound(f"width must be less than {minimum_box_width}")
+        elif height < minimum_box_height:
+            raise ValueNotInBound("height must be less than len(title) + 5")
 
         initializer(self,
                     pos_x, pos_y,
@@ -101,18 +103,17 @@ class BaseTextBox:
 
         self.title_offsetting_y = 2 if title else 0
 
-        # Compensation for the left border of the dialog box.
+        # Compensation for left and upper borders of text box.
         self.text_pos_x = pos_x + 2
-        # Compensation for the upper border of the dialog box.
         self.text_pos_y = pos_y + self.title_offsetting_y + 1
 
+        # Text margins.
         self.nb_char_max_line = height - 5
         self.nb_lines_max = width - 3
 
         self.title = title
         if title:
             self.title_colors = curses.color_pair(title_colors_pair_nb)
-            # Test if only one argument is passed instead of a sequence.
             self.title_text_attr = to_tuple(title_text_attr)
 
         self.downtime_chars = downtime_chars
@@ -153,15 +154,16 @@ class BaseTextBox:
     def framing_box(self, win: CursesWindow):
         """Display dialog box borders and his title.
 
-        If attribute ``self.title`` is empty doesn't display the title.
+        If attribute ``self.title`` is empty doesn't display the title
+        box.
 
         :param win: ``curses`` window object on which the method will
             have effect.
         """
-        title_length = len(self.title) + 4
+        title_height = len(self.title) + 4
         title_width = 2
 
-        # Displays the title and the title box.
+        # Display title and title box.
         if self.title:
             attr = (self.title_colors, *self.title_text_attr)
 
@@ -169,14 +171,14 @@ class BaseTextBox:
                                      self.pos_y,
                                      self.pos_x + 1,
                                      self.pos_y + title_width,
-                                     self.pos_x + title_length)
+                                     self.pos_x + title_height)
 
             with TextAttr(win, *attr):
                 win.addstr(self.pos_y + 1,
                            self.pos_x + 3,
                            self.title)
 
-        # Displays the borders of the dialog box.
+        # Display borders of text box.
         curses.textpad.rectangle(win,
                                  self.pos_y + self.title_offsetting_y,
                                  self.pos_x,
