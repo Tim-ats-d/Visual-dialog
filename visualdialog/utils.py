@@ -24,6 +24,9 @@ def chunked(seq: Sequence,
 def to_tuple(obj: Union[object, Sequence]) -> Union[Tuple, Sequence]:
     """Check if the given object is a sequence, if so returns it,
     otherwise returns it as a tuple.
+
+    This function is mainly used to work with sequences even if only one
+    argument is passed.
     """
     if isinstance(obj, Sequence):
         return obj
