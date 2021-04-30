@@ -1,8 +1,7 @@
 # box.py
 # 2020 Timéo Arnouts <tim.arnouts@protonmail.com>
 
-__all__ = ["BaseTextBox",
-           "PanicError"]
+__all__ = ["BaseTextBox"]
 
 import curses
 import curses.textpad
@@ -17,7 +16,9 @@ MINIMUM_BOX_WIDTH = 4
 
 
 def value_checker(initializer: Callable) -> Callable:
-    """A decorator """
+    """A decorator which checks if the arguments passed to
+    ``BaseTextBox`` initializer are consistent.
+    """
     def __init__(self,
                  pos_x, pos_y,
                  height, width,

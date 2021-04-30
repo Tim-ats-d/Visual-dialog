@@ -49,9 +49,6 @@ This tree does not contain a description of all the files in the repository, onl
 │   ├── source/
 │   │   Contains images used in documentation.
 │   │   │
-│   │   ├── images/
-│   │   │   Contains images used in documentation.
-│   │   │
 │   │   ├── conf.py
 │   │   │   Sphinx's configuration file.
 │   │   │
@@ -79,10 +76,16 @@ This tree does not contain a description of all the files in the repository, onl
 │   ├── __init__.py
 │   │
 │   ├── box.py
-│   │   Contains the parent class TextBox which serves as a basis for the implementation of the other classes.
+│   │   Contains the parent class BaseTextBox which serves as a basis for the implementation of the other classes.
 │   │
 │   ├── dialog.py
-│   │   Contains the DialogBox class, which is the main class of the library.
+│   │   Contains DialogBox class, which is the main class provides by the library.
+│   │
+│   ├── error.py
+│   │   Contains exceptions raised by the library.
+│   │
+│   ├── type.py
+│   │   Contains custom type hinting used by the library.
 │   │
 │   └── utils.py
 │       Contains the classes and functions used but not related to the libriarie.
