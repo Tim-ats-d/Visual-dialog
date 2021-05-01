@@ -56,7 +56,7 @@ class TextAttr(ContextDecorator):
         for attr in self.attributes:
             self.win.attron(attr)
 
-    def __exit__(self, type, value, traceback) -> NoReturn:
+    def __exit__(self, *_) -> NoReturn:
         """Disable one by one attributes contained in self.attributes
         on ``self.win``.
         """

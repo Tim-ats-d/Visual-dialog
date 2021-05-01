@@ -131,7 +131,7 @@ class BaseTextBox:
         self.panic_keys: List[CursesKey] = []
 
     @property
-    def position(self) -> Tuple[int]:
+    def position(self) -> Tuple[int, int]:
         """Return a tuple contains x;y position of ``TextBox``.
 
         The position represents the x;y coordinates of the top left
@@ -142,7 +142,7 @@ class BaseTextBox:
         return self.pos_x, self.pos_y
 
     @property
-    def dimensions(self) -> Tuple[int]:
+    def dimensions(self) -> Tuple[int, int]:
         """Return a tuple contains dimensions of ``TextBox``.
 
         :returns: Height and width of ``TextBox``.

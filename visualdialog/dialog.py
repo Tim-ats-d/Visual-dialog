@@ -80,12 +80,13 @@ class DialogBox(BaseTextBox):
                                       CursesTextAttributes] = (),
                      words_attr: Mapping[Sequence[str],
                                          Union[CursesTextAttribute,
-                                         CursesTextAttributes]] = {},
+                                               CursesTextAttributes]] = {},
                      word_delimiter: str = " ",
                      flash_screen: bool = False,
                      delay: int = 40,
                      random_delay: Sequence[int] = (0, 0),
-                     callbacks: Iterable[Callable] = ()):
+                     callbacks: Iterable[Callable[["DialogBox", str],
+                                                  Optional[Any]]] = ()):
         """Write the given text character by character.
 
         :param win: ``curses`` window object on which the method will
@@ -188,7 +189,8 @@ class DialogBox(BaseTextBox):
                      flash_screen: bool = False,
                      delay: int = 150,
                      random_delay: Sequence[int] = (0, 0),
-                     callbacks: Iterable[Callable] = ()):
+                     callbacks: Iterable[Callable[["DialogBox", str],
+                                                  Optional[Any]]] = ()):
         """Write the given text word by word.
 
         :param win: ``curses`` window object on which the method will
@@ -331,7 +333,8 @@ class DialogBox(BaseTextBox):
                     word: str,
                     delay: int,
                     random_delay: Sequence[int],
-                    callbacks: Iterable[Callable[[BaseTextBox, str], Optional[Any]]]):
+                    callbacks: Iterable[Callable[["DialogBox", str],
+                                                 Optional[Any]]]):
         """Write word at given position."""
         win.addstr(pos_y,
                    pos_x,
@@ -359,7 +362,8 @@ class DialogBox(BaseTextBox):
                     flash_screen: bool,
                     delay: int,
                     random_delay: Sequence[int],
-                    callbacks: Iterable[Callable]):
+                    callbacks: Iterable[Callable[["DialogBox", str],
+                                                 Optional[Any]]]]):
         """This method offers a general purpose API to display text
         regardless of whether it is written word by word or character by
         character.
