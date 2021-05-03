@@ -126,8 +126,7 @@ You can also help by reporting **bugs**.
 
 ## License
 
-Distributed under the **GPL-2.0 License**. See [license](LICENSE) for more information.
-
+Distributed under the **LGPL-3.0 License**. See [license](LICENSE) for more information.
 
 ## Acknowledgements
 
