@@ -23,7 +23,7 @@ def main(win):
     curses.init_pair(2, curses.COLOR_CYAN, 0)
 
     textbox = DialogBox(1, 1,  # Position 1;1 in win.
-                        30, 6,  # Height and width of textbox.
+                        30, 5,  # Height and width of textbox.
                         "Tim-ats",  # Title of textbox.
                         1)  # Curses color_pair used to colored title.
 

@@ -42,7 +42,7 @@ class DialogBox(BaseTextBox):
             pos_y: int,
             height: int,
             width: int,
-            title: str = "",
+            title: Optional = None,
             title_colors_pair_nb: int = 0,
             title_text_attr: Union[CursesTextAttribute,
                                    CursesTextAttributes] = curses.A_BOLD,
@@ -66,7 +66,11 @@ class DialogBox(BaseTextBox):
 
         self.text_wrapper = textwrap.TextWrapper(width=self.nb_char_max_line)
 
-    def __enter__(self):
+    def __repr__(self) -> str:
+        """Return repr(self)."""
+        return f"DialogBox(title={self.title})"
+
+    def __enter__(self) -> "DialogBox":
         return self
 
     def __exit__(self, type, value, traceback):
