@@ -10,14 +10,14 @@ from .type import CursesKey
 
 class ValueNotInBound(ValueError):
     """Exception thrown when incorrect values are passed as parameters
-    to the ``BaseTextBox`` constructor.
+    to the :class:`BaseTextBox` constructor.
     """
     pass
 
 
 class PanicError(KeyboardInterrupt):
-    """Exception thrown when a key contained in ``TextBox.panic_keys``
-    is pressed.
+    """Exception thrown when a key contained in
+    :class:`BaseTextBox.panic_keys` is pressed.
 
     :param key: Key pressed that caused the exception to be thrown.
     """

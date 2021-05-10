@@ -40,8 +40,8 @@ class TextAttr(ContextDecorator):
     :param win: ``curses`` window object for which the attributes will
         be managed.
 
-    :param attributes: Iterable of ``curses`` text attributes to activate
-        and desactivate.
+    :param attributes: Iterable of ``curses`` text attributes to
+        activate and desactivate.
     """
     def __init__(self,
                  win: CursesWindow,

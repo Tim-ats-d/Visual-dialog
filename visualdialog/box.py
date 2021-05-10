@@ -5,6 +5,7 @@ __all__ = ["BaseTextBox"]
 
 import curses
 import curses.textpad
+import functools
 from typing import Callable, List, Literal, Sequence, Tuple, Union
 
 from .error import PanicError, ValueNotInBound
@@ -14,7 +15,7 @@ from .utils import TextAttr, to_tuple
 
 def value_checker(initializer: Callable) -> Callable:
     """A decorator which ensures that correct values are passed to
-    ``BaseTextBox`` initializer to avoid unexpected behavior.
+    :class:`BaseTextBox` initializer to avoid unexpected behavior.
     """
     def __init__(self,
                  pos_x, pos_y,
@@ -43,7 +44,7 @@ def value_checker(initializer: Callable) -> Callable:
 class BaseTextBox:
     """This class provides attributs and methods to manage a text box.
 
-    .. NOTE::
+    .. note::
         This class provides a general API for text boxes, it is not
         intended to be instantiated.
 
@@ -97,6 +98,7 @@ class BaseTextBox:
                                    CursesTextAttributes] = curses.A_BOLD,
             downtime_chars: Sequence[str] = (",", ".", ":", ";", "!", "?"),
             downtime_chars_delay: int = 600):
+        """Initializes instance of :class:`BaseTextBox`."""
         self.pos_x, self.pos_y = pos_x, pos_y
         self.height, self.width = height - 1, width - 1
 
@@ -118,34 +120,46 @@ class BaseTextBox:
         self.downtime_chars = downtime_chars
         self.downtime_chars_delay = downtime_chars_delay
 
-        #: Keystroke acquisition curses method for BaseTextBox.get_input.
+        #: Keystroke acquisition ``curses`` method for
+        #: :method:`BaseTextBox.get_input`.
         self.key_detection: Literal["getkey",
                                     "getch",
                                     "get_wch"] = "getkey"
 
         #: List of accepted key to skip dialog.
-        #: This defaults to a list contains " ".
+        #: This defaults `[" "]`.
         self.confirm_keys: List[CursesKey] = [" "]
-        #: List of accepted key to raise PanicError.
-        #: This defaults to an empty list.
+
         self.panic_keys: List[CursesKey] = []
+        #: List of accepted key to raise :exception:PanicError.
+        #: This defaults to an empty list.
 
     @property
     def position(self) -> Tuple[int, int]:
-        """Return a tuple contains x;y position of ``TextBox``.
+<<<<<<< HEAD
+        """Return a tuple contains x;y position of :class:`BaseTextBox`.
+=======
+        """A property that returns a tuple contains x;y position of
+        :class:`BaseTextBox`.
+>>>>>>> 817377f (DialogBox.char_by_char and word_by_word nows return given text argument, start to improve doc.)
 
         The position represents the x;y coordinates of the top left
         corner of text box.
 
-        :returns: x;y position of ``TextBox``.
+        :returns: x;y position of :class:`BaseTextBox`.
         """
         return self.pos_x, self.pos_y
 
     @property
     def dimensions(self) -> Tuple[int, int]:
-        """Return a tuple contains dimensions of ``TextBox``.
+<<<<<<< HEAD
+        """Return a tuple contains dimensions of :class:`BaseTextBox`.
+=======
+        """A property that return a tuple contains dimensions of
+        :class:`BaseTextBox`.
+>>>>>>> 817377f (DialogBox.char_by_char and word_by_word nows return given text argument, start to improve doc.)
 
-        :returns: Height and width of ``TextBox``.
+        :returns: Height and width of :class:`BaseTextBox`.
         """
         return (self.height + 1,
                 self.width + 1 + self.title_offsetting_y)
@@ -181,9 +195,9 @@ class BaseTextBox:
         curses.textpad.rectangle(win,
                                  self.pos_y + self.title_offsetting_y,
                                  self.pos_x,
-                                 self.pos_y
-                                 + self.title_offsetting_y
-                                 + self.width,
+                                 (self.pos_y
+                                  + self.title_offsetting_y
+                                  + self.width),
                                  self.pos_x + self.height)
 
     def get_input(self, win: CursesWindow):
@@ -191,25 +205,13 @@ class BaseTextBox:
         ``self.confirm_keys`` is not detected.
 
         The method of key detection depends on the variable
-        ``self.key_detection_mode``. ``"key"`` will acquire the key as
-        a character and ``"code"`` as a key code. This is default to
-        ``"key"``.
+        ``self.key_detection_mode``.
 
         :param win: ``curses`` window object on which the method will
             have effect.
 
         :raises PanicError: If a key contained in ``self.panic_keys`` is
             pressed.
-
-        .. NOTE::
-            - This method uses ``window.getch`` method from ``curses``
-              module. Please refer to `curses documentation
-              <https://docs.python.org/3/library/curses.html?#curses.window.getch>`_
-              for more informations.
-            - This method uses ``window.getkey`` method from ``curses``
-              module. Please refer to `curses documentation
-              <https://docs.python.org/3/library/curses.html?#curses.window.getkey>`_
-              for more informations.
         """
         curses.flushinp()
 

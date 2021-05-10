@@ -1,7 +1,7 @@
 Utils
 =====
 
-.. NOTE::
+.. note::
   A sub-module of **Visual-dialog** (``visualdialog.utils``) contains
   functions and classes used by the private API. The context manager
   ``TextAttr`` is used by the library to manage in a more
@@ -16,5 +16,10 @@ Utils
     visualdialog.function(args)
 
 
-.. automodule:: visualdialog.utils
-    :members:
+.. autoclass:: visualdialog.utils.TextAttr
+
+  .. automethod:: __init__
+
+  .. automethod:: __enter__
+
+  .. automethod:: __exit__

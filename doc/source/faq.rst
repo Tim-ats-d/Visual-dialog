@@ -18,5 +18,5 @@ You can use this behavior to perform multiple tasks while text scrolling.
 I am not satisfied with the behavior of DialogBox, how can I change it?
 -----------------------------------------------------------------------
 
-You can create your own derived class by inheriting from ``BaseTextBox``.
-Additionally, you can override the methods of ``DialogBox``.
+You can create your own derived class by inheriting from :class:`BaseTextBox`.
+Additionally, you can override the methods of :class:`DialogBox`.

@@ -20,7 +20,7 @@ Welcome to Visual-dialog's documentation
 - Text coloring and formatting.
 - Hackable and configurable.
 
-.. IMPORTANT::
+.. important::
    I recommend that you have some knowledge of Python ``curses`` module in order to use the library to its full potential.
 
    Here several links to learn ``curses``:

@@ -17,24 +17,29 @@ from .utils import TextAttr, chunked, to_tuple
 class DialogBox(BaseTextBox):
     """This class provides methods and attributs to manage a dialog box.
 
+    Base :class:`BaseTextBox`.
+
     :param end_dialog_indicator: Character that will be displayed in the
         lower right corner the character once all the characters have
         been completed. String with a length of more than one character
         can lead to an overflow of the dialog box frame. This defaults
         to ``"►"``.
 
+<<<<<<< HEAD
     :key kwargs: Keyword arguments correspond to the instance attributes
-        of ``TextBox``.
+        of :class:`BaseTextBox`.
 
     .. NOTE::
-        This class inherits of ``BaseTextBox``.
+        This class inherits of :class:`BaseTextBox`.
+=======
+    :param args: Constructor arguments of :class:`BaseTextBox`.
+>>>>>>> 817377f (DialogBox.char_by_char and word_by_word nows return given text argument, start to improve doc.)
 
-    .. NOTE::
-        This class is a context manager.
+    :param kwargs: Constructor keyword arguments of
+        :class:`BaseTextBox`.
 
-    .. WARNING::
-        Parameters ``downtime_chars`` and ``downtime_chars_delay`` do
-        not affect ``word_by_word`` method.
+    .. note::
+        This class can be used as a context manager.
     """
     def __init__(
             self,
@@ -49,6 +54,7 @@ class DialogBox(BaseTextBox):
             downtime_chars: Sequence[str] = (",", ".", ":", ";", "!", "?"),
             downtime_chars_delay: int = 600,
             end_indicator: str = "►"):
+        """Initializes instance of :class:`DialogBox`."""
         BaseTextBox.__init__(self,
                              pos_x, pos_y,
                              height, width,
@@ -71,10 +77,15 @@ class DialogBox(BaseTextBox):
         return f"DialogBox(title={self.title})"
 
     def __enter__(self) -> "DialogBox":
+        """Return self."""
         return self
 
     def __exit__(self, type, value, traceback):
-        pass
+        """Return None."""
+<<<<<<< HEAD
+        return None
+=======
+>>>>>>> 817377f (DialogBox.char_by_char and word_by_word nows return given text argument, start to improve doc.)
 
     def char_by_char(self,
                      win: CursesWindow,
@@ -90,8 +101,9 @@ class DialogBox(BaseTextBox):
                      delay: int = 40,
                      random_delay: Sequence[int] = (0, 0),
                      callbacks: Iterable[Callable[["DialogBox", str],
-                                                  Optional[Any]]] = ()):
-        """Write the given text character by character.
+                                                  Optional[Any]]] = ()) -> str:
+        """Write the given text character by character. Return the
+        ``text`` passed argument without any treatment.
 
         :param win: ``curses`` window object on which the method will
             have effect.
@@ -140,6 +152,10 @@ class DialogBox(BaseTextBox):
                 - the index of the character previously written in the
                   word being written.
 
+<<<<<<< HEAD
+        :returns: ``text`` argument passed in parameter without any
+            treatment.
+
         .. NOTE::
             Method flow:
                 - Calling ``framing_box`` method.
@@ -157,6 +173,12 @@ class DialogBox(BaseTextBox):
                 - Complete cleaning ``win``.
 
         .. WARNING::
+=======
+        .. note::
+            See implementation for more informations on method flow.
+
+        .. note::
+>>>>>>> 817377f (DialogBox.char_by_char and word_by_word nows return given text argument, start to improve doc.)
             If the volume of text displayed is too large to be contained
             in a dialog box, text will be automatically cut into
             paragraphs using ``textwrap.wrap`` function. See
@@ -164,7 +186,7 @@ class DialogBox(BaseTextBox):
             <https://docs.python.org/fr/3.8/library/textwrap.html#textwrap.wrap>`_.
             for more information of the behavior of text wrap.
 
-        .. WARNING::
+        .. warning::
             ``win`` will be completely cleaned when writing each
             paragraph by ``window.clear`` method of ``curses`` module.
         """
@@ -180,6 +202,8 @@ class DialogBox(BaseTextBox):
                          random_delay,
                          callbacks)
 
+        return text
+
     def word_by_word(self,
                      win: CursesWindow,
                      text: str,
@@ -194,8 +218,9 @@ class DialogBox(BaseTextBox):
                      delay: int = 150,
                      random_delay: Sequence[int] = (0, 0),
                      callbacks: Iterable[Callable[["DialogBox", str],
-                                                  Optional[Any]]] = ()):
-        """Write the given text word by word.
+                                                  Optional[Any]]] = ()) -> str:
+        """Write the given text word by word. Return the ``text`` passed
+        argument without any treatment.
 
         :param win: ``curses`` window object on which the method will
             have effect.
@@ -242,6 +267,10 @@ class DialogBox(BaseTextBox):
                 - the current instance (``self``).
                 - the word previously written.
 
+<<<<<<< HEAD
+        :returns: ``text`` argument passed in parameter without any
+            treatment.
+
         .. NOTE::
             Method flow:
                 - Calling ``framing_box`` method.
@@ -257,6 +286,12 @@ class DialogBox(BaseTextBox):
                 - Complete cleaning ``win``.
 
         .. WARNING::
+=======
+        .. note::
+            See implementation for more informations on method flow.
+
+        .. note::
+>>>>>>> 817377f (DialogBox.char_by_char and word_by_word nows return given text argument, start to improve doc.)
             If the volume of text displayed is too large to be contained
             in a dialog box, text will be automatically cut into
             paragraphs using ``textwrap.wrap`` function. See
@@ -264,9 +299,13 @@ class DialogBox(BaseTextBox):
             <https://docs.python.org/fr/3.8/library/textwrap.html#textwrap.wrap>`_
             for more information of the behavior of text wrap.
 
-        .. WARNING::
+        .. warning::
             ``win`` will be completely cleaned when writing each
             paragraph by ``window.clear`` method of ``curses`` module.
+
+        .. warning::
+            ``self.downtime_chars`` and ``self.downtime_chars_delay`` do
+            not affect this method.
         """
         self._one_by_one(self._write_word,
                          win,
@@ -279,6 +318,8 @@ class DialogBox(BaseTextBox):
                          delay,
                          random_delay,
                          callbacks)
+
+        return text
 
     def _display_end_indicator(self,
                                win: CursesWindow,
