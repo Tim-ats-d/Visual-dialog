@@ -41,8 +41,8 @@ def main(win):
     textbox.confirm_keys = PASS_KEYS
 
     for text, attributes in sentences.items():
-        textbox.char_by_char(win,
-                             text,
+        textbox.char_by_char(text,
+                             win,
                              2,  # Display text colored with color pair 2.
                              attributes)  # Pass attributes to text.
 

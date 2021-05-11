@@ -21,8 +21,7 @@ def main(win):
         with DialogBox(1, 1,
                        30, 6) as db:
             db.confirm_keys.append("\n")  # To match enter key.
-            db.char_by_char(win,
-                            reply)
+            db.char_by_char(reply, win)
 
 
 # Execution of main function.

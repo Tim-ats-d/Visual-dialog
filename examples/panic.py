@@ -17,22 +17,20 @@ def main(win):
     box.panic_keys = ("q", )
 
     try:
-        box.char_by_char(win,
-                            "When a key contained in EXIT_KEY has been "
-                            "pressed at end of dialog PanicError "
-                            "exception is raised.")
+        box.char_by_char("When a key contained in EXIT_KEY is pressed "
+                         "at end of dialog PanicError exception is raised.",
+                         win)
     except PanicError:  # Catch PanicError.
-        box.char_by_char(win,
-                         "PanicError exception has been caught. "
+        box.char_by_char("PanicError exception has been caught. "
                          "One of the keys contained in EXIT_CHAR has "
-                         "been pressed.")
+                         "been pressed.",
+                         win)
     else:
-        box.char_by_char(win,
-                         "None of the keys contained in EXIT_CHAR have "
-                         "been pressed.")
+        box.char_by_char("None of the keys contained in EXIT_CHAR have "
+                         "been pressed.",
+                         win)
     finally:  # Code executed in all cases.
-        box.char_by_char(win,
-                         "End of dialog.")
+        box.char_by_char("End of dialog.", win)
 
 
 # Execution of main function.

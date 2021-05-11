@@ -32,7 +32,7 @@ Getting started
 ---------------
 
 - **First steps:**
-- **Examples:** Many examples are available in the `repository <https://github.com/Tim-ats-d/Visual-dialog/issues>`_.
+- **Examples:** Many examples are available in the `repository <https://github.com/Tim-ats-d/Visual-dialog/tree/main/examples>`_.
 
 Getting help
 ------------

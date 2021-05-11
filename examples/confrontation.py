@@ -7,7 +7,7 @@ from visualdialog import DialogBox
 
 
 PASS_KEYS = (" ", "\n")
-HEIGHT, WIDTH = 37, 7
+HEIGHT, WIDTH = 35, 5
 
 
 # It is preferable to create its own class derived from DialogBox for
@@ -15,18 +15,26 @@ HEIGHT, WIDTH = 37, 7
 class CustomDialogBox(DialogBox):
 
     def __init__(self,
+                 win,
                  pos_x: int,
                  pos_y: int,
                  title: str,
                  title_colors_pair_nb: int,
                  **kwargs):
-        super().__init__(pos_x=pos_x,
-                         pos_y=pos_y,
-                         height=HEIGHT,
-                         width=WIDTH,
-                         title=title,
-                         title_colors_pair_nb=title_colors_pair_nb,
-                         **kwargs)
+        DialogBox.__init__(self,
+                           pos_x,
+                           pos_y,
+                           HEIGHT,
+                           WIDTH,
+                           title,
+                           title_colors_pair_nb,
+                           global_win=win,
+                           # Use a default window to display text.
+                           # Setting this parameter allows to avoid passing
+                           # `win` parameter to `char_by_char` and
+                           # `word_by_word` methods. Useful when dealing with
+                           # many `DialogBox` methods calls.
+                           **kwargs)
 
         # Definition of accepted key codes to pass a dialog.
         self.confirm_keys = PASS_KEYS
@@ -48,42 +56,40 @@ def main(win):
     center_x = max_x//2 - HEIGHT//2  # Calculation of center alignment.
     bottom_y = max_y - WIDTH - 4  # Calculation of bottom alignment.
 
-    phoenix_wright = CustomDialogBox(left_x, bottom_y,
+    phoenix_wright = CustomDialogBox(win,
+                                     left_x, bottom_y,
                                      "Phoenix",  # Title of dialog box.
                                      1)  # Color pair used to colored title.
 
-    april_may = CustomDialogBox(center_x, bottom_y,
+    april_may = CustomDialogBox(win,
+                                center_x, bottom_y,
                                 "April",
                                 2)
 
-    miles_edgeworth = CustomDialogBox(right_x, bottom_y,
+    miles_edgeworth = CustomDialogBox(win,
+                                      right_x, bottom_y,
                                       "Edgeworth",
                                       3)
 
-    phoenix_wright.char_by_char(win,
-                                "This testimony is a pure invention !",
+    phoenix_wright.char_by_char("This testimony is a pure invention !",
                                 delay=30)
     # Set delay between writting each characters to 30 milliseconds
 
-    phoenix_wright.char_by_char(win,
-                                "You're lying April May !",
+    phoenix_wright.char_by_char("You're lying April May !",
                                 flash_screen=True,  # A short luminous glow will be displayed before writing the text.
                                 delay=30,
                                 text_attr=curses.A_BOLD)
 
-    april_may.char_by_char(win,
-                           "Arghh !",
+    april_may.char_by_char("Arghh !",
                            delay=30,
                            text_attr=curses.A_ITALIC)
 
-    miles_edgeworth.char_by_char(win,
-                                 "OBJECTION !",
+    miles_edgeworth.char_by_char("OBJECTION !",
                                  flash_screen=True,
                                  delay=30,
                                  text_attr=curses.A_BOLD)
 
-    miles_edgeworth.char_by_char(win,
-                                 "These accusations are irrelevant !",
+    miles_edgeworth.char_by_char("These accusations are irrelevant !",
                                  delay=30)
 
 

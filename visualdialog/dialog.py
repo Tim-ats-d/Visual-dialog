@@ -25,6 +25,10 @@ class DialogBox(BaseTextBox):
         can lead to an overflow of the dialog box frame. This defaults
         to ``"►"``.
 
+    :param global_win: `curses` window object where the text is written
+        by default when the win argument of the :meth:`char_by_char` and
+        :meth:`word_by_word` methods is omitted.
+
     :param args: Constructor arguments of :class:`BaseTextBox`.
 
     :param kwargs: Constructor keyword arguments of
@@ -39,13 +43,14 @@ class DialogBox(BaseTextBox):
             pos_y: int,
             height: int,
             width: int,
-            title: Optional = None,
+            title: str = "",
             title_colors_pair_nb: int = 0,
             title_text_attr: Union[CursesTextAttribute,
                                    CursesTextAttributes] = curses.A_BOLD,
             downtime_chars: Sequence[str] = (",", ".", ":", ";", "!", "?"),
             downtime_chars_delay: int = 600,
-            end_indicator: str = "►"):
+            end_indicator: str = "►",
+            global_win: Optional[CursesWindow] = None):
         """Initializes instance of :class:`DialogBox`."""
         BaseTextBox.__init__(self,
                              pos_x, pos_y,
@@ -53,6 +58,8 @@ class DialogBox(BaseTextBox):
                              title,
                              title_colors_pair_nb, title_text_attr,
                              downtime_chars, downtime_chars_delay)
+
+        self.text_wrapper = textwrap.TextWrapper(width=self.nb_char_max_line)
 
         self.end_indicator_char = end_indicator
         self.end_indicator_pos_x = self.pos_x + self.height - 2
@@ -62,7 +69,7 @@ class DialogBox(BaseTextBox):
         else:
             self.end_indicator_pos_y = self.pos_y + self.width - 1
 
-        self.text_wrapper = textwrap.TextWrapper(width=self.nb_char_max_line)
+        self.global_win = global_win
 
     def __repr__(self) -> str:
         """Return repr(self)."""
@@ -77,8 +84,8 @@ class DialogBox(BaseTextBox):
         return None
 
     def char_by_char(self,
-                     win: CursesWindow,
                      text: str,
+                     win: CursesWindow = None,
                      colors_pair_nb: int = 0,
                      text_attr: Union[CursesTextAttribute,
                                       CursesTextAttributes] = (),
@@ -94,12 +101,12 @@ class DialogBox(BaseTextBox):
         """Write the given text character by character. Return the
         ``text`` passed argument without any treatment.
 
-        :param win: ``curses`` window object on which the method will
-            have effect.
-
         :param text: Text that will be displayed character by character
             in the dialog box. This text can be wrapped to fit the
             proportions of the dialog box.
+
+        :param win: ``curses`` window object on which the method will
+            have effect. If omitted, ``self.global_win`` is chosen.
 
         :param colors_pair_nb: Number of the curses color pair that
             will be used to color the text. The number zero
@@ -158,8 +165,8 @@ class DialogBox(BaseTextBox):
             paragraph by ``window.clear`` method of ``curses`` module.
         """
         self._one_by_one(self._write_word_char_by_char,
-                         win,
                          text,
+                         win,
                          colors_pair_nb,
                          text_attr,
                          words_attr,
@@ -172,8 +179,8 @@ class DialogBox(BaseTextBox):
         return text
 
     def word_by_word(self,
-                     win: CursesWindow,
                      text: str,
+                     win: CursesWindow = None,
                      colors_pair_nb: int = 0,
                      text_attr: Union[CursesTextAttribute,
                                       CursesTextAttributes] = (),
@@ -189,12 +196,12 @@ class DialogBox(BaseTextBox):
         """Write the given text word by word. Return the ``text`` passed
         argument without any treatment.
 
-        :param win: ``curses`` window object on which the method will
-            have effect.
-
         :param text: Text that will be displayed word by word in the
             dialog box. This text can be wrapped to fit the proportions
             of the dialog box.
+
+        :param win: ``curses`` window object on which the method will
+            have effect. If omitted, ``self.global_win`` is chosen.
 
         :param colors_pair_nb:
             Number of the curses color pair that will be used to color
@@ -255,8 +262,8 @@ class DialogBox(BaseTextBox):
             not affect this method.
         """
         self._one_by_one(self._write_word,
-                         win,
                          text,
+                         win,
                          colors_pair_nb,
                          text_attr,
                          words_attr,
@@ -288,6 +295,68 @@ class DialogBox(BaseTextBox):
                 win.addch(self.end_indicator_pos_y,
                           self.end_indicator_pos_x,
                           self.end_indicator_char)
+
+    def _one_by_one(self,
+                    write_method: Callable,
+                    text: str,
+                    win: CursesWindow,
+                    colors_pair_nb: int,
+                    text_attr: Union[CursesTextAttribute,
+                                     CursesTextAttributes],
+                    words_attr: Mapping[Sequence[str],
+                                        Union[CursesTextAttribute,
+                                              CursesTextAttributes]],
+                    word_delimiter: str,
+                    flash_screen: bool,
+                    delay: int,
+                    random_delay: Sequence[int],
+                    callbacks: Iterable[Callable[["DialogBox",
+                                                  CursesWindow,
+                                                  str],
+                                                 Optional[Any]]]):
+        """This method offers a general purpose API to display text
+        regardless of whether it is written word by word or character by
+        character.
+        """
+        win = self.global_win or win
+        text_attr = to_tuple(text_attr)
+        colors_pair = curses.color_pair(colors_pair_nb)
+
+        wrapped_text = self.text_wrapper.wrap(text)
+        wrapped_text = chunked(wrapped_text, self.nb_lines_max)
+
+        if flash_screen:
+            curses.flash()
+
+        for paragraph in wrapped_text:
+            win.clear()
+            self.framing_box(win)
+
+            for y, line in enumerate(paragraph):
+                offsetting_x = 0
+                for word in line.split(word_delimiter):
+                    if word in words_attr:
+                        attr = to_tuple(words_attr[word])
+                    else:
+                        attr = (colors_pair, *text_attr)
+
+                    with TextAttr(win, *attr):
+                        write_method = getattr(self, write_method.__name__)
+                        write_method(win,
+                                     self.text_pos_x + offsetting_x,
+                                     self.text_pos_y + y,
+                                     word,
+                                     delay,
+                                     random_delay,
+                                     callbacks)
+
+                        # Waiting for space character.
+                        curses.napms(delay)
+                        # Compensate for the space between words.
+                        offsetting_x += len(word) + 1
+
+            self._display_end_indicator(win)
+            self.get_input(win)
 
     def _write_word_char_by_char(self,
                                  win: CursesWindow,
@@ -345,65 +414,3 @@ class DialogBox(BaseTextBox):
 
         for callback in callbacks:
             callback(self, win, word)
-
-    def _one_by_one(self,
-                    write_method: Callable,
-                    win: CursesWindow,
-                    text: str,
-                    colors_pair_nb: int,
-                    text_attr: Union[CursesTextAttribute,
-                                     CursesTextAttributes],
-                    words_attr: Mapping[Sequence[str],
-                                        Union[CursesTextAttribute,
-                                              CursesTextAttributes]],
-                    word_delimiter: str,
-                    flash_screen: bool,
-                    delay: int,
-                    random_delay: Sequence[int],
-                    callbacks: Iterable[Callable[["DialogBox",
-                                                  CursesWindow,
-                                                  str],
-                                                 Optional[Any]]]):
-        """This method offers a general purpose API to display text
-        regardless of whether it is written word by word or character by
-        character.
-        """
-        text_attr = to_tuple(text_attr)
-
-        colors_pair = curses.color_pair(colors_pair_nb)
-
-        wrapped_text = self.text_wrapper.wrap(text)
-        wrapped_text = chunked(wrapped_text, self.nb_lines_max)
-
-        if flash_screen:
-            curses.flash()
-
-        for paragraph in wrapped_text:
-            win.clear()
-            self.framing_box(win)
-
-            for y, line in enumerate(paragraph):
-                offsetting_x = 0
-                for word in line.split(word_delimiter):
-                    if word in words_attr:
-                        attr = to_tuple(words_attr[word])
-                    else:
-                        attr = (colors_pair, *text_attr)
-
-                    with TextAttr(win, *attr):
-                        write_method = getattr(self, write_method.__name__)
-                        write_method(win,
-                                     self.text_pos_x + offsetting_x,
-                                     self.text_pos_y + y,
-                                     word,
-                                     delay,
-                                     random_delay,
-                                     callbacks)
-
-                        # Waiting for space character.
-                        curses.napms(delay)
-                        # Compensate for the space between words.
-                        offsetting_x += len(word) + 1
-
-            self._display_end_indicator(win)
-            self.get_input(win)

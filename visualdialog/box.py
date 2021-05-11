@@ -6,7 +6,7 @@ __all__ = ["BaseTextBox"]
 import curses
 import curses.textpad
 import functools
-from typing import Callable, List, Literal, Optional, Sequence, Tuple, Union
+from typing import Callable, List, Literal, Sequence, Tuple, Union
 
 from .error import PanicError, ValueNotInBound
 from .type import CursesKey, CursesTextAttribute, CursesTextAttributes, CursesWindow
@@ -102,7 +102,7 @@ class BaseTextBox:
             pos_y: int,
             height: int,
             width: int,
-            title: Optional[str] = None,
+            title: str = "",
             title_colors_pair_nb: int = 0,
             title_text_attr: Union[CursesTextAttribute,
                                    CursesTextAttributes] = curses.A_BOLD,
