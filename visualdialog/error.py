@@ -3,26 +3,27 @@
 
 __all__ = ["PanicError", "ValueNotInBound"]
 
-from typing import Callable
-
 from .type import CursesKey
 
 
 class ValueNotInBound(ValueError):
-    """Exception thrown when incorrect values are passed as parameters
-    to the :class:`BaseTextBox` constructor.
+    """Base ``ValueError``.
+
+    Exception thrown when incorrect values are passed as parameters
+    to the :class:`visualdialog.box.BaseTextBox` constructor.
     """
     pass
 
 
 class PanicError(KeyboardInterrupt):
-    """Exception thrown when a key contained in
-    :class:`BaseTextBox.panic_keys` is pressed.
+    """Base ``KeyboardInterrupt``.
+
+    Exception thrown when a key contained in
+    :attr:`visualdialog.box.BaseTextBox.panic_keys` is pressed.
 
     :param key: Key pressed that caused the exception to be thrown.
     """
-    def __init__(self,
-                 key: CursesKey):
+    def __init__(self, key: CursesKey):
         self.key = key
 
     def __str__(self) -> str:

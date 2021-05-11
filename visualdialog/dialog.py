@@ -25,15 +25,7 @@ class DialogBox(BaseTextBox):
         can lead to an overflow of the dialog box frame. This defaults
         to ``"►"``.
 
-<<<<<<< HEAD
-    :key kwargs: Keyword arguments correspond to the instance attributes
-        of :class:`BaseTextBox`.
-
-    .. NOTE::
-        This class inherits of :class:`BaseTextBox`.
-=======
     :param args: Constructor arguments of :class:`BaseTextBox`.
->>>>>>> 817377f (DialogBox.char_by_char and word_by_word nows return given text argument, start to improve doc.)
 
     :param kwargs: Constructor keyword arguments of
         :class:`BaseTextBox`.
@@ -82,10 +74,7 @@ class DialogBox(BaseTextBox):
 
     def __exit__(self, type, value, traceback):
         """Return None."""
-<<<<<<< HEAD
         return None
-=======
->>>>>>> 817377f (DialogBox.char_by_char and word_by_word nows return given text argument, start to improve doc.)
 
     def char_by_char(self,
                      win: CursesWindow,
@@ -143,42 +132,20 @@ class DialogBox(BaseTextBox):
             number generated in ``random_delay`` interval. This defaults
             to ``(0, 0)``.
 
-        :param callback: Iterable of callable called one by one after
+        :param callbacks: Iterable of callable called one by one after
             writing a character and the delay time has elapsed. This
             defaults to an empty tuple.
             The arguments passed to the given callables are:
-                - the current instance (``self``).
-                - the character previously written.
-                - the index of the character previously written in the
-                  word being written.
 
-<<<<<<< HEAD
-        :returns: ``text`` argument passed in parameter without any
-            treatment.
+            * the current instance (``self``).
+            * the character previously written.
+            * the index of the character previously written in the
+              word being written.
 
-        .. NOTE::
-            Method flow:
-                - Calling ``framing_box`` method.
-                - Flash screen depending ``flash_screen`` parameter.
-                - Cutting text into line to stay within the dialog box
-                  frame.
-                - Writing paragraph by paragraph.
-                - Writing each line of the current paragraph.
-                - Writing each word of line.
-                - Writing each character of word and execute callbacks
-                  between.
-                - Waits until a key contained in the class attribute
-                  ``confirm_keys`` was pressed before writing the
-                  following paragraph.
-                - Complete cleaning ``win``.
-
-        .. WARNING::
-=======
         .. note::
             See implementation for more informations on method flow.
 
         .. note::
->>>>>>> 817377f (DialogBox.char_by_char and word_by_word nows return given text argument, start to improve doc.)
             If the volume of text displayed is too large to be contained
             in a dialog box, text will be automatically cut into
             paragraphs using ``textwrap.wrap`` function. See
@@ -260,38 +227,18 @@ class DialogBox(BaseTextBox):
             generated in ``random_delay`` interval. This defaults to
             ``(0, 0)``.
 
-        :param callback: Iterable of callable called one by one after
+        :param callbacks: Iterable of callable called one by one after
             writing a word and the delay time has elapsed. This defaults
             to an empty tuple.
             The arguments passed to the given callables are:
-                - the current instance (``self``).
-                - the word previously written.
 
-<<<<<<< HEAD
-        :returns: ``text`` argument passed in parameter without any
-            treatment.
+            * the current instance (``self``).
+            * the word previously written.
 
-        .. NOTE::
-            Method flow:
-                - Calling ``framing_box`` method.
-                - Flash screen depending ``flash_screen`` parameter.
-                - Cutting text into line to stay within the dialog box
-                  frame.
-                - Writing paragraph by paragraph.
-                - Writing each line of the current paragraph.
-                - Writing each word of line and execute callbacks between.
-                - Waits until a key contained in the class attribute
-                  ``confirm_keys`` was pressed before writing the
-                  following paragraph.
-                - Complete cleaning ``win``.
-
-        .. WARNING::
-=======
         .. note::
             See implementation for more informations on method flow.
 
         .. note::
->>>>>>> 817377f (DialogBox.char_by_char and word_by_word nows return given text argument, start to improve doc.)
             If the volume of text displayed is too large to be contained
             in a dialog box, text will be automatically cut into
             paragraphs using ``textwrap.wrap`` function. See
@@ -327,13 +274,13 @@ class DialogBox(BaseTextBox):
                                    curses.A_BOLD,
                                    curses.A_BLINK)):
         """Displays an end indicator in the lower right corner of
-        textbox.
+        text box.
 
         :param win: ``curses`` window object on which the method
             will have effect.
 
-        :param text_attr: Text attributes of
-            ``end_indicator`` method. This defaults to
+        :param text_attr: Text attributes used to display
+            ``end_indicator``. This defaults to
             ``(curses.A_BOLD, curses.A_BLINK)``.
         """
         if self.end_indicator_char:

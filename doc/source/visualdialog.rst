@@ -2,7 +2,7 @@ Text boxes
 ==========
 
 .. important::
-  This library provides two classes but only :class:`DialogBox` is destined to be instantiated.
+  **Visual-dialog** provides two classes but only :class:`DialogBox` is destined to be instantiated.
 
 BaseTextBox
 -----------
@@ -11,15 +11,11 @@ BaseTextBox
 
   .. automethod:: __init__
 
-  The following variables are instance attributes:
-
-  .. autoattribute:: confirm_keys
-
   The following methods are public:
 
-  .. py:property:: position
+  .. autoproperty:: position
 
-  .. py:property:: dimensions
+  .. autoproperty:: dimensions
 
   .. automethod:: framing_box
 

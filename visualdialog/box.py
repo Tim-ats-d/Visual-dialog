@@ -6,7 +6,7 @@ __all__ = ["BaseTextBox"]
 import curses
 import curses.textpad
 import functools
-from typing import Callable, List, Literal, Sequence, Tuple, Union
+from typing import Callable, List, Literal, Optional, Sequence, Tuple, Union
 
 from .error import PanicError, ValueNotInBound
 from .type import CursesKey, CursesTextAttribute, CursesTextAttributes, CursesWindow
@@ -68,7 +68,7 @@ class BaseTextBox:
     :param title_colors_pair_nb:
         Number of the curses color pair that will be used to color the
         title. Zero corresponding to the pair of white color on black
-        background initialized by ``curses``). This defaults to ``0``.
+        background initialized by ``curses``. This defaults to ``0``.
 
     :param title_text_attr:
         Dialog box title text attributes. It should be a single curses
@@ -85,7 +85,15 @@ class BaseTextBox:
         in ``downtime_chars``.
         This defaults to ``600``.
 
-    :ivar var2: initial value: par2
+    :ivar key_detection: initial value: ["getkey", "getch", "get_wch"]:
+        Keystroke acquisition ``curses`` method for
+        :meth:`BaseTextBox.get_input`.
+
+    :ivar confirm_keys: initial value: [" "]:
+        List of accepted key to skip dialog.
+
+    :ivar panic_keys: initial value: []:
+        List of accepted key to raise :exc:`PanicError`.
     """
     @value_checker
     def __init__(
@@ -94,7 +102,7 @@ class BaseTextBox:
             pos_y: int,
             height: int,
             width: int,
-            title: str = "",
+            title: Optional[str] = None,
             title_colors_pair_nb: int = 0,
             title_text_attr: Union[CursesTextAttribute,
                                    CursesTextAttributes] = curses.A_BOLD,
@@ -122,19 +130,9 @@ class BaseTextBox:
         self.downtime_chars = downtime_chars
         self.downtime_chars_delay = downtime_chars_delay
 
-        #: Keystroke acquisition ``curses`` method for
-        #: :method:`BaseTextBox.get_input`.
-        self.key_detection: Literal["getkey",
-                                    "getch",
-                                    "get_wch"] = "getkey"
-
-        #: List of accepted key to skip dialog.
-        #: This defaults `[" "]`.
+        self.key_detection: Literal["getkey", "getch", "get_wch"] = "getkey"
         self.confirm_keys: List[CursesKey] = [" "]
-
         self.panic_keys: List[CursesKey] = []
-        #: List of accepted key to raise :exception:PanicError.
-        #: This defaults to an empty list.
 
     @property
     def position(self) -> Tuple[int, int]:
@@ -199,7 +197,7 @@ class BaseTextBox:
         ``self.confirm_keys`` is not detected.
 
         The method of key detection depends on the variable
-        ``self.key_detection_mode``.
+        ``self.key_detection``.
 
         :param win: ``curses`` window object on which the method will
             have effect.
