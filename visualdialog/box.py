@@ -84,6 +84,8 @@ class BaseTextBox:
         Waiting time in milliseconds after writing a character contained
         in ``downtime_chars``.
         This defaults to ``600``.
+
+    :ivar var2: initial value: par2
     """
     @value_checker
     def __init__(
@@ -136,12 +138,8 @@ class BaseTextBox:
 
     @property
     def position(self) -> Tuple[int, int]:
-<<<<<<< HEAD
-        """Return a tuple contains x;y position of :class:`BaseTextBox`.
-=======
         """A property that returns a tuple contains x;y position of
         :class:`BaseTextBox`.
->>>>>>> 817377f (DialogBox.char_by_char and word_by_word nows return given text argument, start to improve doc.)
 
         The position represents the x;y coordinates of the top left
         corner of text box.
@@ -152,12 +150,8 @@ class BaseTextBox:
 
     @property
     def dimensions(self) -> Tuple[int, int]:
-<<<<<<< HEAD
-        """Return a tuple contains dimensions of :class:`BaseTextBox`.
-=======
         """A property that return a tuple contains dimensions of
         :class:`BaseTextBox`.
->>>>>>> 817377f (DialogBox.char_by_char and word_by_word nows return given text argument, start to improve doc.)
 
         :returns: Height and width of :class:`BaseTextBox`.
         """

@@ -17,9 +17,9 @@ BaseTextBox
 
   The following methods are public:
 
-  .. autoattribute:: position
+  .. py:property:: position
 
-  .. autoattribute:: dimensions
+  .. py:property:: dimensions
 
   .. automethod:: framing_box
 
