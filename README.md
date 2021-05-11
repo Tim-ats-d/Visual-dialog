@@ -69,7 +69,7 @@ pip install sphinx sphinx_rtd_theme
 
 ### Hello world with **Visual-dialog**
 
-```python3
+```py3
 import curses
 
 from visualdialog import DialogBox
@@ -84,8 +84,8 @@ def main(win):
     textbox = DialogBox(x, y,
                         height, width,
                         title="Demo")
-    textbox.char_by_char(win,
-                         "Hello world")
+    textbox.char_by_char("Hello world",
+                         win)
 
 
 curses.wrapper(main)

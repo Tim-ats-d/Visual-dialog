@@ -36,6 +36,8 @@ DialogBox
 
   .. automethod:: __exit__
 
+  .. automethod:: __lt__
+
   .. automethod:: char_by_char
 
   .. automethod:: word_by_word

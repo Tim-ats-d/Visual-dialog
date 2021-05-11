@@ -10,7 +10,8 @@ def main(win):
     curses.curs_set(False)
 
     box = DialogBox(1, 1,
-                    40, 6)
+                    40, 6
+                    global_win=win)
 
     # Definition of keys to pass and exit a dialog.
     box.confirm_keys.append("\n")
@@ -18,19 +19,16 @@ def main(win):
 
     try:
         box.char_by_char("When a key contained in EXIT_KEY is pressed "
-                         "at end of dialog PanicError exception is raised.",
-                         win)
+                         "at end of dialog PanicError exception is raised.")
     except PanicError:  # Catch PanicError.
         box.char_by_char("PanicError exception has been caught. "
                          "One of the keys contained in EXIT_CHAR has "
-                         "been pressed.",
-                         win)
+                         "been pressed.")
     else:
         box.char_by_char("None of the keys contained in EXIT_CHAR have "
-                         "been pressed.",
-                         win)
+                         "been pressed.")
     finally:  # Code executed in all cases.
-        box.char_by_char("End of dialog.", win)
+        box.char_by_char("End of dialog.")
 
 
 # Execution of main function.

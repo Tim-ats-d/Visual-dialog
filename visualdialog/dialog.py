@@ -83,6 +83,22 @@ class DialogBox(BaseTextBox):
         """Return None."""
         return None
 
+    def __lt__(self, text: str) -> str:
+        """A shortcut to call :meth:`char_by_char` by passing only
+        `text` argument.
+
+            >>> DialogBox(x, y,
+            ...           height, width,
+            ...           global_win=win) < "Foo bar"
+
+        This code roughly equivalent to:
+
+            >>> DialogBox(x, y,
+            ...           height, width).char_by_char("Foo bar", win)
+
+        """
+        return self.char_by_char(text)
+
     def char_by_char(self,
                      text: str,
                      win: CursesWindow = None,
