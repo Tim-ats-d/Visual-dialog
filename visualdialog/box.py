@@ -6,39 +6,46 @@ __all__ = ["BaseTextBox"]
 import curses
 import curses.textpad
 import functools
-from typing import Callable, List, Literal, Sequence, Tuple, Union
+from typing import (Any, Callable, List, Literal, NoReturn, Sequence, Tuple,
+                    Union)
 
 from .error import PanicError, ValueNotInBound
-from .type import CursesKey, CursesTextAttribute, CursesTextAttributes, CursesWindow
+from .type import (CursesKey, CursesTextAttribute, CursesTextAttributes,
+                   CursesWindow)
 from .utils import TextAttr, to_tuple
 
 
-def value_checker(initializer: Callable) -> Callable:
-    """A decorator which ensures that correct values are passed to
-    :class:`BaseTextBox` initializer to avoid unexpected behavior.
+class BoundHeight:
+    """A descriptor which ensures that correct value is setted to
+    ``BaseTextBox.height`` to avoid unexpected behavior.
     """
-    def __init__(self,
-                 pos_x, pos_y,
-                 height, width,
-                 title,
-                 *args, **kwargs):
+    def __get__(self, obj: "BaseTextBox", objtype=None):
+        return obj._height
+
+    def __set__(self, obj: "BaseTextBox", value: int) -> NoReturn:
+        title_box_borders_total_height = 5
+        minimum_box_height = len(obj.title) + title_box_borders_total_height
+
+        if value < minimum_box_height:
+            raise ValueNotInBound("height must be more than title length + 5")
+        else:
+            obj._height = value
+
+
+class BoundWidth:
+    """A descriptor which ensures that correct value is setted to
+    ``BaseTextBox.width`` to avoid unexpected behavior.
+    """
+    def __get__(self, obj: "BaseTextBox", objtype=None):
+        return obj._width
+
+    def __set__(self, obj: "BaseTextBox", value: int) -> NoReturn:
         minimum_box_width = 4
 
-        title_box_borders_total_height = 5
-        minimum_box_height = len(title) + title_box_borders_total_height
-
-        if width < minimum_box_width:
-            raise ValueNotInBound(f"width must be less than {minimum_box_width}")
-        elif height < minimum_box_height:
-            raise ValueNotInBound("height must be less than len(title) + 5")
-
-        initializer(self,
-                    pos_x, pos_y,
-                    height, width,
-                    title,
-                    *args, **kwargs)
-
-    return __init__
+        if value < minimum_box_width:
+            raise ValueNotInBound(f"width must be more than {minimum_box_width}")
+        else:
+            obj._width = value
 
 
 class BaseTextBox:
@@ -95,7 +102,8 @@ class BaseTextBox:
     :ivar panic_keys: initial value: []:
         List of accepted key to raise :exc:`PanicError`.
     """
-    @value_checker
+    height, width = BoundHeight(), BoundWidth()
+
     def __init__(
             self,
             pos_x: int,
@@ -109,9 +117,6 @@ class BaseTextBox:
             downtime_chars: Sequence[str] = (",", ".", ":", ";", "!", "?"),
             downtime_chars_delay: int = 600):
         """Initializes instance of :class:`BaseTextBox`."""
-        self.pos_x, self.pos_y = pos_x, pos_y
-        self.height, self.width = height - 1, width - 1
-
         self.title_offsetting_y = 2 if title else 0
 
         # Compensation for left and upper borders of text box.
@@ -126,6 +131,9 @@ class BaseTextBox:
         if title:
             self.title_colors = curses.color_pair(title_colors_pair_nb)
             self.title_text_attr = to_tuple(title_text_attr)
+
+        self.pos_x, self.pos_y = pos_x, pos_y
+        self.height, self.width = height - 1, width - 1
 
         self.downtime_chars = downtime_chars
         self.downtime_chars_delay = downtime_chars_delay

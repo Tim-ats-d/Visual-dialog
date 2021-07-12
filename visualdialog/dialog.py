@@ -338,8 +338,7 @@ class DialogBox(BaseTextBox):
         text_attr = to_tuple(text_attr)
         colors_pair = curses.color_pair(colors_pair_nb)
 
-        wrapped_text = self.text_wrapper.wrap(text)
-        wrapped_text = chunked(wrapped_text, self.nb_lines_max)
+        wrapped_text = chunked(self.text_wrapper.wrap(text), self.nb_lines_max)
 
         if flash_screen:
             curses.flash()
