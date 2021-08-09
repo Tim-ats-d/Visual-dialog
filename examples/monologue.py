@@ -34,8 +34,8 @@ def main(win):
     # Iterate on each sentence contained in replys.
     for reply in replys:
         textbox.char_by_char(
-            win,
             reply,
+            win,
             2,  # Display text colored with color pair 2.
             delay=40)  # Set delay between writting each characters to 40 milliseconds.
 

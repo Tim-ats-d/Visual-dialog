@@ -5,4 +5,5 @@ API documentation
   :maxdepth: 2
 
   visualdialog.rst
+  error.rst
   utils.rst

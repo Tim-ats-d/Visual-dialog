@@ -27,8 +27,8 @@ def main(win):
 
     # Iterate on each sentence contained in instructions.
     for instruction in instructions:
-        textbox.word_by_word(win,
-                             instruction,
+        textbox.word_by_word(instruction,
+                             win,
                              delay=200)
         # Set delay between writting each words to 200 milliseconds.
 

@@ -20,7 +20,7 @@ Welcome to Visual-dialog's documentation
 - Text coloring and formatting.
 - Hackable and configurable.
 
-.. IMPORTANT::
+.. important::
    I recommend that you have some knowledge of Python ``curses`` module in order to use the library to its full potential.
 
    Here several links to learn ``curses``:
@@ -32,7 +32,7 @@ Getting started
 ---------------
 
 - **First steps:**
-- **Examples:** Many examples are available in the `repository <https://github.com/Tim-ats-d/Visual-dialog/issues>`_.
+- **Examples:** Many examples are available in the `repository <https://github.com/Tim-ats-d/Visual-dialog/tree/main/examples>`_.
 
 Getting help
 ------------

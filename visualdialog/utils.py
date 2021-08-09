@@ -24,6 +24,9 @@ def chunked(seq: Sequence,
 def to_tuple(obj: Union[object, Sequence]) -> Union[Tuple, Sequence]:
     """Check if the given object is a sequence, if so returns it,
     otherwise returns it as a tuple.
+
+    This function is mainly used to work with sequences even if only one
+    argument is passed.
     """
     if isinstance(obj, Sequence):
         return obj
@@ -37,8 +40,8 @@ class TextAttr(ContextDecorator):
     :param win: ``curses`` window object for which the attributes will
         be managed.
 
-    :param attributes: Iterable of ``curses`` text attributes to activate
-        and desactivate.
+    :param attributes: Iterable of ``curses`` text attributes to
+        activate and desactivate.
     """
     def __init__(self,
                  win: CursesWindow,
@@ -53,7 +56,7 @@ class TextAttr(ContextDecorator):
         for attr in self.attributes:
             self.win.attron(attr)
 
-    def __exit__(self, type, value, traceback) -> NoReturn:
+    def __exit__(self, *_) -> NoReturn:
         """Disable one by one attributes contained in self.attributes
         on ``self.win``.
         """

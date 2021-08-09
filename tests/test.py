@@ -21,9 +21,9 @@ def main(win):
     curses.init_pair(2, curses.COLOR_CYAN, 0)
     curses.init_pair(3, curses.COLOR_GREEN, 0)
 
-    textbox = DialogBox(0, 0,
-                        40, 6,
-                        # title="Tim-ats-d",
+    textbox = DialogBox(1, 4,
+                        15, 5,
+                        title="Tim-ats-d",
                         # title_colors_pair_nb=3,
                         end_indicator="o")
 
@@ -36,20 +36,22 @@ def main(win):
     }
 
     def display_position(self: DialogBox,
+                         win,
                          char: str,
                          char_index: int):
-        win.addstr(0, 0, char + str(char_index))
+        win.addstr(0, 0, str(self.dimensions))
         win.refresh()
 
     def display_char_info(self: DialogBox,
+                          win,
                           char: str,
                           char_index: str):
         win.addstr(5, 0, char + str(char_index))
         win.refresh()
 
     for reply in text:
-        textbox.char_by_char(win,
-                             reply,
+        textbox.char_by_char(reply,
+                             win,
                              callbacks=(display_position, display_char_info),
                              text_attr=(curses.A_ITALIC, curses.A_BOLD),
                              words_attr=special_words)

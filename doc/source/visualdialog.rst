@@ -1,22 +1,43 @@
 Text boxes
 ==========
 
-.. IMPORTANT::
-  **Visual-dialog** contains two **modules**: ``visualdialog.box`` and ``visualdialog.dialog``.
-  These two **modules** are both imported when you import ``visualdialog``.
+.. important::
+  **Visual-dialog** provides two classes but only :class:`DialogBox` is destined to be instantiated.
 
-  Two **classes** are defined in these modules but only ``DialogBox`` is destined to be instantiated.
-
-TextBox
--------
+BaseTextBox
+-----------
 
 .. autoclass:: visualdialog.box.BaseTextBox
-    :members:
-    :undoc-members:
+
+  .. automethod:: __init__
+
+  The following methods are public:
+
+  .. autoproperty:: position
+
+  .. autoproperty:: dimensions
+
+  .. automethod:: framing_box
+
+  .. automethod:: get_input
 
 DialogBox
 ---------
 
 .. autoclass:: visualdialog.dialog.DialogBox
-    :undoc-members:
-    :members:
+
+  .. automethod:: __init__
+
+  The following methods are public:
+
+  .. automethod:: __repr__
+
+  .. automethod:: __enter__
+
+  .. automethod:: __exit__
+
+  .. automethod:: __lt__
+
+  .. automethod:: char_by_char
+
+  .. automethod:: word_by_word
