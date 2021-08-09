@@ -143,8 +143,16 @@ class BaseTextBox:
         self.downtime_chars = downtime_chars
         self.downtime_chars_delay = downtime_chars_delay
 
-        self.key_detection: Literal["getkey", "getch", "get_wch"] = "getkey"
+        #: Keystroke acquisition curses method for BaseTextBox.get_input.
+        self.key_detection: Literal["getkey",
+                                    "getch",
+                                    "get_wch"] = "getkey"
+
+        #: List of accepted key to skip dialog.
+        #: This defaults to a list contains ``" "``.
         self.confirm_keys: List[CursesKey] = [" "]
+        #: List of accepted key to raise PanicError.
+        #: This defaults to an empty list.
         self.panic_keys: List[CursesKey] = []
 
     @property

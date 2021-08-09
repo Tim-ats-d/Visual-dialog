@@ -87,15 +87,13 @@ class DialogBox(BaseTextBox):
         """A shortcut to call :meth:`char_by_char` by passing only
         `text` argument.
 
-            >>> DialogBox(x, y,
-            ...           height, width,
-            ...           global_win=win) < "Foo bar"
+            >>> db = DialogBox(x, y, height, width, global_win=win)
+            >>> db < "Foo bar"
 
         This code roughly equivalent to:
 
-            >>> DialogBox(x, y,
-            ...           height, width).char_by_char("Foo bar", win)
-
+            >>> db = DialogBox(x, y, height, width)
+            >>> db.char_by_char("Foo bar", win)
         """
         return self.char_by_char(text)
 
