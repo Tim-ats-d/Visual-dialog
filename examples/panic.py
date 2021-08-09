@@ -10,7 +10,7 @@ def main(win):
     curses.curs_set(False)
 
     box = DialogBox(1, 1,
-                    40, 6
+                    40, 6,
                     global_win=win)
 
     # Definition of keys to pass and exit a dialog.
