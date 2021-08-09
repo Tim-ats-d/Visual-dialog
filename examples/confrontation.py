@@ -23,8 +23,8 @@ def box_factory(win,
                     height, width,
                     title, title_colors_pair_nb,
                     global_win=win,
-                    # Use a default window to display text.
-                    # Setting this parameter allows to avoid passing `win`
+                    # Use a default window to display text.
+                    # Setting this parameter allows to avoid passing `win`
                     # parameter to `char_by_char` and `word_by_word` methods.
                     # Useful when dealing with many `DialogBox` methods calls.
                     **kwargs)

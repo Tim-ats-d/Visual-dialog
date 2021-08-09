@@ -22,7 +22,7 @@ setup(
         "Environment :: Console :: Curses",
         "Intended Audience :: Developers",
         "Typing :: Typed",
-        "License :: OSI Approved :: GNU Lesser General Public License v3.0 (LGPLv3)", 
+        "License :: OSI Approved :: GNU Lesser General Public License v3.0 (LGPLv3)",
         "Natural Language :: English", "Natural Language :: French",
         "Operating System :: MacOS",
         "Operating System :: Microsoft :: Windows",

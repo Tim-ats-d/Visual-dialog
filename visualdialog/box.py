@@ -5,9 +5,7 @@ __all__ = ["BaseTextBox"]
 
 import curses
 import curses.textpad
-import functools
-from typing import (Any, Callable, List, Literal, NoReturn, Sequence, Tuple,
-                    Union)
+from typing import List, Literal, NoReturn, Sequence, Tuple, Union
 
 from .error import PanicError, ValueNotInBound
 from .type import (CursesKey, CursesTextAttribute, CursesTextAttributes,
@@ -43,7 +41,8 @@ class BoundWidth:
         minimum_box_width = 4
 
         if value < minimum_box_width:
-            raise ValueNotInBound(f"width must be more than {minimum_box_width}")
+            raise ValueNotInBound("width must be more than "
+                                  f"{minimum_box_width}")
         else:
             obj._width = value
 
@@ -63,9 +62,15 @@ class BaseTextBox:
 
     :param height: Height of the dialog box in ``curses`` window object
         on which methods will have effects.
+        This value is covered by a descriptor to avoid unexpected behavior.
+        Set this value to a value lower than title length and title box borders
+        height (``len(self.title) + 5``) raises a ``ValueError``.
 
     :param width: Width of the dialog box in ``curses`` window object on
         which methods will have effects.
+        This value is covered by a descriptor to avoid unexpected behavior.
+        Set this value to a value lower than 4 (the minimum box width)
+        raises a ``ValueError``.
 
     :param title: String that will be displayed in the upper left corner
         of dialog box.
